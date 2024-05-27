@@ -1,0 +1,28 @@
+<div>
+  <h1>Lesson Plan Generator</h1>
+  <form (ngSubmit)="generateLessonPlan()">
+    <label for="topic">Topic</label>
+    <input type="text" id="topic" [(ngModel)]="topic" name="topic" required />
+    <label for="gradeLevel">Grade Level</label>
+    <input
+      type="text"
+      id="gradeLevel"
+      [(ngModel)]="gradeLevel"
+      name="gradeLevel"
+      required
+    />
+    <label for="duration">Duration (minutes)</label>
+    <input
+      type="number"
+      id="duration"
+      [(ngModel)]="duration"
+      name="duration"
+      required
+    />
+    <button type="submit">Generate</button>
+  </form>
+  <div *ngIf="lessonPlan">
+    <h2>Generated Lesson Plan:</h2>
+    <pre>{{ lessonPlan }}</pre>
+  </div>
+</div>
