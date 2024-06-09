@@ -34,12 +34,19 @@ This is a web application designed to help teachers and students by harnessing t
 
 ## Docker:
 
+"docker-compose up --build": Run all the containers
 "docker run -it -p 4200:4200 -v ${PWD}:/usr/src/app angular-app": Run the docker container with this command
 
 ## Angular:
 
-"ng new teacher-helper-app
-cd teacher-helper-app
+"ng new frontend
+cd frontend
 ng generate service api
 ng generate component lesson-plan-generator
-ng generate component quiz-generator" -Code to set up the angular project
+ng generate component quiz-generator": Code to set up the angular project
+
+## Code:
+
+"uvicorn main:app --reload": Start your FastAPI server
+"ng serve": Run your angular development server
+"chmod +x myscript.sh": Make file runnable
