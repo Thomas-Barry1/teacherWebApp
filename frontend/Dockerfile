@@ -1,6 +1,6 @@
 # Use an official Node.js runtime as a parent image
 ### STAGE 1: Build ###
-FROM node:12.22-alpine3.10 AS build
+FROM node:18.19-alpine AS build
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm install -g @angular/cli
@@ -9,9 +9,9 @@ RUN npm install -g @angular/cli
 RUN npm i 
 
 COPY . .
-RUN ng build --prod
+RUN ng build
 ### STAGE 2: Run ###
-FROM nginx:1.17.1-alpine
+FROM nginx:1.26.1-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /usr/src/app/dist/* /usr/share/nginx/html
 
@@ -38,6 +38,4 @@ COPY --from=build /usr/src/app/dist/* /usr/share/nginx/html
 
 # # Expose the port the app runs on
 # # EXPOSE 4200
-
-# #
 
