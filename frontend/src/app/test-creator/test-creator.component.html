@@ -1,0 +1,17 @@
+<mat-card>
+  <h2>Create Test</h2>
+  <form [formGroup]="testForm" (ngSubmit)="generateTest()">
+    <mat-form-field>
+      <mat-label>Topic</mat-label>
+      <input matInput formControlName="topic" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Generate Test
+    </button>
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <h2>Generated Test</h2>
+  <p>{{ test }}</p>
+</mat-card>

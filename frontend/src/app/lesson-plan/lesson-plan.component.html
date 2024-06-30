@@ -1,0 +1,17 @@
+<mat-card>
+  <h2>Create Lesson Plan</h2>
+  <form [formGroup]="lessonForm" (ngSubmit)="generateLessonPlan()">
+    <mat-form-field>
+      <mat-label>Topic</mat-label>
+      <input matInput formControlName="topic" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Generate Lesson Plan
+    </button>
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <h2>Generated Lesson Plan</h2>
+  <p>{{ lessonPlan }}</p>
+</mat-card>
