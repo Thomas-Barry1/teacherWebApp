@@ -1,0 +1,19 @@
+mat-sidenav-container {
+    height: 100%;
+  }
+  
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .content {
+    margin: 20px;
+  }
+  
+  .active-link {
+    font-weight: bold;
+    color: #3f51b5;
+  }
+  

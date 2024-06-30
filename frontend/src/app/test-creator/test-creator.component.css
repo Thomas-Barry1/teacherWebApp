@@ -1,0 +1,17 @@
+mat-card {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    color: #3f51b5;
+  }
+  
