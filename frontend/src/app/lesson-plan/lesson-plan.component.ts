@@ -13,7 +13,7 @@ export class LessonPlanComponent {
   lessonForm: FormGroup;
   lessonPlan: string = '';
 
-  constructor(private fb: FormBuilder, private chatGptService: AiService) {
+  constructor(private fb: FormBuilder, private aiService: AiService) {
     this.lessonForm = this.fb.group({
       topic: ['']
     });
@@ -21,8 +21,8 @@ export class LessonPlanComponent {
 
   generateLessonPlan(): void {
     const topic = this.lessonForm.value.topic;
-    this.chatGptService.generateLessonPlan(topic).subscribe(response => {
-      this.lessonPlan = response.choices[0].text;
+    this.aiService.generateLessonPlan(topic).subscribe(response => {
+      this.lessonPlan = response.lessonPlan;
     });
   }
 }

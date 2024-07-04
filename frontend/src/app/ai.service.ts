@@ -14,56 +14,16 @@ import { map, shareReplay } from 'rxjs/operators';
 //     Use RxJS to Cache API Responses:
 
 export class AiService {
-  private apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions'; // Example endpoint, update as needed
-  private apiKey = ''; 
-  private cache = new Map<string, Observable<any>>();
+  private apiUrl = 'http://localhost:3000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   generateLessonPlan(topic: string): Observable<any> {
-    const cacheKey = `lessonPlan-${topic}`;
-    if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!; // Return cached response if available
-    }
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.apiKey}`
-    });
-
-    const body = {
-      prompt: `Create a lesson plan for the topic: ${topic}`,
-      max_tokens: 500
-    };
-
-    const response$ = this.http.post(this.apiUrl, body, { headers }).pipe(
-      shareReplay(1) // Cache the response
-    );
-    this.cache.set(cacheKey, response$);
-    return response$;
+    return this.http.post(`${this.apiUrl}/lesson-plan`, { topic });
   }
 
-  generateTest(topic: string): Observable<any> {
-    const cacheKey = `test-${topic}`;
-    if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!; // Return cached response if available
-    }
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.apiKey}`
-    });
-
-    const body = {
-      prompt: `Create a test on the topic: ${topic}`,
-      max_tokens: 500
-    };
-
-    const response$ = this.http.post(this.apiUrl, body, { headers }).pipe(
-      shareReplay(1) // Cache the response
-    );
-    this.cache.set(cacheKey, response$);
-    return response$;
+  generateTest(concept: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/test`, { concept });
   }
 }
 
