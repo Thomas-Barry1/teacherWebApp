@@ -11,3 +11,6 @@ mat-card {
     margin-top: 20px;
   }
   
+pre {
+  white-space: break-spaces;
+}

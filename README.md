@@ -2,6 +2,14 @@
 
 This is a web application designed to help teachers and students by harnessing the power of AI.
 
+## TODO:
+
+- Save to pdf
+- Speak to dad to ask if necessary. Also how I should get to teachers, and if I should avoid reaching out to districts.
+- Have activities tab, to better explain concepts
+- Change Teacher helper to menu, and make the second one bigger, bolder, and have logo
+- Change purple color to lilac
+
 ## Potential Features:
 
     Lesson Plan Generator:
