@@ -9,10 +9,18 @@ import * as DOMPurify from 'dompurify';
 export class MarkdownService {
   constructor(private sanitizer: DomSanitizer) { }
 
-  convert(markdown: string): SafeHtml {
-    const dirtyHtml = marked.parse(markdown);
-    const cleanHtml = DOMPurify.sanitize(dirtyHtml);
+  async convert(markdown: string): Promise<SafeHtml> {
+    const dirtyHtml = await this.ensureString(marked.parse(markdown));
+    const cleanHtml = DOMPurify.sanitize(markdown);
     return this.sanitizer.bypassSecurityTrustHtml(cleanHtml);
+  }
+
+  private async ensureString(value: string | Promise<string>): Promise<string> {
+    if (value instanceof Promise) {
+      return await value;
+    } else {
+      return value;
+    }
   }
 }
 
