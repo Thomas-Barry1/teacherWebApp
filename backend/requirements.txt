@@ -6,3 +6,4 @@ uvicorn
 # cryptography
 google-generativeai
 python-dotenv
+requests

@@ -1,4 +1,61 @@
-from app import app
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+import requests
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/api/lesson-plan")
+async def lesson_plan(request: Request):
+    data = await request.json()
+    topic = data.get('topic')
+    lesson_plan = await generate_lesson_plan(topic)
+    return {"lessonPlan": lesson_plan}
+
+@app.post("/api/test")
+async def test(request: Request):
+    data = await request.json()
+    concept = data.get('concept')
+    test = await generate_test(concept)
+    return {"test": test}
+
+# Load .env environment variables
+load_dotenv()
+
+genai.configure(api_key=os.environ["API_KEY"])
+
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+async def generate_lesson_plan(topic: str):
+    # Placeholder for Google Generative AI and ChatGPT logic
+    response = model.generate_content("Write a lesson plan for a teacher about this topic " + topic)
+    return f"Lesson plan for {topic} "+ response.text
+
+async def generate_test(concept: str):
+    # Placeholder for Google Generative AI and ChatGPT logic
+    response = model.generate_content("Write a test with a few open response and multiple choice questions for a teacher about this concept " + concept)
+    return f"Test for {concept} "+ response.text
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=3000)
+
+
+
+
+
+
+#  from app import app
 
 # No additional code needed here since the app is already imported from app package
 
