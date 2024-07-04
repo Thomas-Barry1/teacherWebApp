@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AiService } from '../ai.service';
+import { MarkdownService } from '../markdown.service';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-test-creator',
@@ -11,9 +13,9 @@ import { AiService } from '../ai.service';
 })
 export class TestCreatorComponent {
   testForm: FormGroup;
-  test: string = '';
+  test: SafeHtml = '';
 
-  constructor(private fb: FormBuilder, private chatGptService: AiService) {
+  constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService) {
     this.testForm = this.fb.group({
       topic: ['']
     });
@@ -21,8 +23,8 @@ export class TestCreatorComponent {
 
   generateTest(): void {
     const topic = this.testForm.value.topic;
-    this.chatGptService.generateTest(topic).subscribe(response => {
-      this.test = response.choices[0].text;
+    this.aiService.generateTest(topic).subscribe(async response => {
+      this.test = await this.markdownService.convert(response.test);
     });
   }
 }

@@ -24,7 +24,6 @@ export class LessonPlanComponent {
   generateLessonPlan(): void {
     const topic = this.lessonForm.value.topic;
     this.aiService.generateLessonPlan(topic).subscribe(async response => {
-      // this.lessonPlan = response.lessonPlan;
       this.lessonPlan = await this.markdownService.convert(response.lessonPlan);
     });
   }
