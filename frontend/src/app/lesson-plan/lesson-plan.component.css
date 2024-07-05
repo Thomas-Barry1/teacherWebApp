@@ -14,3 +14,12 @@ mat-card {
 pre {
   white-space: break-spaces;
 }
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  text-align: center;
+}

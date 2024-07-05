@@ -14,6 +14,7 @@ import { SafeHtml } from '@angular/platform-browser';
 export class TestCreatorComponent {
   testForm: FormGroup;
   test: SafeHtml = '';
+  loading: boolean = false;
 
   constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService) {
     this.testForm = this.fb.group({
@@ -22,9 +23,14 @@ export class TestCreatorComponent {
   }
 
   generateTest(): void {
+    this.loading = true;
     const topic = this.testForm.value.topic;
     this.aiService.generateTest(topic).subscribe(async response => {
       this.test = await this.markdownService.convert(response.test);
+      this.loading = false;
+    }, error => {
+      console.error('Error generating lesson plan', error);
+      this.loading = false;
     });
   }
 }

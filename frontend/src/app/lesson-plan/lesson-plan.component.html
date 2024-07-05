@@ -13,5 +13,13 @@
   <mat-divider></mat-divider>
 
   <h2>Generated Lesson Plan</h2>
-  <div [innerHTML]="lessonPlan"></div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Generating lesson plan, please wait...</p>
+  </div>
+
+  <div *ngIf="!loading && lessonPlan">
+    <div [innerHTML]="lessonPlan"></div>
+  </div>
 </mat-card>
