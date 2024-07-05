@@ -13,11 +13,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { LessonPlanComponent } from './lesson-plan/lesson-plan.component';
 import { TestCreatorComponent } from './test-creator/test-creator.component';
 import { HomeComponent } from './home/home.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -37,5 +39,6 @@ import { HomeComponent } from './home/home.component';
         MatToolbarModule,
         MatIconModule,
         MatSidenavModule,
-        MatListModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        MatProgressSpinnerModule,
+        MatListModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()] })
 export class AppModule { }

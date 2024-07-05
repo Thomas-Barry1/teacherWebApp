@@ -12,6 +12,12 @@
 
   <mat-divider></mat-divider>
 
-  <h2>Generated Test</h2>
-  <div [innerHTML]="test"></div>
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Generating test, please wait...</p>
+  </div>
+
+  <div *ngIf="!loading && test">
+    <div [innerHTML]="test"></div>
+  </div>
 </mat-card>
