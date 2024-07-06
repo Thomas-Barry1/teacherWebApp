@@ -2,11 +2,17 @@
   <mat-sidenav #sidenav mode="side" opened>
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active-link"
+        >Home</a
+      >
       <a mat-list-item routerLink="/lesson-plan" routerLinkActive="active-link"
         >Lesson Plan</a
       >
       <a mat-list-item routerLink="/test-creator" routerLinkActive="active-link"
         >Test Creator</a
+      >
+      <a mat-list-item routerLink="/about" routerLinkActive="active-link"
+        >About</a
       >
     </mat-nav-list>
   </mat-sidenav>
@@ -16,7 +22,7 @@
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Ai Academia</span>
+      <span>Teach Genie</span>
     </mat-toolbar>
     <div class="content">
       <router-outlet></router-outlet>
