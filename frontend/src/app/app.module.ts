@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
@@ -42,6 +43,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
         MatDividerModule,
         MatToolbarModule,
         MatIconModule,
+        MatGridListModule,
         MatSidenavModule,
         MatProgressSpinnerModule,
         MatListModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()] })
