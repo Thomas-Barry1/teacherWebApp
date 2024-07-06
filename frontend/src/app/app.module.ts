@@ -19,13 +19,17 @@ import { AppComponent } from './app.component';
 import { LessonPlanComponent } from './lesson-plan/lesson-plan.component';
 import { TestCreatorComponent } from './test-creator/test-creator.component';
 import { HomeComponent } from './home/home.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { AboutComponent } from './about/about.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({ declarations: [
         AppComponent,
         LessonPlanComponent,
         TestCreatorComponent,
-        HomeComponent
+        HomeComponent,
+        HomePageComponent,
+        AboutComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
