@@ -4,12 +4,14 @@ import { LessonPlanComponent } from './lesson-plan/lesson-plan.component';
 import { TestCreatorComponent } from './test-creator/test-creator.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from './about/about.component';
+import { ActivitiesComponent } from './activities/activities.component';
 
 const routes: Routes = [
   { path: 'lesson-plan', component: LessonPlanComponent },
   { path: 'test-creator', component: TestCreatorComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'activities', component: ActivitiesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Default route
 ];
 

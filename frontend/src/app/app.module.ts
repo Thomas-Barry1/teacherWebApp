@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from './about/about.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ActivitiesComponent } from './activities/activities.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -30,7 +31,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
         TestCreatorComponent,
         HomeComponent,
         HomePageComponent,
-        AboutComponent
+        AboutComponent,
+        ActivitiesComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
