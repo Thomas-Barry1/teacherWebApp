@@ -1,6 +1,11 @@
 mat-sidenav-container {
     height: 100%;
+    /* width: 33%; */
   }
+
+mat-sidenav {
+  width: 20%;
+}
   
   mat-toolbar {
     position: sticky;
@@ -15,5 +20,11 @@ mat-sidenav-container {
   .active-link {
     font-weight: bold;
     color: #3f51b5;
+  }
+
+  @media only screen and (max-width: 600px) {
+    mat-sidenav {
+      width: 35%;
+    }
   }
   

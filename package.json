@@ -2,6 +2,7 @@
   "dependencies": {
     "@angular/flex-layout": "^15.0.0-beta.42",
     "dompurify": "^3.1.5",
+    "express": "^4.19.2",
     "marked": "^13.0.2"
   }
 }
