@@ -29,6 +29,13 @@ async def test(request: Request):
     test = await generate_test(concept)
     return {"test": test}
 
+@app.post("/api/activities")
+async def activities(request: Request):
+    data = await request.json()
+    concept = data.get('concept')
+    activities = await generate_activities(concept)
+    return {"activities": activities}
+
 # Load .env environment variables
 load_dotenv()
 
@@ -37,14 +44,16 @@ genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 async def generate_lesson_plan(topic: str):
-    # Placeholder for Google Generative AI and ChatGPT logic
     response = model.generate_content("Write a lesson plan for a teacher about this topic " + topic)
     return f"Lesson plan for {topic} "+ response.text
 
 async def generate_test(concept: str):
-    # Placeholder for Google Generative AI and ChatGPT logic
     response = model.generate_content("Write a test with a few open response and multiple choice questions for a teacher about this concept " + concept)
     return f"Test for {concept} "+ response.text
+
+async def generate_activities(concept: str):
+    response = model.generate_content("Generate some activities that a teacher could use to explain this concept for students " + concept)
+    return f"Activities for {concept} "+ response.text
 
 if __name__ == "__main__":
     import uvicorn
