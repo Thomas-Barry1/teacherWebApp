@@ -53,6 +53,11 @@ ng generate service api
 ng generate component lesson-plan-generator
 ng generate component quiz-generator": Code to set up the angular project
 
+### Setting up SSL certs:
+
+- "certbot certonly --webroot -w /usr/local/lsws/Example/html -d webexpansions.com -d www.webexpansions.com -d teach.webexpansions.com" use this to add ssl certificate
+- Make sure you correctly spell the certificate names above
+
 ## Code:
 
 "uvicorn main:app --reload": Start your FastAPI server

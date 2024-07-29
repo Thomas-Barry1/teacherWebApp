@@ -1,53 +1,25 @@
-/* src/app/components/activities/activities.component.css */
-.activities-card {
-    margin: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-  
-  .activities-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .activities-header h1 {
-    font-size: 2.5em;
-    color: #3f51b5;
-  }
-  
-  .activities-content {
-    margin: 20px 0;
-    text-align: center;
-  }
-  
-  .activities-content p {
-    font-size: 1.2em;
-    color: #757575;
-  }
-  
-  .saved-activities {
-    margin-top: 20px;
-  }
-  
-  .saved-activities ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .saved-activities li {
-    background-color: #f1f1f1;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  .loading-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    text-align: center;
-  }
+mat-card {
+  margin: 20px;
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 20px;
+}
+
+h2 {
+  color: #3f51b5;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  text-align: center;
+}
