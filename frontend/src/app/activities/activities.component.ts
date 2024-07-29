@@ -24,7 +24,9 @@ export class ActivitiesComponent {
 
   generateActivities() {
     this.loading = true;
-    const concept = this.activitiesForm.get('concept')?.value;
+    // const concept = this.activitiesForm.get('concept')?.value;
+    const concept = this.activitiesForm.value.concept;
+    console.log(concept)
     this.apiService.generateActivities(concept).subscribe(async response => {
       this.activities = await this.markdownService.convert(response.activities);
       this.loading = false;
@@ -34,10 +36,10 @@ export class ActivitiesComponent {
     });
   }
 
-  saveActivities() {
-    if (this.activities) {
-      this.savedActivities.push(this.activities);
-      this.activities = '';
-    }
-  }
+  // saveActivities() {
+  //   if (this.activities) {
+  //     this.savedActivities.push(this.activities);
+  //     this.activities = '';
+  //   }
+  // }
 }

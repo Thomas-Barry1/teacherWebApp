@@ -1,37 +1,23 @@
-<mat-card class="activities-card">
-  <div class="activities-header">
-    <h1>Recommended Activities</h1>
-    <form [formGroup]="activitiesForm" (ngSubmit)="generateActivities()">
-      <mat-form-field>
-        <mat-label>Concept</mat-label>
-        <input matInput formControlName="concept" />
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">
-        Generate Activities
-      </button>
-    </form>
-  </div>
+<mat-card>
+  <h2>Recommended Activities</h2>
+  <form [formGroup]="activitiesForm" (ngSubmit)="generateActivities()">
+    <mat-form-field>
+      <mat-label>Concept</mat-label>
+      <input matInput formControlName="concept" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Generate Activities
+    </button>
+  </form>
+
   <div *ngIf="loading" class="loading-container">
     <mat-spinner></mat-spinner>
-    <p>Generating lesson plan, please wait...</p>
+    <p>Generating activities, please wait...</p>
   </div>
-  <div *ngIf="activities" class="activities-content">
-    <h2>Generated Activities</h2>
+
+  <h2 *ngIf="!loading && activities">Generated activities Plan</h2>
+
+  <div *ngIf="!loading && activities">
     <div [innerHTML]="activities"></div>
-    <!-- <p *ngIf="activities">{{ activities }}</p> -->
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="saveActivities()"
-      *ngIf="activities"
-    >
-      Save Activities
-    </button>
-  </div>
-  <div class="saved-activities" *ngIf="savedActivities.length > 0">
-    <h2>Saved Activities</h2>
-    <ul>
-      <li *ngFor="let savedActivity of savedActivities">{{ savedActivity }}</li>
-    </ul>
   </div>
 </mat-card>

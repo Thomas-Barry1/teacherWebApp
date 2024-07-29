@@ -14,7 +14,8 @@ import { map, shareReplay } from 'rxjs/operators';
 //     Use RxJS to Cache API Responses:
 
 export class AiService {
-  private apiUrl = 'https://teach.webexpansions.com/api';
+  // private apiUrl = 'https://teach.webexpansions.com/api';
+  private apiUrl = 'https://127.0.0.1/api';
 
   constructor(private http: HttpClient) { }
 
