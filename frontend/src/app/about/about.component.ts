@@ -39,7 +39,7 @@ import { trigger, style, animate, transition, query, stagger } from '@angular/an
 })
 export class AboutComponent {
   testimonials = [
-    { name: 'John Doe', position: 'High School Teacher', message: 'TeachGenie has revolutionized the way I create lesson plans and tests. It saves me hours every week!' },
-    { name: 'Jane Smith', position: 'Middle School Teacher', message: 'The AI assistance is a game-changer. I can get help anytime I need it.' }
+    { name: 'Jack Smith', position: 'High School Teacher', message: 'TeachGenie has revolutionized the way I create lesson plans and tests. It saves me hours every week!' },
+    { name: 'Donald P', position: 'Middle School Teacher', message: 'The AI assistance is a game-changer. I can get help anytime I need it.' }
   ];
 }
