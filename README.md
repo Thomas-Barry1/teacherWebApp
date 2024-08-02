@@ -9,6 +9,7 @@ This is a web application designed to help teachers and students by harnessing t
 - Have activities tab, to better explain concepts
 - Change Teacher helper to menu, and make the second one bigger, bolder, and have logo
 - Change purple color to lilac
+- Possibly change CLA agreement
 
 ## Potential Features:
 
