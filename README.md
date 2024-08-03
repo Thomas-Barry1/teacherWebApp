@@ -53,6 +53,12 @@ ng generate service api
 ng generate component lesson-plan-generator
 ng generate component quiz-generator": Code to set up the angular project
 
+### How to add new npm modules to use in components
+
+- Add them to the "package.json" file
+- Run this to make accessible in files: `npm install -D @types/module`
+- Run this command if you want to save the module as dependency: `npm install module`
+
 ### Setting up SSL certs:
 
 - "certbot certonly --webroot -w /usr/local/lsws/Example/html -d webexpansions.com -d www.webexpansions.com -d teach.webexpansions.com" use this to add ssl certificate
@@ -63,3 +69,7 @@ ng generate component quiz-generator": Code to set up the angular project
 "uvicorn main:app --reload": Start your FastAPI server
 "ng serve": Run your angular development server
 "chmod +x myscript.sh": Make file runnable
+
+## CLAs
+
+- Can be found here: https://cla-assistant.io/

@@ -9,6 +9,12 @@ And added upon by team.
 - Implement OnPush Change Detection Strategy in components for efficiency
 - Implement lazy loading of component for speed
 
+### How to add new npm modules to use in components
+
+- Add them to the "package.json" file
+- Run this to make accessible in files: `npm install -D @types/module`
+- Run this command if you want to save the module as dependency: `npm install module`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
