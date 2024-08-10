@@ -31,5 +31,3 @@ export class AiService {
     return this.http.post(`${this.apiUrl}/activities`, { concept });
   }
 }
-
-

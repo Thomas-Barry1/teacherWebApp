@@ -18,17 +18,17 @@
   <h2 *ngIf="!loading && test">Generated Test</h2>
 
   <div *ngIf="!loading && test" id="test-content">
-    <div [innerHTML]="test"></div>
+    <div [innerHTML]="test" #dataToExport></div>
     <div *ngIf="test">
       <button mat-raised-button color="accent" (click)="saveAsPdf()">
         Save as PDF
       </button>
       <!-- <button mat-raised-button color="accent" (click)="saveAsTextFile()">
         Save as Text File
-      </button>
+      </button> -->
       <button mat-raised-button color="accent" (click)="copyToClipboard()">
         Copy to Clipboard
-      </button> -->
+      </button>
     </div>
   </div>
 </mat-card>

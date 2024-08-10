@@ -15,6 +15,12 @@ export class MarkdownService {
     return this.sanitizer.bypassSecurityTrustHtml(cleanHtml);
   }
 
+  async convertHtml(markdown: string): Promise<string> {
+    const dirtyHtml = await this.ensureString(marked.parse(markdown));
+    const cleanHtml = DOMPurify.sanitize(dirtyHtml);
+    return cleanHtml;
+  }
+
   private async ensureString(value: string | Promise<string>): Promise<string> {
     if (value instanceof Promise) {
       return await value;
@@ -23,4 +29,3 @@ export class MarkdownService {
     }
   }
 }
-

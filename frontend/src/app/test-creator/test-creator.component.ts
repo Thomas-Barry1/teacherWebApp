@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AiService } from '../ai.service';
-import { MarkdownService } from '../markdown.service';
+import { AiService } from '../services/ai.service';
+import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { saveAs } from "file-saver"
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import * as showdown from 'showdown';
+import * as domToImage from 'dom-to-image'
+import * as moment from 'moment';
+import { OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-test-creator',
@@ -26,11 +30,14 @@ export class TestCreatorComponent {
     });
   }
 
+  @ViewChild('dataToExport', { static: false })
+  public dataToExport!: ElementRef;
+
   generateTest(): void {
     this.loading = true;
     const topic = this.testForm.value.topic;
     this.aiService.generateTest(topic).subscribe(async response => {
-      this.testString = response.test
+      this.testString = await this.markdownService.convertHtml(response.test);
       this.test = await this.markdownService.convert(response.test);
       this.loading = false;
     }, error => {
@@ -40,40 +47,38 @@ export class TestCreatorComponent {
   }
 
   saveAsPdf() {
-    const element = document.getElementById('test-content');
-    if (element) {
-      html2canvas(element).then(canvas => {
-        // Few necessary setting options
-      var imgWidth = 208;
-      var pageHeight = 295;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
- 
-      const contentDataURL = canvas.toDataURL('image/png')
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
-      var position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-        pdf.save('generated_test.pdf');
+    let height = window.screen.availHeight-100;
+    let width = window.screen.availWidth-150;
+    var printWindow = window.open('', '', `height=${height},width=${width}`);
+    if (printWindow != null){
+      printWindow.document.write('<html><head><title></title>');
+      // Place css file in assets folder
+      // printWindow.document.write('<link rel="stylesheet" href="assets/css/printPDF.css" />');
+      printWindow.document.write('</head><body>');
+      printWindow.document.write(this.testString);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+  //   // Wait for the content to be fully loaded before printing
+  //   printWindow.onload = () => {
+  //     printWindow.print();
+  //     printWindow.close(); // Optionally close the print window after printing
+  //   };
+  // }
+    }
+    return;
+    }
+
+    saveAsTextFile() {
+      const blob = new Blob([this.testString], { type: 'text/plain' });
+      saveAs(blob, 'generated_test.txt');
+    }
+  
+    copyToClipboard() {
+      navigator.clipboard.writeText(this.testString).then(() => {
+        alert('Test copied to clipboard');
+      }).catch(err => {
+        console.error('Could not copy text: ', err);
       });
     }
-    // const blob = new Blob([this.testString], { type: 'application/pdf' });
-    // saveAs(blob, 'generated_test.pdf');
   }
-
-  // saveAsTextFile() {
-  //   const blob = new Blob([this.safeHtmlToString(this.test)], { type: 'text/plain' });
-  //   saveAs(blob, 'generated_test.txt');
-  // }
-
-  // copyToClipboard() {
-  //   navigator.clipboard.writeText(this.safeHtmlToString(this.test)).then(() => {
-  //     alert('Test copied to clipboard');
-  //   }).catch(err => {
-  //     console.error('Could not copy text: ', err);
-  //   });
-  // }
-
-  private safeHtmlToString(safeHtml: SafeHtml): string {
-    return safeHtml.toString().replace(/^SafeHtml/, '');
-  }
-}

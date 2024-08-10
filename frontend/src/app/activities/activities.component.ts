@@ -1,8 +1,8 @@
 // src/app/components/activities/activities.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AiService } from '../ai.service';
-import { MarkdownService } from '../markdown.service';
+import { AiService } from '../services/ai.service';
+import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
