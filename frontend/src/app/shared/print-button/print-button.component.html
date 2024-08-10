@@ -1,0 +1,28 @@
+<!-- src/app/shared/print-button/print-button.component.html -->
+<div class="button-group">
+  <!-- <button mat-raised-button color="primary" (click)="print()">Print</button> -->
+  <button
+    *ngIf="enablePdf"
+    mat-raised-button
+    color="accent"
+    (click)="saveAsPdf()"
+  >
+    Save as PDF
+  </button>
+  <button
+    *ngIf="enableTextFile"
+    mat-raised-button
+    color="accent"
+    (click)="saveAsTextFile()"
+  >
+    Save as Text File
+  </button>
+  <button
+    *ngIf="enableClipboard"
+    mat-raised-button
+    color="accent"
+    (click)="copyToClipboard()"
+  >
+    Copy to Clipboard
+  </button>
+</div>

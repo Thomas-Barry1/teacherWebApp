@@ -14,6 +14,7 @@ import { SafeHtml } from '@angular/platform-browser';
 export class LessonPlanComponent {
   lessonForm: FormGroup;
   lessonPlan: SafeHtml = '';
+  lessonString: string = '';
   loading: boolean = false;
 
   constructor(private fb: FormBuilder, 
@@ -28,6 +29,7 @@ export class LessonPlanComponent {
     this.loading = true;
     const topic = this.lessonForm.value.topic;
     this.aiService.generateLessonPlan(topic).subscribe(async response => {
+      this.lessonString = await this.markdownService.convertHtml(response.lessonPlan);
       this.lessonPlan = await this.markdownService.convert(response.lessonPlan);
       this.loading = false;
     }, error => {

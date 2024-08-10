@@ -20,15 +20,13 @@
   <div *ngIf="!loading && test" id="test-content">
     <div [innerHTML]="test" #dataToExport></div>
     <div *ngIf="test">
-      <button mat-raised-button color="accent" (click)="saveAsPdf()">
-        Save as PDF
-      </button>
-      <!-- <button mat-raised-button color="accent" (click)="saveAsTextFile()">
-        Save as Text File
-      </button> -->
-      <button mat-raised-button color="accent" (click)="copyToClipboard()">
-        Copy to Clipboard
-      </button>
+      <app-print-button
+        [contentToPrint]="testString"
+        [enablePdf]="true"
+        [enableTextFile]="false"
+        [enableClipboard]="true"
+      >
+      </app-print-button>
     </div>
   </div>
 </mat-card>

@@ -19,5 +19,12 @@
 
   <div *ngIf="!loading && activities">
     <div [innerHTML]="activities"></div>
+    <app-print-button
+      [contentToPrint]="activitiesString"
+      [enablePdf]="true"
+      [enableTextFile]="false"
+      [enableClipboard]="true"
+    >
+    </app-print-button>
   </div>
 </mat-card>

@@ -24,6 +24,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from './about/about.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ActivitiesComponent } from './activities/activities.component';
+import { PrintButtonComponent } from './shared/print-button/print-button.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -32,7 +33,8 @@ import { ActivitiesComponent } from './activities/activities.component';
         HomeComponent,
         HomePageComponent,
         AboutComponent,
-        ActivitiesComponent
+        ActivitiesComponent,
+        PrintButtonComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
