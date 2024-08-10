@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AiService } from '../ai.service';
-import { MarkdownService } from '../markdown.service';
+import { AiService } from '../services/ai.service';
+import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
+import { saveAs } from "file-saver"
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as showdown from 'showdown';
+import * as domToImage from 'dom-to-image'
+import * as moment from 'moment';
+import { OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-test-creator',
@@ -14,6 +21,7 @@ import { SafeHtml } from '@angular/platform-browser';
 export class TestCreatorComponent {
   testForm: FormGroup;
   test: SafeHtml = '';
+  testString = ''
   loading: boolean = false;
 
   constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService) {
@@ -22,10 +30,14 @@ export class TestCreatorComponent {
     });
   }
 
+  @ViewChild('dataToExport', { static: false })
+  public dataToExport!: ElementRef;
+
   generateTest(): void {
     this.loading = true;
     const topic = this.testForm.value.topic;
     this.aiService.generateTest(topic).subscribe(async response => {
+      this.testString = await this.markdownService.convertHtml(response.test);
       this.test = await this.markdownService.convert(response.test);
       this.loading = false;
     }, error => {
@@ -33,4 +45,40 @@ export class TestCreatorComponent {
       this.loading = false;
     });
   }
-}
+
+  saveAsPdf() {
+    let height = window.screen.availHeight-100;
+    let width = window.screen.availWidth-150;
+    var printWindow = window.open('', '', `height=${height},width=${width}`);
+    if (printWindow != null){
+      printWindow.document.write('<html><head><title></title>');
+      // Place css file in assets folder
+      // printWindow.document.write('<link rel="stylesheet" href="assets/css/printPDF.css" />');
+      printWindow.document.write('</head><body>');
+      printWindow.document.write(this.testString);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+  //   // Wait for the content to be fully loaded before printing
+  //   printWindow.onload = () => {
+  //     printWindow.print();
+  //     printWindow.close(); // Optionally close the print window after printing
+  //   };
+  // }
+    }
+    return;
+    }
+
+    saveAsTextFile() {
+      const blob = new Blob([this.testString], { type: 'text/plain' });
+      saveAs(blob, 'generated_test.txt');
+    }
+  
+    copyToClipboard() {
+      navigator.clipboard.writeText(this.testString).then(() => {
+        alert('Test copied to clipboard');
+      }).catch(err => {
+        console.error('Could not copy text: ', err);
+      });
+    }
+  }
