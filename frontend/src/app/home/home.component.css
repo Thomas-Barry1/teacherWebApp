@@ -12,6 +12,13 @@ mat-sidenav {
     top: 0;
     z-index: 1;
   }
+
+  .logo {
+    height: 35px; /* Adjust the height as needed */
+    margin-right: 10px; /* Space between the logo and the title */
+    vertical-align: middle; /* Align vertically with text */
+    border-radius: 30%;
+  }
   
   .content {
     margin: 20px;
