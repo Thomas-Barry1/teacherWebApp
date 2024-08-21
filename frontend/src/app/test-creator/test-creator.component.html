@@ -1,10 +1,67 @@
 <mat-card>
   <h2>Create Test</h2>
   <form [formGroup]="testForm" (ngSubmit)="generateTest()">
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Topic</mat-label>
       <input matInput formControlName="topic" />
     </mat-form-field>
+
+    <!-- Additional Options Below the Topic -->
+    <div class="optional-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Number of Questions</mat-label>
+        <input
+          matInput
+          formControlName="numberOfQuestions"
+          placeholder="Enter number of questions"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Grade Level</mat-label>
+        <input
+          matInput
+          formControlName="gradeLevel"
+          placeholder="Enter grade level"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Common Core Standards</mat-label>
+        <input
+          matInput
+          formControlName="commonCoreStandards"
+          placeholder="Enter common core standard"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Skills</mat-label>
+        <input
+          matInput
+          formControlName="skills"
+          placeholder="Enter skills being worked on."
+        />
+      </mat-form-field>
+
+      <!-- <mat-form-field>
+      <mat-label>Question Type</mat-label>
+      <input
+        matInput
+        formControlName="questionType"
+        placeholder="Enter question type"
+      />
+    </mat-form-field> -->
+      <!-- <mat-form-field>
+      <mat-label>Question Type</mat-label>
+      <mat-select formControlName="questionType">
+        <mat-option *ngFor="let type of questionTypes" [value]="type">{{
+          type
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+    </div>
+
     <button mat-raised-button color="primary" type="submit">
       Generate Test
     </button>

@@ -15,6 +15,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatOption } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { LessonPlanComponent } from './lesson-plan/lesson-plan.component';
@@ -50,5 +51,6 @@ import { PrintButtonComponent } from './shared/print-button/print-button.compone
         MatGridListModule,
         MatSidenavModule,
         MatProgressSpinnerModule,
+        MatOption,
         MatListModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()] })
 export class AppModule { }
