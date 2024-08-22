@@ -6,9 +6,9 @@ This is a web application designed to help teachers and students by harnessing t
 
 - [x] Save to pdf
 - [x] Create scorecard with questions to validate problem, IE ask teachers if they care about AI generating their lesson plan, activities, or tests. At the end direct them to the website and get their email addresses.
-- [ ] Trademark "teachgenie".
 - [ ] Add more search filtering/critertia.
   - [ ] Grade level, state, standards.
+- [ ] Trademark "teachgenie".
 - [ ] Implement features from these two videos:
   - https://youtu.be/pFhVQo0YPyw?si=isz3UA6GC569FTgC
   - https://youtu.be/HABFEs90MZ8?si=qRBl1wraRI655D6d

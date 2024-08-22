@@ -1,5 +1,7 @@
-from fastapi import FastAPI, Request
+from typing import List, Optional, Union
+from fastapi import FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import requests
 import google.generativeai as genai
 import os
@@ -15,25 +17,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Define a model for the request body
+class FormRequest(BaseModel):
+    topic: str = Form(str),
+    numberOfQuestions: str = Form(None),
+    gradeLevel: str = Form(None),
+    commonCoreStandards: str = Form(None),
+    skills: str = Form(None),
+    questionType: Union[List[str], str] = Form(None)  # Accepting multiple values
+
 @app.post("/api/lesson-plan")
-async def lesson_plan(request: Request):
-    data = await request.json()
-    topic = data.get('topic')
-    lesson_plan = await generate_lesson_plan(topic)
+async def lesson_plan(request: FormRequest):
+    # data = await request.json()
+    # topic = data.get('topic')
+    print("LessonRequest ", request)
+    lesson_plan = await generate_lesson_plan(request)
     return {"lessonPlan": lesson_plan}
 
 @app.post("/api/test")
-async def test(request: Request):
-    data = await request.json()
-    concept = data.get('concept')
-    test = await generate_test(concept)
+async def test(request: FormRequest):
+    # data = await request.json()
+    # concept = data.get('concept')
+    print("Made it to TEST")
+    print("TestRequest ", request)
+    test = await generate_test(request)
     return {"test": test}
 
 @app.post("/api/activities")
-async def activities(request: Request):
-    data = await request.json()
-    concept = data.get('concept')
-    activities = await generate_activities(concept)
+async def activities(request: FormRequest):
+    # data = await request.json()
+    # concept = data.get('concept')
+    print("ActivityRequest ", request)
+    activities = await generate_activities(request)
     return {"activities": activities}
 
 # Load .env environment variables
@@ -43,17 +58,68 @@ genai.configure(api_key=os.environ["API_KEY"])
 
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-async def generate_lesson_plan(topic: str):
-    response = model.generate_content("Write a lesson plan for a teacher about this topic " + topic)
-    return f"Lesson plan for {topic} "+ response.text
+async def generate_lesson_plan(request: FormRequest):
+    # Construct the prompt based on user input
+    prompt = f"Write a lesson plan for a teacher about this topic '{request.topic}'."
 
-async def generate_test(concept: str):
-    response = model.generate_content("Write a test with a few open response and multiple choice questions for a teacher about this concept " + concept)
-    return f"Test for {concept} "+ response.text
+    if request.numberOfQuestions:
+        prompt += f" Include {request.numberOfQuestions} questions."
 
-async def generate_activities(concept: str):
-    response = model.generate_content("Generate some activities that a teacher could use to explain this concept for students " + concept)
-    return f"Activities for {concept} "+ response.text
+    if request.gradeLevel:
+        prompt += f" Grade Level: {request.gradeLevel}."
+
+    if request.commonCoreStandards:
+        prompt += f" Common Core Standards: {request.commonCoreStandards}."
+
+    if request.skills:
+        prompt += f" Focus on skills: {request.skills}."
+
+    if request.questionType:
+        prompt += f" Question Types: {', '.join(request.questionType)}."
+    response = model.generate_content(prompt)
+    return f"Lesson plan for {request.topic} " + response.text
+
+async def generate_test(request: FormRequest):
+    # Construct the prompt based on user input
+    prompt = f"Write a test for a teacher on the topic '{request.topic}'."
+
+    if request.numberOfQuestions:
+        prompt += f" Include {request.numberOfQuestions} questions."
+
+    if request.gradeLevel:
+        prompt += f" Grade Level: {request.gradeLevel}."
+
+    if request.commonCoreStandards:
+        prompt += f" Common Core Standards: {request.commonCoreStandards}."
+
+    if request.skills:
+        prompt += f" Focus on skills: {request.skills}."
+
+    if request.questionType:
+        prompt += f" Question Types: {', '.join(request.questionType)}."
+    response = model.generate_content(prompt)
+    return f"Test for {request.topic} "+ response.text
+
+async def generate_activities(request: FormRequest):
+    # Construct the prompt based on user input
+    prompt = f"Generate some activities that a teacher could use to explain this concept for students '{request.topic}'."
+
+    if request.numberOfQuestions:
+        prompt += f" Include {request.numberOfQuestions} questions."
+
+    if request.gradeLevel:
+        prompt += f" Grade Level: {request.gradeLevel}."
+
+    if request.commonCoreStandards:
+        prompt += f" Common Core Standards: {request.commonCoreStandards}."
+
+    if request.skills:
+        prompt += f" Focus on skills: {request.skills}."
+
+    if request.questionType:
+        prompt += f" Question Types: {', '.join(request.questionType)}."
+    response = model.generate_content(prompt)
+    return f"Activities for {request.topic} "+ response.text
 
 if __name__ == "__main__":
     import uvicorn
