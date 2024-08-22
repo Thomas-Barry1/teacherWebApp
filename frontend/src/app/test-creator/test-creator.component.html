@@ -1,10 +1,17 @@
 <mat-card>
   <h2>Create Test</h2>
   <form [formGroup]="testForm" (ngSubmit)="generateTest()">
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Topic</mat-label>
       <input matInput formControlName="topic" />
     </mat-form-field>
+
+    <!-- Pass the FormGroup to the child component -->
+    <app-form-options
+      [parentFormGroup]="testForm"
+      [showQuestionTypes]="true"
+    ></app-form-options>
+
     <button mat-raised-button color="primary" type="submit">
       Generate Test
     </button>

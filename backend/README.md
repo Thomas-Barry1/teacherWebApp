@@ -1,6 +1,11 @@
 # Backend
 
 - This backend sets up a FastApi service and then listens for API requests in main.py before making requests to Google Gemini for AI generated content.
+- Everything now is in "main.py"
+
+## Prerequisites
+
+- You have to go and get API_KEY from gemini api.
 
 ## Code to run
 

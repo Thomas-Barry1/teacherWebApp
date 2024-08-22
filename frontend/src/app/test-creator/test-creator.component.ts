@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AiService } from '../services/ai.service';
 import { MarkdownService } from '../services/markdown.service';
@@ -14,7 +14,7 @@ import { OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 @Component({
   selector: 'app-test-creator',
   // standalone: true,
-  // imports: [],
+  // imports: [FormOptionsComponent],
   templateUrl: './test-creator.component.html',
   styleUrl: './test-creator.component.css'
 })
@@ -23,10 +23,17 @@ export class TestCreatorComponent {
   test: SafeHtml = '';
   testString = ''
   loading: boolean = false;
+  questionTypes: string[] = [''];
 
   constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService) {
     this.testForm = this.fb.group({
-      topic: ['']
+      topic: [''],
+      numberOfQuestions: [''],
+      gradeLevel: [''],
+      commonCoreStandards: [''],
+      skills: [''],
+      // questionType: ['']
+      questionType: [this.questionTypes]
     });
   }
 
@@ -35,8 +42,14 @@ export class TestCreatorComponent {
 
   generateTest(): void {
     this.loading = true;
-    const topic = this.testForm.value.topic;
-    this.aiService.generateTest(topic).subscribe(async response => {
+    // const topic = this.testForm.value.topic;
+    const formData = this.testForm.value;
+    // var object = this.testForm.getRawValue();
+    // console.log("Object: ", object);
+    // var jsonStr = JSON.stringify(object);
+    // console.log("Json str: ", jsonStr);
+    // console.log("Json stringify: ", JSON.stringify(this.testForm.value));
+    this.aiService.generateTest(formData).subscribe(async response => {
       this.testString = await this.markdownService.convertHtml(response.test);
       this.test = await this.markdownService.convert(response.test);
       this.loading = false;

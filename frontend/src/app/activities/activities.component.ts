@@ -19,16 +19,19 @@ export class ActivitiesComponent {
 
   constructor(private fb: FormBuilder, private apiService: AiService, private markdownService: MarkdownService) {
     this.activitiesForm = this.fb.group({
-      concept: ['']
+      topic: [''],
+      gradeLevel: [''],
+      commonCoreStandards: [''],
+      skills: [''],
     });
   }
 
   generateActivities() {
     this.loading = true;
     // const concept = this.activitiesForm.get('concept')?.value;
-    const concept = this.activitiesForm.value.concept;
-    console.log(concept)
-    this.apiService.generateActivities(concept).subscribe(async response => {
+    const topic = this.activitiesForm.value;
+    console.log(topic)
+    this.apiService.generateActivities(topic).subscribe(async response => {
       this.activitiesString = await this.markdownService.convertHtml(response.activities);
       this.activities = await this.markdownService.convert(response.activities);
       this.loading = false;

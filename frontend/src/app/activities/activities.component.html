@@ -2,9 +2,17 @@
   <h2>Recommended Activities</h2>
   <form [formGroup]="activitiesForm" (ngSubmit)="generateActivities()">
     <mat-form-field>
-      <mat-label>Concept</mat-label>
-      <input matInput formControlName="concept" />
+      <mat-label>Topic</mat-label>
+      <input matInput formControlName="topic" />
     </mat-form-field>
+
+    <!-- Pass the FormGroup to the child component -->
+    <app-form-options
+      [parentFormGroup]="activitiesForm"
+      [showNumberOfQuestions]="false"
+      [showQuestionTypes]="false"
+    ></app-form-options>
+
     <button mat-raised-button color="primary" type="submit">
       Generate Activities
     </button>

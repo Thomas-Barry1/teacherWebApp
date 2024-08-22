@@ -15,6 +15,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatOption } from '@angular/material/core';
+import { MatSelectionList } from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { LessonPlanComponent } from './lesson-plan/lesson-plan.component';
@@ -25,6 +28,7 @@ import { AboutComponent } from './about/about.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ActivitiesComponent } from './activities/activities.component';
 import { PrintButtonComponent } from './shared/print-button/print-button.component';
+import { FormOptionsComponent } from './shared/form-options/form-options.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -34,7 +38,8 @@ import { PrintButtonComponent } from './shared/print-button/print-button.compone
         HomePageComponent,
         AboutComponent,
         ActivitiesComponent,
-        PrintButtonComponent
+        PrintButtonComponent,
+        FormOptionsComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
@@ -50,5 +55,7 @@ import { PrintButtonComponent } from './shared/print-button/print-button.compone
         MatGridListModule,
         MatSidenavModule,
         MatProgressSpinnerModule,
+        MatOption,
+        MatSelectModule,
         MatListModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()] })
 export class AppModule { }
