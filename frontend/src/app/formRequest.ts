@@ -1,4 +1,4 @@
-export interface TestRequest {
+export interface FormRequest {
   id: number;
   name: string;
   topic: string;

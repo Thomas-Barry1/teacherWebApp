@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { TestRequest } from '../testRequest';
+import { FormRequest } from '../formRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -21,15 +21,15 @@ export class AiService {
   constructor(private http: HttpClient) { }
 
   generateLessonPlan(topic: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/lesson-plan`, { topic });
+    return this.http.post<any>(`${this.apiUrl}/lesson-plan`, topic);
   }
 
   generateTest(topic: any): Observable<any> {
-    console.log("AI formdata: ", topic);
-    return this.http.post<any>(`${this.apiUrl}/test`, topic );
+    // console.log("AI formdata: ", topic);
+    return this.http.post<any>(`${this.apiUrl}/test`, topic);
   }
 
-  generateActivities(concept: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/activities`, { concept });
+  generateActivities(topic: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/activities`, topic);
   }
 }

@@ -4,15 +4,6 @@ mat-card {
   }
 
   /* src/app/components/test-creator/test-creator.component.css */
-.optional-fields {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.optional-fields mat-form-field {
-  flex: 1 1 calc(50% - 10px); /* Adjust width to fit two fields per row */
-}
   
   mat-form-field {
     width: 100%;

@@ -1,0 +1,60 @@
+<!-- Additional Options Below the Topic -->
+<div class="optional-fields" [formGroup]="parentFormGroup">
+  <mat-form-field appearance="outline" *ngIf="showNumberOfQuestions">
+    <mat-label>Number of Questions</mat-label>
+    <input
+      matInput
+      formControlName="numberOfQuestions"
+      placeholder="Enter number of questions"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" *ngIf="showGradeLevel">
+    <mat-label>Grade Level</mat-label>
+    <input
+      matInput
+      formControlName="gradeLevel"
+      placeholder="Enter grade level"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" *ngIf="showCommonCoreStandards">
+    <mat-label>Common Core Standards</mat-label>
+    <input
+      matInput
+      formControlName="commonCoreStandards"
+      placeholder="Enter common core standard"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" *ngIf="showSkills">
+    <mat-label>Skills</mat-label>
+    <input
+      matInput
+      formControlName="skills"
+      placeholder="Enter skills being worked on."
+    />
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+      <mat-label>Question Type</mat-label>
+      <input
+        matInput
+        formControlName="questionType"
+        placeholder="Enter question type"
+      />
+    </mat-form-field> -->
+  <mat-form-field appearance="outline" *ngIf="showQuestionTypes">
+    <mat-label>Question Type</mat-label>
+    <mat-select formControlName="questionType" multiple>
+      <!-- <mat-option *ngFor="let type of questionTypes" [value]="type">
+        {{ type }}
+      </mat-option> -->
+      <!-- <mat-select> -->
+      @for (type of questionTypes; track type) {
+      <mat-option [value]="type">{{ type }}</mat-option>
+      }
+      <!-- </mat-select> -->
+    </mat-select>
+  </mat-form-field>
+</div>
