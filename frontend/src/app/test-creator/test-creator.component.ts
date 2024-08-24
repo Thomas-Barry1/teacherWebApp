@@ -10,6 +10,7 @@ import * as showdown from 'showdown';
 import * as domToImage from 'dom-to-image'
 import * as moment from 'moment';
 import { OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { StateService } from '../services/state.service';
 
 @Component({
   selector: 'app-test-creator',
@@ -25,7 +26,7 @@ export class TestCreatorComponent {
   loading: boolean = false;
   questionTypes: string[] = [''];
 
-  constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService) {
+  constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService, private stateService: StateService) {
     this.testForm = this.fb.group({
       topic: [''],
       numberOfQuestions: [''],
@@ -35,6 +36,9 @@ export class TestCreatorComponent {
       // questionType: ['']
       questionType: [this.questionTypes]
     });
+
+    // Load existing data if available
+    this.test = this.stateService.getTestData();
   }
 
   @ViewChild('dataToExport', { static: false })
@@ -52,6 +56,7 @@ export class TestCreatorComponent {
     this.aiService.generateTest(formData).subscribe(async response => {
       this.testString = await this.markdownService.convertHtml(response.test);
       this.test = await this.markdownService.convert(response.test);
+      this.stateService.setTestData(this.test);
       this.loading = false;
     }, error => {
       console.error('Error generating lesson plan', error);
