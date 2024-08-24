@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AiService } from '../services/ai.service';
 import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
+import { StateService } from '../services/state.service';
 
 @Component({
   selector: 'app-activities',
@@ -17,13 +18,17 @@ export class ActivitiesComponent {
   loading: boolean = false;
   activitiesString: string = '';
 
-  constructor(private fb: FormBuilder, private apiService: AiService, private markdownService: MarkdownService) {
+  constructor(private fb: FormBuilder, private apiService: AiService, 
+    private markdownService: MarkdownService,
+    private stateService: StateService) {
     this.activitiesForm = this.fb.group({
       topic: [''],
       gradeLevel: [''],
       commonCoreStandards: [''],
       skills: [''],
     });
+    // Load existing data if available
+    this.activities = this.stateService.getActivityData();
   }
 
   generateActivities() {
@@ -34,6 +39,7 @@ export class ActivitiesComponent {
     this.apiService.generateActivities(topic).subscribe(async response => {
       this.activitiesString = await this.markdownService.convertHtml(response.activities);
       this.activities = await this.markdownService.convert(response.activities);
+      this.stateService.setActivityData(this.activities);
       this.loading = false;
     }, error => {
       console.error('Error generating activities', error);
