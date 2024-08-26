@@ -6,14 +6,15 @@ This is a web application designed to help teachers and students by harnessing t
 
 - [x] Save to pdf
 - [x] Create scorecard with questions to validate problem, IE ask teachers if they care about AI generating their lesson plan, activities, or tests. At the end direct them to the website and get their email addresses.
-- [ ] Add more search filtering/critertia.
-  - [ ] Grade level, state, standards.
+- [x] Add more search filtering/critertia.
+  - [x] Grade level, state, standards.
+- [ ] On home page, have the features appear one after the other on smaller screens
 - [ ] Trademark "teachgenie".
 - [ ] Implement features from these two videos:
   - https://youtu.be/pFhVQo0YPyw?si=isz3UA6GC569FTgC
   - https://youtu.be/HABFEs90MZ8?si=qRBl1wraRI655D6d
 - [ ] Figure out how I should get to teachers, and if I should avoid reaching out to districts.
-- [ ] Change Teacher helper to menu, and make the second one bigger, bolder, and have logo
+- [x] Change Teacher helper to menu, and make the second one bigger, bolder, and have logo
 - [ ] Change purple color to lilac
 
 ## Potential Features:
