@@ -10,7 +10,7 @@
 ## Running locally
 
 - Run this command to run the backend FastApi application locally:
-  `uvicorn main:app --reload --host 0.0.0.0 --port 3000`
+  `uvicorn main:app --reload --host 127.0.0.0 --port 3000`
 
 ## Code to run
 

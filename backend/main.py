@@ -77,7 +77,24 @@ async def generate_lesson_plan(request: FormRequest):
     if request.questionType:
         prompt += f" Question Types: {', '.join(request.questionType)}."
     response = model.generate_content(prompt)
-    return f"Lesson plan for {request.topic} " + response.text
+    print("Lesson plan response: ", response)
+    # Only iterate 5 or more times if a bad response is received
+    numIterations = 0
+    isValidResp = False
+    while not isValidResp and numIterations < 5:
+        try:
+            response.text
+            isValidResp = True
+        except:
+            numIterations += 1
+            print("Regenerate response")
+            response = model.generate_content(prompt)
+            print("Lesson plan response: ", response)
+    if numIterations == 5:
+        returnResp = "Error in AI response, try again or change request."
+    else:
+        returnResp = f"Lesson plan for {request.topic} " + response.text
+    return returnResp
 
 async def generate_test(request: FormRequest):
     # Construct the prompt based on user input
@@ -98,7 +115,24 @@ async def generate_test(request: FormRequest):
     if request.questionType:
         prompt += f" Question Types: {', '.join(request.questionType)}."
     response = model.generate_content(prompt)
-    return f"Test for {request.topic} "+ response.text
+    print("Test response: ", response)
+    # Only iterate 5 or more times if a bad response is received
+    numIterations = 0
+    isValidResp = False
+    while not isValidResp and numIterations < 5:
+        try:
+            response.text
+            isValidResp = True
+        except:
+            numIterations += 1
+            print("Regenerate response")
+            response = model.generate_content(prompt)
+            print("Test response: ", response)
+    if numIterations == 5:
+        returnResp = "Error in AI response, try again or change request."
+    else:
+        returnResp = f"Test for {request.topic} " + response.text
+    return returnResp
 
 async def generate_activities(request: FormRequest):
     # Construct the prompt based on user input
@@ -119,7 +153,24 @@ async def generate_activities(request: FormRequest):
     if request.questionType:
         prompt += f" Question Types: {', '.join(request.questionType)}."
     response = model.generate_content(prompt)
-    return f"Activities for {request.topic} "+ response.text
+    print("Activities response: ", response)
+    # Only iterate 5 or more times if a bad response is received
+    numIterations = 0
+    isValidResp = False
+    while not isValidResp and numIterations < 5:
+        try:
+            response.text
+            isValidResp = True
+        except:
+            numIterations += 1
+            print("Regenerate response")
+            response = model.generate_content(prompt)
+            print("Activities response: ", response)
+    if numIterations == 5:
+        returnResp = "Error in AI response, try again or change request."
+    else:
+        returnResp = f"Activities for {request.topic} " + response.text
+    return returnResp
 
 if __name__ == "__main__":
     import uvicorn
