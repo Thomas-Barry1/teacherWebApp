@@ -4,24 +4,27 @@
   <button
     *ngIf="enablePdf"
     mat-raised-button
-    color="accent"
+    color="primary"
     (click)="saveAsPdf()"
+    class="mx-2"
   >
     Save as PDF
   </button>
   <button
     *ngIf="enableTextFile"
     mat-raised-button
-    color="accent"
+    color="primary"
     (click)="saveAsTextFile()"
+    class="mx-2"
   >
     Save as Text File
   </button>
   <button
     *ngIf="enableClipboard"
     mat-raised-button
-    color="accent"
+    color="primary"
     (click)="copyToClipboard()"
+    class="mx-2"
   >
     Copy to Clipboard
   </button>
