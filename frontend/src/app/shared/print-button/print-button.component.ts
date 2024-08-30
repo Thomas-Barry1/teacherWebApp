@@ -1,5 +1,5 @@
 // src/app/shared/print-button/print-button.component.ts
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { PrintService } from '../../services/print.service';
 import { saveAs } from 'file-saver';
 
@@ -13,6 +13,8 @@ export class PrintButtonComponent {
   @Input() enablePdf: boolean = true;
   @Input() enableTextFile: boolean = false;
   @Input() enableClipboard: boolean = false;
+  // The id of element to copy
+  @Input() textElement!: ElementRef | HTMLElement;
 
   constructor(private printService: PrintService) { }
 
@@ -46,11 +48,47 @@ export class PrintButtonComponent {
   }
 
   copyToClipboard() {
-    navigator.clipboard.writeText(this.contentToPrint).then(() => {
-      alert('Text copied to clipboard');
-    }).catch(err => {
-      console.error('Could not copy text: ', err);
-    });
+    let elementToCopy: HTMLElement;
+
+    // Ensure the textElement is an HTMLElement, whether it's an ElementRef or passed directly as an HTMLElement
+    if (this.textElement instanceof ElementRef) {
+      elementToCopy = this.textElement.nativeElement;
+    } else if (this.textElement instanceof HTMLElement) {
+      elementToCopy = this.textElement;
+    } else {
+      console.error('Invalid element provided for copying.');
+      return;
+    }
+
+    const range = document.createRange();
+    const selection = window.getSelection();
+
+    try {
+      // Select the text inside the provided div element
+      range.selectNodeContents(elementToCopy);
+      if(selection != null){
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+
+      // Execute the copy command
+      document.execCommand('copy');
+      alert('Text copied to clipboard!');
+    } catch (err) {
+      alert('Unable to copy text');
+    }
+
+    // Clear the selection
+    if(selection != null){
+      selection.removeAllRanges();
+    }
   }
+  // copyToClipboard() {
+  //   navigator.clipboard.writeText(this.contentToPrint).then(() => {
+  //     alert('Text copied to clipboard');
+  //   }).catch(err => {
+  //     console.error('Could not copy text: ', err);
+  //   });
+  // }
 }
 

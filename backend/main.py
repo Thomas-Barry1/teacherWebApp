@@ -24,7 +24,8 @@ class FormRequest(BaseModel):
     gradeLevel: str = Form(None),
     commonCoreStandards: str = Form(None),
     skills: str = Form(None),
-    questionType: Union[List[str], str] = Form(None)  # Accepting multiple values
+    questionType: Union[List[str], str] = Form(None),  # Accepting multiple values
+    state: str = Form(None)
 
 @app.post("/api/lesson-plan")
 async def lesson_plan(request: FormRequest):
@@ -62,20 +63,29 @@ async def generate_lesson_plan(request: FormRequest):
     # Construct the prompt based on user input
     prompt = f"Write a lesson plan for a teacher about this topic '{request.topic}'."
 
-    if request.numberOfQuestions:
+    if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
+        print("NumQuestions: ", request.numberOfQuestions)
         prompt += f" Include {request.numberOfQuestions} questions."
 
     if request.gradeLevel:
+        print("Grade Level: ", request.gradeLevel)
         prompt += f" Grade Level: {request.gradeLevel}."
 
     if request.commonCoreStandards:
+        print("Standards: ", request.commonCoreStandards)
         prompt += f" Common Core Standards: {request.commonCoreStandards}."
 
     if request.skills:
+        print("Skills: ", request.skills)
         prompt += f" Focus on skills: {request.skills}."
 
-    if request.questionType:
+    if request.questionType and (type(request.questionType) is not type((Form(None),))):
+        print("QuestionType: ", request.questionType)
         prompt += f" Question Types: {', '.join(request.questionType)}."
+
+    if request.state:
+        print("State: ", request.state)
+        prompt += f" Focus response using standards from this state: {request.state}."
     response = model.generate_content(prompt)
     print("Lesson plan response: ", response)
     # Only iterate 5 or more times if a bad response is received
@@ -93,14 +103,14 @@ async def generate_lesson_plan(request: FormRequest):
     if numIterations == 5:
         returnResp = "Error in AI response, try again or change request."
     else:
-        returnResp = f"Lesson plan for {request.topic} " + response.text
+        returnResp = response.text
     return returnResp
 
 async def generate_test(request: FormRequest):
     # Construct the prompt based on user input
     prompt = f"Write a test for a teacher on the topic '{request.topic}'."
 
-    if request.numberOfQuestions:
+    if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
         prompt += f" Include {request.numberOfQuestions} questions."
 
     if request.gradeLevel:
@@ -112,8 +122,10 @@ async def generate_test(request: FormRequest):
     if request.skills:
         prompt += f" Focus on skills: {request.skills}."
 
-    if request.questionType:
+    if request.questionType and (type(request.questionType) is not type((Form(None),))):
         prompt += f" Question Types: {', '.join(request.questionType)}."
+    if request.state:
+        prompt += f" Focus response using standards from this state: {request.state}."
     response = model.generate_content(prompt)
     print("Test response: ", response)
     # Only iterate 5 or more times if a bad response is received
@@ -131,14 +143,14 @@ async def generate_test(request: FormRequest):
     if numIterations == 5:
         returnResp = "Error in AI response, try again or change request."
     else:
-        returnResp = f"Test for {request.topic} " + response.text
+        returnResp = response.text
     return returnResp
 
 async def generate_activities(request: FormRequest):
     # Construct the prompt based on user input
     prompt = f"Generate some activities that a teacher could use to explain this concept for students '{request.topic}'."
 
-    if request.numberOfQuestions:
+    if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
         prompt += f" Include {request.numberOfQuestions} questions."
 
     if request.gradeLevel:
@@ -150,8 +162,11 @@ async def generate_activities(request: FormRequest):
     if request.skills:
         prompt += f" Focus on skills: {request.skills}."
 
-    if request.questionType:
+    if request.questionType and (type(request.questionType) is not type((Form(None),))):
         prompt += f" Question Types: {', '.join(request.questionType)}."
+    
+    if request.state:
+        prompt += f" Focus response using standards from this state: {request.state}."
     response = model.generate_content(prompt)
     print("Activities response: ", response)
     # Only iterate 5 or more times if a bad response is received
@@ -169,7 +184,7 @@ async def generate_activities(request: FormRequest):
     if numIterations == 5:
         returnResp = "Error in AI response, try again or change request."
     else:
-        returnResp = f"Activities for {request.topic} " + response.text
+        returnResp = response.text
     return returnResp
 
 if __name__ == "__main__":

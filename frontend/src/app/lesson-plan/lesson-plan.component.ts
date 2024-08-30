@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AiService } from '../services/ai.service';
 import { MarkdownService } from '../services/markdown.service';
@@ -18,6 +18,9 @@ export class LessonPlanComponent {
   lessonString: string = '';
   loading: boolean = false;
 
+  @ViewChild('dataToExport', { static: false })
+  public dataToExport!: ElementRef;
+
   constructor(private fb: FormBuilder, 
     private aiService: AiService, 
     private markdownService: MarkdownService,
@@ -27,6 +30,7 @@ export class LessonPlanComponent {
       gradeLevel: [''],
       commonCoreStandards: [''],
       skills: [''],
+      state: ['']
     });
     // Load existing data if available
     this.lessonPlan = this.stateService.getLessonPlanData();

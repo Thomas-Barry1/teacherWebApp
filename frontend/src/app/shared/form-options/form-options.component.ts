@@ -19,6 +19,8 @@ export class FormOptionsComponent {
   @Input() showCommonCoreStandards: boolean = true;
   @Input() showSkills: boolean = true;
   @Input() showQuestionTypes: boolean = false;
+  @Input() showState: boolean = true;
 
-  questionTypes: string[] = ['Multiple Choice', 'True/False', 'Short Answer', 'Long Answer', 'Bonus Question'];
+
+  questionTypes: string[] = ['Multiple Choice', 'True/False', 'Short Answer', 'Long Answer', 'Reading Passage', 'Bonus Question'];
 }

@@ -1,5 +1,5 @@
 // src/app/components/activities/activities.component.ts
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AiService } from '../services/ai.service';
 import { MarkdownService } from '../services/markdown.service';
@@ -18,6 +18,9 @@ export class ActivitiesComponent {
   loading: boolean = false;
   activitiesString: string = '';
 
+  @ViewChild('dataToExport', { static: false })
+  public dataToExport!: ElementRef;
+
   constructor(private fb: FormBuilder, private apiService: AiService, 
     private markdownService: MarkdownService,
     private stateService: StateService) {
@@ -26,6 +29,7 @@ export class ActivitiesComponent {
       gradeLevel: [''],
       commonCoreStandards: [''],
       skills: [''],
+      state: ['']
     });
     // Load existing data if available
     this.activities = this.stateService.getActivityData();

@@ -26,6 +26,9 @@ export class TestCreatorComponent {
   loading: boolean = false;
   questionTypes: string[] = [''];
 
+  @ViewChild('dataToExport', { static: false })
+  public dataToExport!: ElementRef;
+
   constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService, private stateService: StateService) {
     this.testForm = this.fb.group({
       topic: [''],
@@ -33,16 +36,13 @@ export class TestCreatorComponent {
       gradeLevel: [''],
       commonCoreStandards: [''],
       skills: [''],
-      // questionType: ['']
-      questionType: [this.questionTypes]
+      questionType: [this.questionTypes],
+      state: ['']
     });
 
     // Load existing data if available
     this.test = this.stateService.getTestData();
   }
-
-  @ViewChild('dataToExport', { static: false })
-  public dataToExport!: ElementRef;
 
   generateTest(): void {
     this.loading = true;
@@ -54,7 +54,7 @@ export class TestCreatorComponent {
     // console.log("Json str: ", jsonStr);
     // console.log("Json stringify: ", JSON.stringify(this.testForm.value));
     this.aiService.generateTest(formData).subscribe(async response => {
-      this.testString = await this.markdownService.convertHtml(response.test);
+      this.testString = response.test;
       this.test = await this.markdownService.convert(response.test);
       this.stateService.setTestData(this.test);
       this.loading = false;

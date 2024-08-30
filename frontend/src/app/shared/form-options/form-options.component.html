@@ -36,14 +36,6 @@
     />
   </mat-form-field>
 
-  <!-- <mat-form-field>
-      <mat-label>Question Type</mat-label>
-      <input
-        matInput
-        formControlName="questionType"
-        placeholder="Enter question type"
-      />
-    </mat-form-field> -->
   <mat-form-field appearance="outline" *ngIf="showQuestionTypes">
     <mat-label>Question Type</mat-label>
     <mat-select formControlName="questionType" multiple>
@@ -56,5 +48,14 @@
       }
       <!-- </mat-select> -->
     </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" *ngIf="showState">
+    <mat-label>State</mat-label>
+    <input
+      matInput
+      formControlName="state"
+      placeholder="Enter state where students are taught."
+    />
   </mat-form-field>
 </div>
