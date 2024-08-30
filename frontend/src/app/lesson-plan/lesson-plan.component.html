@@ -26,12 +26,13 @@
   <h2 *ngIf="!loading && lessonPlan">Generated Lesson Plan</h2>
 
   <div *ngIf="!loading && lessonPlan">
-    <div [innerHTML]="lessonPlan"></div>
+    <div [innerHTML]="lessonPlan" #dataToExport></div>
     <app-print-button
       [contentToPrint]="lessonString"
       [enablePdf]="true"
       [enableTextFile]="false"
       [enableClipboard]="true"
+      [textElement]="dataToExport"
     >
     </app-print-button>
   </div>

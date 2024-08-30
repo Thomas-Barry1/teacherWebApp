@@ -15,12 +15,12 @@ import { FormRequest } from '../formRequest';
 //     Use RxJS to Cache API Responses:
 
 export class AiService {
-  private apiUrl = 'https://teach.webexpansions.com/api';
-  // private apiUrl = 'http://localhost:3000/api';
+  // private apiUrl = 'https://teach.webexpansions.com/api';
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) { }
 
-  generateLessonPlan(topic: string): Observable<any> {
+  generateLessonPlan(topic: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/lesson-plan`, topic);
   }
 
@@ -29,7 +29,7 @@ export class AiService {
     return this.http.post<any>(`${this.apiUrl}/test`, topic);
   }
 
-  generateActivities(topic: string): Observable<any> {
+  generateActivities(topic: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/activities`, topic);
   }
 }

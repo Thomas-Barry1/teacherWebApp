@@ -26,12 +26,13 @@
   <h2 *ngIf="!loading && activities">Generated activities Plan</h2>
 
   <div *ngIf="!loading && activities">
-    <div [innerHTML]="activities"></div>
+    <div [innerHTML]="activities" #dataToExport></div>
     <app-print-button
       [contentToPrint]="activitiesString"
       [enablePdf]="true"
       [enableTextFile]="false"
       [enableClipboard]="true"
+      [textElement]="dataToExport"
     >
     </app-print-button>
   </div>
