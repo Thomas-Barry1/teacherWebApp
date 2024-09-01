@@ -5,13 +5,17 @@ import { TestCreatorComponent } from './test-creator/test-creator.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from './about/about.component';
 import { ActivitiesComponent } from './activities/activities.component';
+import { LoginComponent } from './login/login.component';
+// Auth guard protects routes with authentication
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'lesson-plan', component: LessonPlanComponent },
-  { path: 'test-creator', component: TestCreatorComponent },
+  { path: 'lesson-plan', component: LessonPlanComponent},//, canActivate: [AuthGuard] },
+  { path: 'test-creator', component: TestCreatorComponent}, //, canActivate: [AuthGuard] },
   { path: 'home', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'activities', component: ActivitiesComponent },
+  { path: 'activities', component: ActivitiesComponent}, //, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Default route
 ];
 

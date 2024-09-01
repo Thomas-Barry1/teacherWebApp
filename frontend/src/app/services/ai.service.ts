@@ -15,8 +15,8 @@ import { FormRequest } from '../formRequest';
 //     Use RxJS to Cache API Responses:
 
 export class AiService {
-  // private apiUrl = 'https://teach.webexpansions.com/api';
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://teach.webexpansions.com/api';
+  // private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) { }
 
