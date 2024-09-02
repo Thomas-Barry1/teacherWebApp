@@ -10,11 +10,11 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'lesson-plan', component: LessonPlanComponent},//, canActivate: [AuthGuard] },
-  { path: 'test-creator', component: TestCreatorComponent}, //, canActivate: [AuthGuard] },
+  { path: 'lesson-plan', component: LessonPlanComponent, canActivate: [AuthGuard] },
+  { path: 'test-creator', component: TestCreatorComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'activities', component: ActivitiesComponent}, //, canActivate: [AuthGuard] },
+  { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Default route
 ];

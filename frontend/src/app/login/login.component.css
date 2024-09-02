@@ -34,7 +34,16 @@
     margin-bottom: 16px;
     border: none;
     cursor: pointer;
+    min-width: 200px; /* Ensure the button has a minimum width */
+    max-width: 300px; /* Set a maximum width if desired */
+    width: auto; /* Let the content dictate the width */
   }
+
+  .google-signin-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    align-items: center; /* Vertically center if needed */
+    }
   
   .small-text {
     margin-top: 20px;

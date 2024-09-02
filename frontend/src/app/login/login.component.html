@@ -6,25 +6,26 @@
     <div class="login-card">
       <h2>Welcome Back</h2>
       <p>Please sign in to continue</p>
-      <asl-google-signin-button
-        type="standard"
-        size="large"
-        (click)="signInWithGoogle()"
-      >
-      </asl-google-signin-button>
-      <p class="small-text">
+      <div class="google-signin-container">
+        <asl-google-signin-button
+          type="standard"
+          size="large"
+        ></asl-google-signin-button>
+      </div>
+      <!-- <p class="small-text">
         By signing in, you agree to our <a href="#">Terms of Service</a> and
         <a href="#">Privacy Policy</a>.
+      </p> -->
+      <p class="small-text">
+        By signing in, you agree to use our product only for the purposes of
+        teaching or learning.
       </p>
     </div>
   </div>
-
-  <!-- <asl-google-signin-button type="standard" size="medium">
-  </asl-google-signin-button> -->
 </div>
 
-<div *ngIf="loggedIn">
+<!-- <div *ngIf="loggedIn">
   <p>Welcome, {{ user?.name }}!</p>
   <img [src]="user?.photoUrl" alt="User profile picture" />
   <button (click)="signOut()">Sign out</button>
-</div>
+</div> -->

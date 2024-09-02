@@ -3,7 +3,11 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser, GoogleSigninButtonM
 // Google auth
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+//Auth service
+import { AuthService } from '../services/auth.service';
+
 
 
 @Component({
@@ -19,22 +23,28 @@ export class LoginComponent implements OnInit{
   user: SocialUser | undefined;
   loggedIn: boolean | undefined;
 
-  constructor(private authService: SocialAuthService, private router: Router) {}
+  //URL of route that called this login component
+  returnUrl: string = '';
+
+  constructor(private socialAuthService: SocialAuthService, 
+    private router: Router, 
+    private authService: AuthService,
+    private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      console.log("NgOnInit Login");
-      console.log("User: ", user);
-      this.user = user;
-      this.loggedIn = (user != null);
-      // Redirect to another page
-      // this.router.navigate(['/home']);
+    // Update returnUrl whenever the route changes
+    this.route.queryParams.subscribe(params => {
+      // Get the return URL from query parameters (or set a default)
+      this.returnUrl = params['returnUrl'] || '/';
+      // console.log("Return URL: ", this.returnUrl);
+      this.authService.returnUrl = this.returnUrl;
     });
+    this.authService.init(this.returnUrl);
   }
 
   signInWithGoogle(): void {
     console.log("SignInWithGoogle Method");
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.signInWithGoogle();
   }
 
   signOut(): void {

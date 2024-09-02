@@ -52,6 +52,14 @@ async def activities(request: FormRequest):
     activities = await generate_activities(request)
     return {"activities": activities}
 
+# Storing user info
+@app.post("/api/auth/google")
+async def google_auth(info: dict):
+    # Process and store the auth info
+    # e.g., store in database or session management
+    print("Auth info: ", info)
+    return {"message": "Auth info received successfully"}
+
 # Load .env environment variables
 load_dotenv()
 
