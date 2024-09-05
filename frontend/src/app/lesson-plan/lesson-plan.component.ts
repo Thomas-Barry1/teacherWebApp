@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AiService } from '../services/ai.service';
+import { ApiService } from '../services/api.service';
 import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { StateService } from '../services/state.service';
@@ -22,7 +22,7 @@ export class LessonPlanComponent {
   public dataToExport!: ElementRef;
 
   constructor(private fb: FormBuilder, 
-    private aiService: AiService, 
+    private apiService: ApiService, 
     private markdownService: MarkdownService,
     private stateService: StateService) {
     this.lessonForm = this.fb.group({
@@ -39,7 +39,7 @@ export class LessonPlanComponent {
   generateLessonPlan(): void {
     this.loading = true;
     const topic = this.lessonForm.value;
-    this.aiService.generateLessonPlan(topic).subscribe(async response => {
+    this.apiService.generateLessonPlan(topic).subscribe(async response => {
       this.lessonString = await this.markdownService.convertHtml(response.lessonPlan);
       this.lessonPlan = await this.markdownService.convert(response.lessonPlan);
       this.stateService.setLessonPlanData(this.lessonPlan);

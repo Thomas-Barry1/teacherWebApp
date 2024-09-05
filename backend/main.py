@@ -6,6 +6,7 @@ import requests
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+import db as db
 
 app = FastAPI()
 
@@ -51,6 +52,42 @@ async def activities(request: FormRequest):
     print("ActivityRequest ", request)
     activities = await generate_activities(request)
     return {"activities": activities}
+
+from fastapi import Depends
+from sqlalchemy.orm import Session
+
+# # Dependency to get the database session
+# def get_db():
+#     db1 = db.SessionLocal()
+#     try:
+#         yield db1
+#     finally:
+#         db1.close()
+
+# Storing user info
+@app.post("/api/auth/google")
+async def google_auth(info: dict, db1: Session = Depends(db.get_db)):
+    print("Auth info: ", info)
+    return db.create_user(db1, info)# {firstName = info['firstName'], info['lastName'], info['email']})
+    return {"message": "Auth info received successfully"}
+
+# Verify the token with Google's API, implement in future because more secure
+# class GoogleAuthRequest(BaseModel):
+#     token: str
+
+# @app.post("/api/auth/google")
+# async def google_auth(google_auth: GoogleAuthRequest):
+#     try:
+#         response = requests.get(f"https://oauth2.googleapis.com/tokeninfo?id_token={google_auth.token}")
+#         if response.status_code != 200:
+#             raise HTTPException(status_code=401, detail="Invalid token")
+
+#         user_info = response.json()
+#         # Create a JWT or session based on the user info
+#         return {"token": "your-server-side-jwt-or-session-token"}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail="Authentication failed")
+
 
 # Load .env environment variables
 load_dotenv()

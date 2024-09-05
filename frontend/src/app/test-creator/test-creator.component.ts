@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AiService } from '../services/ai.service';
+import { ApiService } from '../services/api.service';
 import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { saveAs } from "file-saver"
@@ -29,7 +29,7 @@ export class TestCreatorComponent {
   @ViewChild('dataToExport', { static: false })
   public dataToExport!: ElementRef;
 
-  constructor(private fb: FormBuilder, private aiService: AiService, private markdownService: MarkdownService, private stateService: StateService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private markdownService: MarkdownService, private stateService: StateService) {
     this.testForm = this.fb.group({
       topic: [''],
       numberOfQuestions: [''],
@@ -53,7 +53,7 @@ export class TestCreatorComponent {
     // var jsonStr = JSON.stringify(object);
     // console.log("Json str: ", jsonStr);
     // console.log("Json stringify: ", JSON.stringify(this.testForm.value));
-    this.aiService.generateTest(formData).subscribe(async response => {
+    this.apiService.generateTest(formData).subscribe(async response => {
       this.testString = response.test;
       this.test = await this.markdownService.convert(response.test);
       this.stateService.setTestData(this.test);

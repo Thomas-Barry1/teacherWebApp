@@ -1,0 +1,31 @@
+<!-- Code pulled from here: https://medium.com/@kushalghosh9899/authenticate-with-google-in-angular-17-via-oauth2-196a98793f0c -->
+<script src="https://accounts.google.com/gsi/client" async></script>
+<div *ngIf="!loggedIn">
+  <!-- <button (click)="signInWithGoogle()">Sign in with Google</button> -->
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Welcome Back</h2>
+      <p>Please sign in to continue</p>
+      <div class="google-signin-container">
+        <asl-google-signin-button
+          type="standard"
+          size="large"
+        ></asl-google-signin-button>
+      </div>
+      <!-- <p class="small-text">
+        By signing in, you agree to our <a href="#">Terms of Service</a> and
+        <a href="#">Privacy Policy</a>.
+      </p> -->
+      <p class="small-text">
+        By signing in, you agree to use our product only for the purposes of
+        teaching or learning.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="loggedIn">
+  <p>Welcome, {{ user?.name }}!</p>
+  <img [src]="user?.photoUrl" alt="User profile picture" />
+  <button (click)="signOut()">Sign out</button>
+</div> -->

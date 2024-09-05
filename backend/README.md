@@ -70,3 +70,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable fastapi.service
 sudo systemctl start fastapi.service
 ```
+
+## See values in sqlite database
+
+- `sqlite3 test.db`
+- `SELECT * FROM users;`
