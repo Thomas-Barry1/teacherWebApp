@@ -1,7 +1,7 @@
 // src/app/components/activities/activities.component.ts
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AiService } from '../services/ai.service';
+import { ApiService } from '../services/api.service';
 import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { StateService } from '../services/state.service';
@@ -21,7 +21,7 @@ export class ActivitiesComponent {
   @ViewChild('dataToExport', { static: false })
   public dataToExport!: ElementRef;
 
-  constructor(private fb: FormBuilder, private apiService: AiService, 
+  constructor(private fb: FormBuilder, private apiService: ApiService, 
     private markdownService: MarkdownService,
     private stateService: StateService) {
     this.activitiesForm = this.fb.group({

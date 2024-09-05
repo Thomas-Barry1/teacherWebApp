@@ -19,6 +19,10 @@ import { MatOption } from '@angular/material/core';
 import { MatSelectionList } from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 
+// Google auth
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+
 import { AppComponent } from './app.component';
 import { LessonPlanComponent } from './lesson-plan/lesson-plan.component';
 import { TestCreatorComponent } from './test-creator/test-creator.component';
@@ -29,6 +33,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ActivitiesComponent } from './activities/activities.component';
 import { PrintButtonComponent } from './shared/print-button/print-button.component';
 import { FormOptionsComponent } from './shared/form-options/form-options.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -57,5 +62,26 @@ import { FormOptionsComponent } from './shared/form-options/form-options.compone
         MatProgressSpinnerModule,
         MatOption,
         MatSelectModule,
-        MatListModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()] })
+        MatListModule,
+        BrowserModule,
+        SocialLoginModule,
+        LoginComponent], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync(),
+            {
+                provide: 'SocialAuthServiceConfig',
+                useValue: {
+                  autoLogin: false, // Optional: Automatically sign in the user
+                  providers: [
+                    {
+                      id: GoogleLoginProvider.PROVIDER_ID,
+                      provider: new GoogleLoginProvider(
+                        '34044041449-47uhlcu7kpe4as5hitgp7nnojf0vdndm.apps.googleusercontent.com' // Google Client ID
+                      )
+                    }
+                  ],
+                  onError: (err) => {
+                    console.error("Error: ", err);
+                  }
+                } as SocialAuthServiceConfig,
+              }
+        ] })
 export class AppModule { }

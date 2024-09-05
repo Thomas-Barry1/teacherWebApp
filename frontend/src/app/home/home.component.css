@@ -7,13 +7,13 @@ mat-sidenav {
   width: 20%;
 }
   
-  mat-toolbar {
+  /* mat-toolbar {
     position: sticky;
     top: 0;
     z-index: 1;
-  }
+  } */
 
-  .logo {
+  img {
     height: 35px; /* Adjust the height as needed */
     margin-right: 10px; /* Space between the logo and the title */
     vertical-align: middle; /* Align vertically with text */
@@ -41,4 +41,8 @@ mat-sidenav {
     margin: 0; /* Remove default margin */
     font-family: Arial, sans-serif; /* Optional: Set a global font */
   }
-  
+
+/* For logged in profile styling */
+mat-list-item h4 {
+  display: inline;
+}

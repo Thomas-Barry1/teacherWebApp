@@ -17,6 +17,13 @@
       <a mat-list-item routerLink="/about" routerLinkActive="active-link"
         >About</a
       >
+      <mat-divider *ngIf="user"></mat-divider>
+      <!-- Divider for separation -->
+
+      <mat-list-item *ngIf="user">
+        <img [src]="user?.photoUrl" alt="{{ user?.name }}'s profile picture" />
+        <h4>Welcome {{ user?.name }}!</h4>
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
