@@ -34,6 +34,7 @@ export class ApiService {
 
   // Send auth info to the backend
   sendAuthInfoToBackend(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/auth/google`, user);
+    console.log("Made it to sendAuthInfoToBackend");
+    return this.http.post(`${this.apiUrl}/auth/google`, user);
   }
 }
