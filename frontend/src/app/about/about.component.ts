@@ -39,7 +39,8 @@ import { trigger, style, animate, transition, query, stagger } from '@angular/an
 })
 export class AboutComponent {
   testimonials = [
+    { name: 'Michael', position: '6th grade math teacher', message: "I've found Teachgenie to be an invaluable tool in my classroom. Its ease of use and intuitive design make it simple to integrate into my lesson plans. Whether I need supplemental resources, tests, or an engaging activity Teachgenie delivers on almost any topic with just a few clicks. I highly recommend it to any educator looking to enhance their teaching resources effortlessly." },
     { name: 'Jack Smith', position: 'High School Teacher', message: 'TeachGenie has revolutionized the way I create lesson plans and tests. It saves me hours every week!' },
-    { name: 'Donald P', position: 'Middle School Teacher', message: 'The AI assistance is a game-changer. I can get help anytime I need it.' }
+    { name: 'Donald P', position: 'Middle School Teacher', message: 'The AI assistance is a game-changer. I can get help anytime I need it.' },
   ];
 }
