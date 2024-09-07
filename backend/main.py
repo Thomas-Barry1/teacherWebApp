@@ -161,8 +161,15 @@ async def generate_test(request: FormRequest):
 
     if request.questionType and (type(request.questionType) is not type((Form(None),))):
         prompt += f" Question Types: {', '.join(request.questionType)}."
+        if "Reading Passage" in request.questionType:
+            print("Reading Passage")
+            if request.gradeLevel:
+                prompt += f" Very important the length of the reading passage should be at least 200 words and 100 times the grade level."
+            else:
+                prompt += " Very important the length of the reading passage should be at least 200 words and make it longer depending on the other criteria."
     if request.state:
         prompt += f" Focus response using standards from this state: {request.state}."
+    print("Prompt: ", prompt)
     response = model.generate_content(prompt)
     print("Test response: ", response)
     # Only iterate 5 or more times if a bad response is received

@@ -21,7 +21,7 @@
       <!-- Divider for separation -->
 
       <mat-list-item *ngIf="user">
-        <img [src]="user?.photoUrl" alt="{{ user?.name }}'s profile picture" />
+        <img [src]="user.photoUrl" alt="Profile picture" />
         <h4>Welcome {{ user?.name }}!</h4>
       </mat-list-item>
     </mat-nav-list>

@@ -54,7 +54,7 @@ export class TestCreatorComponent {
     // console.log("Json str: ", jsonStr);
     // console.log("Json stringify: ", JSON.stringify(this.testForm.value));
     this.apiService.generateTest(formData).subscribe(async response => {
-      this.testString = response.test;
+      this.testString = await this.markdownService.convertHtml(response.test);
       this.test = await this.markdownService.convert(response.test);
       this.stateService.setTestData(this.test);
       this.loading = false;
