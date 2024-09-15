@@ -15,6 +15,12 @@ And added upon by team.
 - Run this to make accessible in files: `npm install -D @types/module`
 - Run this command if you want to save the module as dependency: `npm install module`
 
+## Common errors and their solutions:
+
+- Error: "js was blocked because of a disallowed MIME type (“text/html”)."
+- Solution 1: Make sure all files, and specific file, is actually built, and that it's not missing
+- Solution 2: Check that you're using express.static in NodeJs: `app.use(express.static(path.join(__dirname, "/teachGenie/frontend")));`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
