@@ -1,0 +1,15 @@
+[Unit]
+Description=FastAPI application using Uvicorn
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/usr/local/lsws/Example/html/teachSubDomain/backend
+ExecStart=/bin/bash -c 'source /usr/local/lsws/Example/html/teachSubDomain/backend/.venv/bin/activate && python /usr/local/lsws/Example/html/teachSubDomain/backend/main.py'
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
