@@ -94,7 +94,9 @@ load_dotenv()
 
 genai.configure(api_key=os.environ["API_KEY"])
 
+# Different models: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models
 model = genai.GenerativeModel('gemini-1.5-flash')
+# model = genai.GenerativeModel('gemini-pro')
 
 async def generate_lesson_plan(request: FormRequest):
     # Construct the prompt based on user input
@@ -145,7 +147,7 @@ async def generate_lesson_plan(request: FormRequest):
 
 async def generate_test(request: FormRequest):
     # Construct the prompt based on user input
-    prompt = f"Write a test for a teacher on the topic '{request.topic}'."
+    prompt = f"Write a test for a teacher on the topic '{request.topic}', and include answer key at end. Format it like a test so teachers can immediately use it."
 
     if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
         prompt += f" Include {request.numberOfQuestions} questions."
