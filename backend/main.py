@@ -147,7 +147,7 @@ async def generate_lesson_plan(request: FormRequest):
 
 async def generate_test(request: FormRequest):
     # Construct the prompt based on user input
-    prompt = f"Write a test for a teacher on the topic '{request.topic}', and include answer key at end. Format it like a test so teachers can immediately use it."
+    prompt = f"Write a test for a teacher on the topic '{request.topic}', and include answer key at end."
 
     if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
         prompt += f" Include {request.numberOfQuestions} questions."
