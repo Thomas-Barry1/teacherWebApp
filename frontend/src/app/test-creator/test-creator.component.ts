@@ -6,7 +6,6 @@ import { SafeHtml } from '@angular/platform-browser';
 import { saveAs } from "file-saver"
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
-import * as showdown from 'showdown';
 import * as domToImage from 'dom-to-image'
 import * as moment from 'moment';
 import { OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
@@ -54,8 +53,11 @@ export class TestCreatorComponent {
     // console.log("Json str: ", jsonStr);
     // console.log("Json stringify: ", JSON.stringify(this.testForm.value));
     this.apiService.generateTest(formData).subscribe(async response => {
+      console.log("AI response: ", response);
       this.testString = await this.markdownService.convertHtml(response.test);
+      console.log("HTML of Response: ", this.testString);
       this.test = await this.markdownService.convert(response.test);
+      console.log("Test response: ", this.test);
       this.stateService.setTestData(this.test);
       this.loading = false;
     }, error => {

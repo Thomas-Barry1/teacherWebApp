@@ -8,8 +8,9 @@ This is a web application designed to help teachers and students by harnessing t
 - [x] Create scorecard with questions to validate problem, IE ask teachers if they care about AI generating their lesson plan, activities, or tests. At the end direct them to the website and get their email addresses.
 - [x] Add more search filtering/critertia.
   - [x] Grade level, state, standards.
-- [ ] Fix copy to clipboard
+- [ ] Add back answer key, test creator
 - [ ] Upgrade to higher version of gemini
+- [x] Fix copy to clipboard
 - [ ] Implement an option for the state, and fix wording of common standards
 - [ ] On home page, have the features appear one after the other on smaller screens
 - [ ] Trademark "teachgenie".
@@ -18,7 +19,7 @@ This is a web application designed to help teachers and students by harnessing t
   - https://youtu.be/HABFEs90MZ8?si=qRBl1wraRI655D6d
 - [ ] Figure out how I should get to teachers, and if I should avoid reaching out to districts.
 - [x] Change Teacher helper to menu, and make the second one bigger, bolder, and have logo
-- [ ] Change purple color to lilac
+- [x] Fix UI to light mode
 
 ## Potential Features:
 
