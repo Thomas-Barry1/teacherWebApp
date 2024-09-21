@@ -53,4 +53,20 @@
       margin-bottom: 30px;
     }
   }
+
+/**************************************************************************** 
+Responsiveness
+ ****************************************************************************/
+  
+
+ @media only screen and (max-width: 600px) {
+  .header h1 {
+    font-size: 1.5em;
+  }
+
+  .home-card {
+    margin: auto;
+    padding: auto;
+  }
+}
   
