@@ -11,10 +11,12 @@
   
   .header h1 {
     font-size: 2.5em;
+    margin-bottom: 30px;
   }
   
   .header p {
     font-size: 1.2em;
+    margin-bottom: 30px;
   }
   
   .features {
@@ -41,5 +43,14 @@
   
   .spacer {
     flex: 1 1 auto;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .feature-list {
+      flex-direction: column;
+    }
+    .feature-item {
+      margin-bottom: 30px;
+    }
   }
   

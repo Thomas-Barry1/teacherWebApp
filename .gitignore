@@ -4,3 +4,4 @@
 .venv/*
 # Stores secrets of google credentials
 google-auth*
+*.db
