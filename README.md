@@ -8,7 +8,7 @@ This is a web application designed to help teachers and students by harnessing t
 - [x] Create scorecard with questions to validate problem, IE ask teachers if they care about AI generating their lesson plan, activities, or tests. At the end direct them to the website and get their email addresses.
 - [x] Add more search filtering/critertia.
   - [x] Grade level, state, standards.
-- [ ] Add back answer key, test creator
+- [x] Add back answer key, test creator
 - [ ] Upgrade to higher version of gemini
 - [x] Fix copy to clipboard
 - [ ] Implement an option for the state, and fix wording of common standards

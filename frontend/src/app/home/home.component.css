@@ -43,6 +43,20 @@ mat-sidenav {
   }
 
 /* For logged in profile styling */
-mat-list-item h4 {
+/* mat-list-item h4 {
   display: inline;
+} */
+
+
+/* Use CSS to ensure that both the icon and text are aligned in the center of the mat-list-item */
+
+
+.menu-item {
+  display: flex;
+  align-items: center;
 }
+
+.menu-item mat-icon {
+  margin-right: 8px; /* Add space between icon and text */
+}
+
