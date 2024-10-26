@@ -14,8 +14,8 @@ import { Observable } from 'rxjs';
 
 export class ApiService {
   // API Url, switch these around to do local or production environments
-  private apiUrl = 'https://teach.webexpansions.com/api';
-  // private apiUrl = 'http://localhost:3000/api';
+  // private apiUrl = 'https://teach.webexpansions.com/api';
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +26,11 @@ export class ApiService {
   generateTest(topic: any): Observable<any> {
     // console.log("AI formdata: ", topic);
     return this.http.post<any>(`${this.apiUrl}/test`, topic);
+  }
+
+  generateKahoot(topic: any): Observable<any> {
+    // console.log("AI formdata: ", topic);
+    return this.http.post<any>(`${this.apiUrl}/kahoot`, topic);
   }
 
   generateActivities(topic: any): Observable<any> {

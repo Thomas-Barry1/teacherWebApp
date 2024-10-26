@@ -28,4 +28,13 @@
   >
     Copy to Clipboard
   </button>
+  <button
+    *ngIf="enableKahoot"
+    mat-raised-button
+    color="primary"
+    (click)="saveAsCsv()"
+    class="mx-2"
+  >
+    Save to CSV
+  </button>
 </div>

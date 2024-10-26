@@ -1,0 +1,68 @@
+Sections:  
+Array(19) [ "## Running Kahoot Quiz", "Question 1: (Time: 10 seconds)", "What is the most important muscle for running?\n1. Quadriceps\n2. Hamstrings\n3. Glutes\n4. Calf muscles", "Correct answer: 3", "Question 2: (Time: 20 seconds)", "What type of running involves short bursts of intense speed?\n1. Endurance running\n2. Sprint running\n3. Jogging\n4. Trail running", "Correct answer: 2", "Question 3: (Time: 15 seconds)", "What is the best way to avoid injuries while running?\n1. Running faster\n2. Running longer distances\n3. Proper warmup and cooldown\n4. Ignoring pain", "Correct answer: 3", … ]
+​
+0: "## Running Kahoot Quiz"
+​
+1: "Question 1: (Time: 10 seconds)"
+​
+2: "What is the most important muscle for running?\n1. Quadriceps\n2. Hamstrings\n3. Glutes\n4. Calf muscles"
+​
+3: "Correct answer: 3"
+​
+4: "Question 2: (Time: 20 seconds)"
+​
+5: "What type of running involves short bursts of intense speed?\n1. Endurance running\n2. Sprint running\n3. Jogging\n4. Trail running"
+​
+6: "Correct answer: 2"
+​
+7: "Question 3: (Time: 15 seconds)"
+​
+8: "What is the best way to avoid injuries while running?\n1. Running faster\n2. Running longer distances\n3. Proper warmup and cooldown\n4. Ignoring pain"
+​
+9: "Correct answer: 3"
+​
+10: "Question 4: (Time: 30 seconds)"
+​
+11: "What is the primary benefit of running?\n1. Weight gain\n2. Improved cardiovascular health\n3. Increased risk of injury\n4. Reduced sleep quality"
+​
+12: "Correct answer: 2"
+​
+13: "Question 5: (Time: 15 seconds)"
+​
+14: "What is the most common type of running shoe?\n1. Trail running shoes\n2. Road running shoes\n3. Track spikes\n4. Crosstraining shoes"
+​
+15: "Correct answer: 2"
+​
+16: "Question 6: (Time: 20 seconds)"
+​
+17: "What is the recommended pace for beginners?\n1. As fast as possible\n2. A conversational pace\n3. A very slow pace\n4. There is no recommended pace"
+​
+18: "Correct answer: 2"
+
+
+
+Count = 1 
+Time limit:  10 
+Lines:  
+Array [ "Question 1: (Time: 10 seconds)" ]
+
+Lines:  
+Array(5) [ "What is the most important muscle for running?", "1. Quadriceps", "2. Hamstrings", "3. Glutes", "4. Calf muscles" ]
+
+Time limit:  -1 
+Lines:  
+Array [ "Correct answer: 3" ]
+
+Lines:  
+Array [ "Question 2: (Time: 20 seconds)" ]
+
+Time limit:  -1 
+Lines:  
+Array(5) [ "What type of running involves short bursts of intense speed?", "1. Endurance running", "2. Sprint running", "3. Jogging", "4. Trail running" ]
+
+Lines:  
+Array [ "Correct answer: 2" ]
+
+Time limit:  15 
+Lines:  
+Array [ "Question 3: (Time: 15 seconds)" ]

@@ -65,40 +65,4 @@ export class TestCreatorComponent {
       this.loading = false;
     });
   }
-
-  saveAsPdf() {
-    let height = window.screen.availHeight-100;
-    let width = window.screen.availWidth-150;
-    var printWindow = window.open('', '', `height=${height},width=${width}`);
-    if (printWindow != null){
-      printWindow.document.write('<html><head><title></title>');
-      // Place css file in assets folder
-      // printWindow.document.write('<link rel="stylesheet" href="assets/css/printPDF.css" />');
-      printWindow.document.write('</head><body>');
-      printWindow.document.write(this.testString);
-      printWindow.document.write('</body></html>');
-      printWindow.document.close();
-      printWindow.print();
-  //   // Wait for the content to be fully loaded before printing
-  //   printWindow.onload = () => {
-  //     printWindow.print();
-  //     printWindow.close(); // Optionally close the print window after printing
-  //   };
-  // }
-    }
-    return;
-    }
-
-    saveAsTextFile() {
-      const blob = new Blob([this.testString], { type: 'text/plain' });
-      saveAs(blob, 'generated_test.txt');
-    }
-  
-    copyToClipboard() {
-      navigator.clipboard.writeText(this.testString).then(() => {
-        alert('Test copied to clipboard');
-      }).catch(err => {
-        console.error('Could not copy text: ', err);
-      });
-    }
-  }
+}

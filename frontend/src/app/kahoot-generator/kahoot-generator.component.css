@@ -1,0 +1,28 @@
+mat-card {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  /* src/app/components/test-creator/test-creator.component.css */
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    color: #3f51b5;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    text-align: center;
+  }
+  

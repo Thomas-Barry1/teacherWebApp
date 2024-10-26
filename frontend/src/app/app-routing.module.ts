@@ -8,10 +8,12 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { LoginComponent } from './login/login.component';
 // Auth guard protects routes with authentication
 import { AuthGuard } from './auth.guard';
+import { KahootGeneratorComponent } from './kahoot-generator/kahoot-generator.component';
 
 const routes: Routes = [
   { path: 'lesson-plan', component: LessonPlanComponent, canActivate: [AuthGuard] },
   { path: 'test-creator', component: TestCreatorComponent, canActivate: [AuthGuard] },
+  { path: 'kahoot', component: KahootGeneratorComponent, canActivate: [AuthGuard]},
   { path: 'home', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
   { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },

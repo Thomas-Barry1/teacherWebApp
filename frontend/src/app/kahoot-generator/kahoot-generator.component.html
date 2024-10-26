@@ -1,0 +1,42 @@
+<mat-card>
+  <h2>Generate Kahoot</h2>
+  <form [formGroup]="kahootForm" (ngSubmit)="generateKahoot()">
+    <mat-form-field appearance="fill">
+      <mat-label>Topic</mat-label>
+      <input matInput formControlName="topic" />
+    </mat-form-field>
+
+    <!-- Pass the FormGroup to the child component -->
+    <app-form-options
+      [parentFormGroup]="kahootForm"
+      [showQuestionTypes]="false"
+    ></app-form-options>
+
+    <button mat-raised-button color="primary" type="submit">
+      Generate Kahoot
+    </button>
+  </form>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Generating kahoot, please wait...</p>
+  </div>
+
+  <h2 *ngIf="!loading && kahoot">Generated Kahoot</h2>
+
+  <div *ngIf="!loading && kahoot" id="kahoot-content">
+    <div [innerHTML]="kahoot" #dataToExport></div>
+    <div *ngIf="kahoot">
+      <app-print-button
+        [contentToPrint]="kahootString"
+        [kahootContent]="parsedQuestions"
+        [enablePdf]="false"
+        [enableTextFile]="false"
+        [enableClipboard]="false"
+        [enableKahoot]="true"
+        [textElement]="dataToExport"
+      >
+      </app-print-button>
+    </div>
+  </div>
+</mat-card>

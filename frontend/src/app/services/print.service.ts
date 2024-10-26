@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as FileSaver from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,26 @@ export class PrintService {
   //   };
   // }
     }
-    }
+  }
+
+  data = [
+    { name: 'John', age: 30 },
+    { name: 'Mary', age: 25 }
+  ];
+
+  printCsv(content: any[]){
+    this.generateCsv(content);
+  }
+
+  generateCsv(data: any[], filename: string = 'kahoot.csv'): void {
+    const csvData = this.convertToCsv(data);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+    FileSaver.saveAs(blob, filename);
+  }
+
+  private convertToCsv(data: any[]): string {
+    const headers = Object.keys(data[0]).join(',');
+    const rows = data.map(row => Object.values(row).join(',')).join('\n');
+    return headers + '\n' + rows;
+  }
 }

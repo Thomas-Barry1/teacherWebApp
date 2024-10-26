@@ -10,9 +10,11 @@ import { saveAs } from 'file-saver';
 })
 export class PrintButtonComponent {
   @Input() contentToPrint: string = '';
+  @Input() kahootContent: any[] = [];
   @Input() enablePdf: boolean = true;
   @Input() enableTextFile: boolean = false;
   @Input() enableClipboard: boolean = false;
+  @Input() enableKahoot: boolean = false;
   // The id of element to copy
   @Input() textElement!: ElementRef | HTMLElement;
 
@@ -40,6 +42,10 @@ export class PrintButtonComponent {
     //     printWindow.close();
     //   };
     // }
+  }
+
+  saveAsCsv() {
+    this.printService.printCsv(this.kahootContent);
   }
 
   saveAsTextFile() {
