@@ -22,7 +22,21 @@
     <p>Generating kahoot, please wait...</p>
   </div>
 
-  <h2 *ngIf="!loading && kahoot">Generated Kahoot</h2>
+  <div *ngIf="!loading && kahoot" id="info">
+    <h2>Generated Kahoot</h2>
+    <p>
+      Some of the AI generated answers might be greater than 75 characters,
+      Kahoot will verify when you import.
+    </p>
+    <p>
+      How to import a
+      <a
+        href="https://support.kahoot.com/hc/en-us/articles/115002812547-How-to-import-questions-from-a-spreadsheet-to-your-kahoot"
+        >spreadsheet</a
+      >
+      into kahoot.
+    </p>
+  </div>
 
   <div *ngIf="!loading && kahoot" id="kahoot-content">
     <div [innerHTML]="kahoot" #dataToExport></div>

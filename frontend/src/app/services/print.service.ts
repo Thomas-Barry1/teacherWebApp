@@ -43,7 +43,6 @@ export class PrintService {
   public exportAsExcelFile(parsedQuestions: any[], excelFileName: string): void {
     // Define custom headers
   const headers = [
-    "QuestionNumbers", 
     "Question - max 120 characters", 
     "Answer 1 - max 75 characters", 
     "Answer 2 - max 75 characters", 
@@ -57,7 +56,6 @@ export class PrintService {
   const dataWithHeaders = [
     headers, // Custom headers row
     ...parsedQuestions.map(q => [
-      q.questionNumber,
       q.question,
       q.answer1,
       q.answer2,

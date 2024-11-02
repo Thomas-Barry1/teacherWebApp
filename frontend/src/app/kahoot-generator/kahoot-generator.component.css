@@ -16,6 +16,11 @@ mat-card {
   h2 {
     color: #3f51b5;
   }
+
+  #info {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+  }
   
   .loading-container {
     display: flex;

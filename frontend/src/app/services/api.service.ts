@@ -14,8 +14,8 @@ import { Observable } from 'rxjs';
 
 export class ApiService {
   // API Url, switch these around to do local or production environments
-  // private apiUrl = 'https://teach.webexpansions.com/api';
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://teach.webexpansions.com/api';
+  // private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) { }
 

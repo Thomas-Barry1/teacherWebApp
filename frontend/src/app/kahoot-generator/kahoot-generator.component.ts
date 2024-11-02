@@ -77,7 +77,6 @@ export class KahootGeneratorComponent {
     console.log("Sections: ", sections);
 
     let count = 1; // Help keep track of which line you're on
-    let questionNumber = 1; // Keep track of question number
     let question = "";
     let answer1: string | null = "";
     let answer2: string | null = "";
@@ -216,7 +215,6 @@ export class KahootGeneratorComponent {
       //   object.set("QuestionNumbers", questionNumber);
       //   object["QuestionNumbers"] = questionNumber;
         parsedQuestions.push({
-          questionNumber,
           question,
           answer1,
           answer2,
@@ -225,8 +223,6 @@ export class KahootGeneratorComponent {
           timeLimitStr,
           correctAnswerStr
         });
-
-        questionNumber += 1;
     });
 
     return parsedQuestions;

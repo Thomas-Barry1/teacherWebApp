@@ -9,8 +9,12 @@ This is a web application designed to help teachers and students by harnessing t
 - [x] Add more search filtering/critertia.
   - [x] Grade level, state, standards.
 - [x] Add back answer key, test creator
-- [ ] Upgrade to higher version of gemini
+- [x] Upgrade to higher version of gemini
 - [x] Fix copy to clipboard
+- [ ] Implement kahoot
+- [ ] Implement CI/CD
+- [ ] Fix bug where printing is lost when you switch between pages
+- [ ] Make saving to pdf easier
 - [ ] Implement an option for the state, and fix wording of common standards
 - [ ] On home page, have the features appear one after the other on smaller screens
 - [ ] Trademark "teachgenie".

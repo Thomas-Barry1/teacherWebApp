@@ -22,8 +22,6 @@
     <p>Generating test, please wait...</p>
   </div>
 
-  <h2 *ngIf="!loading && test">Generated Test</h2>
-
   <div *ngIf="!loading && test" id="test-content">
     <div [innerHTML]="test" #dataToExport></div>
     <div *ngIf="test">
