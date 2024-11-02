@@ -28,6 +28,11 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/test`, topic);
   }
 
+  generateKahoot(topic: any): Observable<any> {
+    // console.log("AI formdata: ", topic);
+    return this.http.post<any>(`${this.apiUrl}/kahoot`, topic);
+  }
+
   generateActivities(topic: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/activities`, topic);
   }

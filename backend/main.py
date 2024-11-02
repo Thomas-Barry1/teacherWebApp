@@ -45,6 +45,15 @@ async def test(request: FormRequest):
     test = await generate_test(request)
     return {"test": test}
 
+@app.post("/api/kahoot")
+async def test(request: FormRequest):
+    # data = await request.json()
+    # concept = data.get('concept')
+    print("Made it to Kahoot")
+    print("KahootRequest ", request)
+    kahoot = await generate_kahoot(request)
+    return {"kahoot": kahoot}
+
 @app.post("/api/activities")
 async def activities(request: FormRequest):
     # data = await request.json()
@@ -169,6 +178,46 @@ async def generate_test(request: FormRequest):
                 prompt += f" Very important the length of the reading passage should be at least 200 words and 100 times the grade level."
             else:
                 prompt += " Very important the length of the reading passage should be at least 200 words and make it longer depending on the other criteria."
+    if request.state:
+        prompt += f" Focus response using standards from this state: {request.state}."
+    print("Prompt: ", prompt)
+    response = model.generate_content(prompt)
+    print("Test response: ", response)
+    # Only iterate 5 or more times if a bad response is received
+    numIterations = 0
+    isValidResp = False
+    while not isValidResp and numIterations < 5:
+        try:
+            response.text
+            isValidResp = True
+        except:
+            numIterations += 1
+            print("Regenerate response")
+            response = model.generate_content(prompt)
+            print("Test response: ", response)
+    if numIterations == 5:
+        returnResp = "Error in AI response, try again or change request."
+    else:
+        returnResp = response.text
+    return returnResp
+
+async def generate_kahoot(request: FormRequest):
+    # Construct the prompt based on user input
+    prompt = f"Write questions for a kahoot-style quiz on the topic '{request.topic}'. Generate a quiz with the following format: Question #: (Time: # seconds)\nQuestion?\n1. Choice1\n2. Choice2\n3. Choice3\n4. Choice4\nCorrect answer: #. Each question should have a maximum of 120 characters. Provide exactly 4 possible answers for each question, each answer should be a maximum of 75 characters. Specify the correct answer(s) using the numeric identifiers (e.g., 1 for the first answer, 2 for the second answer, etc.). Include a time limit for each question, from these values: 5, 10, 20, 30, 60, 90, 120, or 240 seconds."
+    if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
+        prompt += f" Include {request.numberOfQuestions} questions."
+
+    if request.gradeLevel:
+        prompt += f" Grade Level: {request.gradeLevel}."
+
+    if request.commonCoreStandards:
+        prompt += f" Common Core Standards: {request.commonCoreStandards}."
+
+    if request.skills:
+        prompt += f" Focus on skills: {request.skills}."
+
+    # if request.questionType and (type(request.questionType) is not type((Form(None),))):
+    #     prompt += f" Have the questions be multiple choice."
     if request.state:
         prompt += f" Focus response using standards from this state: {request.state}."
     print("Prompt: ", prompt)

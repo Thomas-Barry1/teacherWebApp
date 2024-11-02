@@ -34,6 +34,7 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { PrintButtonComponent } from './shared/print-button/print-button.component';
 import { FormOptionsComponent } from './shared/form-options/form-options.component';
 import { LoginComponent } from './login/login.component';
+import { KahootGeneratorComponent } from './kahoot-generator/kahoot-generator.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -44,7 +45,8 @@ import { LoginComponent } from './login/login.component';
         AboutComponent,
         ActivitiesComponent,
         PrintButtonComponent,
-        FormOptionsComponent
+        FormOptionsComponent,
+        KahootGeneratorComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

@@ -23,9 +23,7 @@
     <p>Generating lesson plan, please wait...</p>
   </div>
 
-  <h2 *ngIf="!loading && lessonPlan">Generated Lesson Plan</h2>
-
-  <div *ngIf="!loading && lessonPlan">
+  <div *ngIf="!loading && lessonPlan" id="lesson-plan">
     <div [innerHTML]="lessonPlan" #dataToExport></div>
     <app-print-button
       [contentToPrint]="lessonString"

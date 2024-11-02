@@ -23,9 +23,7 @@
     <p>Generating activities, please wait...</p>
   </div>
 
-  <h2 *ngIf="!loading && activities">Generated activities Plan</h2>
-
-  <div *ngIf="!loading && activities">
+  <div *ngIf="!loading && activities" id="activities">
     <div [innerHTML]="activities" #dataToExport></div>
     <app-print-button
       [contentToPrint]="activitiesString"

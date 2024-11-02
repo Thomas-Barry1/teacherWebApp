@@ -12,6 +12,7 @@
   .header h1 {
     font-size: 2.5em;
     margin-bottom: 30px;
+    line-height: 1.3em;
   }
   
   .header p {
@@ -45,12 +46,28 @@
     flex: 1 1 auto;
   }
 
-  @media only screen and (max-width: 600px) {
-    .feature-list {
-      flex-direction: column;
-    }
-    .feature-item {
-      margin-bottom: 30px;
-    }
+/**************************************************************************** 
+Responsiveness
+ ****************************************************************************/
+  
+
+ @media only screen and (max-width: 600px) {
+  .feature-list {
+    flex-direction: column;
+    align-items: center;
   }
+  .feature-item {
+    margin-bottom: 30px;
+  }
+
+  .header h1 {
+    font-size: 1.7em;
+    font-weight: 500;
+  }
+
+  .home-card {
+    margin: auto;
+    padding: auto;
+  }
+}
   

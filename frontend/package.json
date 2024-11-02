@@ -27,8 +27,10 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "moment": "^2.30.1",
+    "node": "^22.9.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.7"
   },
   "devDependencies": {
@@ -43,6 +45,8 @@
     "@types/jspdf": "^2.0.0",
     "@types/marked": "^6.0.0",
     "@types/moment": "^2.13.0",
+    "@types/node": "^22.7.5",
+    "@types/xlsx": "^0.0.35",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
