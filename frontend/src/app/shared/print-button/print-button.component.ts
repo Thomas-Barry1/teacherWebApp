@@ -45,7 +45,7 @@ export class PrintButtonComponent {
   }
 
   saveAsCsv() {
-    this.printService.printCsv(this.kahootContent);
+    this.printService.exportAsExcelFile(this.kahootContent, "kahoot");
   }
 
   saveAsTextFile() {

@@ -72,72 +72,161 @@ export class KahootGeneratorComponent {
     const parsedQuestions: any[] = [];
     
     // Split the AI response by double new lines to separate questions
-    const sections = response.trim().replaceAll("**", "").replaceAll("-", "").split('\n\n');
+    const sections = response.trim().replaceAll("**", "").replaceAll("", "").split('\n\n');
 
     console.log("Sections: ", sections);
 
-    let count = 0;
+    let count = 1; // Help keep track of which line you're on
+    let questionNumber = 1; // Keep track of question number
     let question = "";
     let answer1: string | null = "";
     let answer2: string | null = "";
     let answer3: string | null = "";
     let answer4: string | null = "";
-    let timeLimit: number | null = 0;
+    let timeLimit: number | null = -1;
+    let correctAnswer: number | null = -1;
     sections.forEach(section => {
-      // Help keep track of which line you're on
-      count += 1;
+      console.log("Section Count in KahootComponent: ", count);
 
       // Split each section into individual lines
       const lines = section.split('\n').map(line => line.trim());
       console.log("Lines: ", lines);
 
+      if(lines.length === 7){
+        timeLimit = this.extractTimeLimit(lines[0])
+        console.log("Time Limit: ", timeLimit);
+        question = lines[1];
+        console.log("Question: ", question);
+        answer1 = this.extractPossibleAnswer(lines[2]);
+        console.log("Answer1: ", answer1);
+        answer2 = this.extractPossibleAnswer(lines[3]);
+        console.log("Answer2: ", answer2);
+        answer3 = this.extractPossibleAnswer(lines[4]);
+        console.log("Answer3: ", answer3);
+        answer4 = this.extractPossibleAnswer(lines[5]);
+        console.log("Answer4: ", answer4);
+        correctAnswer = this.extractCorrectAnswer(lines[6]);
+        console.log("Correct Answer: ", correctAnswer);
+        count = 6;
+      }
+
       if (count === 1){
+        // Used to skip the first line which is the title
         console.log("Count = 1");
+        count = 2;
         return;
       } else if(count === 2) {
-        timeLimit = this.extractTimeLimit(lines[0]);
-        console.log("Time limit: ", timeLimit);
+        if (lines.length === 6){
+          timeLimit = this.extractTimeLimit(lines[0])
+          console.log("Time Limit: ", timeLimit);
+          question = lines[1];
+          console.log("Question: ", question);
+          answer1 = this.extractPossibleAnswer(lines[2]);
+          console.log("Answer1: ", answer1);
+          answer2 = this.extractPossibleAnswer(lines[3]);
+          console.log("Answer2: ", answer2);
+          answer3 = this.extractPossibleAnswer(lines[4]);
+          console.log("Answer3: ", answer3);
+          answer4 = this.extractPossibleAnswer(lines[5]);
+          console.log("Answer4: ", answer4);
+          count = 5; // Skip the next few counts to get the correct answer
+        }else if(lines.length === 2) {
+          timeLimit = this.extractTimeLimit(lines[0])
+          console.log("Time Limit: ", timeLimit);
+          question = lines[1];
+          console.log("Question: ", question);
+          count = 4; // Skip the next count to get the possible answers
+        }else{
+          timeLimit = this.extractTimeLimit(lines[0])
+          console.log("Time Limit: ", timeLimit);
+          count += 1;
+        }
+        if (timeLimit === -1){ // Bad input given, reset to first line
+          count = 2;
+        }
         return;
       } else if (count == 3){
-        if (lines.length >= 2){
-          question = lines[0];
-          answer1 = this.extractPossibleAnswer(lines[1]);
-          answer2 = this.extractPossibleAnswer(lines[2]);
-          answer3 = this.extractPossibleAnswer(lines[3]);
-          answer4 = this.extractPossibleAnswer(lines[4]);
-          count += 1; // Skip the next count
-        }else {
+        if(lines.length >= 5){
           question = lines[0];
           console.log("Question: ", question);
+          answer1 = this.extractPossibleAnswer(lines[1]);
+          console.log("Answer1: ", answer1);
+          answer2 = this.extractPossibleAnswer(lines[2]);
+          console.log("Answer2: ", answer2);
+          answer3 = this.extractPossibleAnswer(lines[3]);
+          console.log("Answer3: ", answer3);
+          answer4 = this.extractPossibleAnswer(lines[4]);
+          console.log("Answer4: ", answer4);
+
+          if(lines.length >= 6){ // the last line is the correct answer
+            correctAnswer = this.extractCorrectAnswer(lines[5]);
+            console.log("Correct Answer: ", correctAnswer);
+            count = 6; // Skip the next 2 counts to add the responses
+          }else{
+            count = 5; // Skip the next count to get correct answer
+          }
+        }else{
+          question = lines[0];
+          console.log("Question: ", question);
+          count += 1;
         }
         return;
       }else if(count === 4) {
-        // Check if the section has at least 2 lines
-        if (lines.length >= 5) {
-          question = lines[0];
-          answer1 = this.extractPossibleAnswer(lines[1]);
-          answer2 = this.extractPossibleAnswer(lines[2]);
-          answer3 = this.extractPossibleAnswer(lines[3]);
-          answer4 = this.extractPossibleAnswer(lines[4]);
-        }else {
-          answer1 = this.extractPossibleAnswer(lines[0]);
-          answer2 = this.extractPossibleAnswer(lines[1]);
-          answer3 = this.extractPossibleAnswer(lines[2]);
-          answer4 = this.extractPossibleAnswer(lines[3]);
+        // Extract all the possbile answers
+        answer1 = this.extractPossibleAnswer(lines[0]);
+        console.log("Answer1: ", answer1);
+        answer2 = this.extractPossibleAnswer(lines[1]);
+        console.log("Answer2: ", answer2);
+        answer3 = this.extractPossibleAnswer(lines[2]);
+        console.log("Answer3: ", answer3);
+        answer4 = this.extractPossibleAnswer(lines[3]);
+        console.log("Answer4: ", answer4);
+        count += 1;
+
+        if(answer1 === null){ // Bad input given, reset to first line
+          count = 2;
         }
         return;
+      }else if(count === 5) {
+        correctAnswer = this.extractCorrectAnswer(lines[0]);
+        console.log("Correct Answer: ", correctAnswer);
       }
-      count = 2; // Reset since the next option will be the time limit
 
-        // Push the parsed question into the array
+      count = 2 // Reset to first line count
+      let correctAnswerStr = correctAnswer + "";
+      let timeLimitStr = timeLimit + "";
+      if(correctAnswerStr === "-1" || answer1 === null || answer2 === null || 
+        answer3 === null || question === null
+      ){
+        return; // Don't add bad values to the kahoot Excel sheet
+      }
+
+      // Need the names to be specific for Kahoot to parse them correctly
+      // let QuestionNumbers = questionNumber;
+      // let question = "";
+      // let answer1: string | null = "";
+      // let answer2: string | null = "";
+      // let answer3: string | null = "";
+      // let answer4: string | null = "";
+      // let timeLimit: number | null = -1;
+      // let correctAnswer: number | null = -1;
+
+      //   // Push the parsed question into the array
+      //   let object = {};
+      //   object.set("QuestionNumbers", questionNumber);
+      //   object["QuestionNumbers"] = questionNumber;
         parsedQuestions.push({
+          questionNumber,
           question,
           answer1,
           answer2,
           answer3,
           answer4,
-          timeLimit,
+          timeLimitStr,
+          correctAnswerStr
         });
+
+        questionNumber += 1;
     });
 
     return parsedQuestions;
@@ -145,32 +234,34 @@ export class KahootGeneratorComponent {
 
   // Helper method to extract time limit from the question string
   extractTimeLimit(questionString: string): number | null {
-    let timeLimitMatch = questionString.match(/\(Time: (\d+) seconds\)/);
+    let timeLimitMatch = questionString.match(/\(.* (\d+) seconds/);
+    console.log("TimeLimitMatch: ", timeLimitMatch)
     
     if (timeLimitMatch && timeLimitMatch[1]) {
       return parseInt(timeLimitMatch[1], 10); // Convert matched time limit to an integer
     }else {
-      let timeLimitMatch = questionString.match(/\(Time Limit: (\d+) seconds\)/);
+      let timeLimitMatch = questionString.match(/\(Time [Ll]imit: (\d+) seconds\)/);
       if (timeLimitMatch && timeLimitMatch[1]) {
         return parseInt(timeLimitMatch[1], 10); // Convert matched time limit to an integer
-      return -1
+      }
     }
+    return -1
   }
 
   // Helper method to extract answer from the question string
-  extractQuestion(questionString: string): number | null {
-    const answerMatch = questionString.match(/\(Question (\d+): (\d+)\)/);
+  extractQuestion(questionString: string): string | null {
+    const answerMatch = questionString.match(/\(Question \d+: .*/);
     
     if (answerMatch && answerMatch[1]) {
-      return parseInt(answerMatch[1], 10); // Convert matched time limit to an integer
+      return answerMatch[1]; // Convert matched time limit to an integer
     }else {
-      return -1
+      return null
     }
   }
 
   // Helper method to extract answer from the question string
   extractCorrectAnswer(questionString: string): number | null {
-    const answerMatch = questionString.match(/\(Correct Answer: (\d+)\)/);
+    const answerMatch = questionString.match(/Correct .*: (\d)+/);
     
     if (answerMatch && answerMatch[1]) {
       return parseInt(answerMatch[1], 10); // Convert matched time limit to an integer
@@ -181,13 +272,13 @@ export class KahootGeneratorComponent {
 
   // Helper method to extract possible answer from the question string
   extractPossibleAnswer(questionString: string): string | null {
-    const answerMatch = questionString.split(" ");
+    const answerMatch = questionString.match(/^\d+\.\s*(.*)/);
     
     if (answerMatch && answerMatch[1]) {
-      return answerMatch[1]; // Convert matched time limit to an integer
-    }else {
-      return ""
+      return answerMatch[1].trim(); // Return the captured answer text without leading/trailing spaces
     }
+    
+    return null; // Return null if format is not as expected
   }
 
 

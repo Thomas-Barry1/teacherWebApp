@@ -203,7 +203,7 @@ async def generate_test(request: FormRequest):
 
 async def generate_kahoot(request: FormRequest):
     # Construct the prompt based on user input
-    prompt = f"Write questions for a kahoot-style quiz on the topic '{request.topic}'. Generate a quiz with the following format: Each question should have a maximum of 120 characters. Provide exactly 4 possible answers for each question, each answer should be a maximum of 75 characters. Specify the correct answer(s) using the numeric identifiers (e.g., 1 for the first answer, 2 for the second answer, etc.). Include a time limit for each question, which should be one of these values: 5, 10, 20, 30, 60, 90, 120, or 240 seconds."
+    prompt = f"Write questions for a kahoot-style quiz on the topic '{request.topic}'. Generate a quiz with the following format: Question #: (Time: # seconds)\nQuestion?\n1. Choice1\n2. Choice2\n3. Choice3\n4. Choice4\nCorrect answer: #. Each question should have a maximum of 120 characters. Provide exactly 4 possible answers for each question, each answer should be a maximum of 75 characters. Specify the correct answer(s) using the numeric identifiers (e.g., 1 for the first answer, 2 for the second answer, etc.). Include a time limit for each question, from these values: 5, 10, 20, 30, 60, 90, 120, or 240 seconds."
     if request.numberOfQuestions and (type(request.numberOfQuestions) is not type((Form(None),))):
         prompt += f" Include {request.numberOfQuestions} questions."
 

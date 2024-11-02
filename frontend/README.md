@@ -6,9 +6,11 @@ And added upon by team.
 
 ## TODO:
 
-- Implement OnPush Change Detection Strategy in components for efficiency
-- Implement lazy loading of component for speed
-- Put download google icons next to print/save icons
+- [ ] Find minimum amount to pass Kahoot into Kahoot
+- [ ] Create kahoot generator for that
+- [ ] Implement OnPush Change Detection Strategy in components for efficiency
+- [ ] Implement lazy loading of component for speed
+- [ ]Put download google icons next to print/save icons
 
 ### How to add new npm modules to use in components
 

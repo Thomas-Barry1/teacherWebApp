@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable({
   providedIn: 'root'
@@ -35,19 +39,62 @@ export class PrintService {
     { name: 'Mary', age: 25 }
   ];
 
-  printCsv(content: any[]){
-    this.generateCsv(content);
+
+  public exportAsExcelFile(parsedQuestions: any[], excelFileName: string): void {
+    // Define custom headers
+  const headers = [
+    "QuestionNumbers", 
+    "Question - max 120 characters", 
+    "Answer 1 - max 75 characters", 
+    "Answer 2 - max 75 characters", 
+    "Answer 3 - max 75 characters", 
+    "Answer 4 - max 75 characters", 
+    "Time limit (sec) – 5, 10, 20, 30, 60, 90, 120, or 240 secs", 
+    "Correct answer(s) - choose at least one"
+  ];
+
+  // Convert parsedQuestions to JSON, with headers as the first row
+  const dataWithHeaders = [
+    headers, // Custom headers row
+    ...parsedQuestions.map(q => [
+      q.questionNumber,
+      q.question,
+      q.answer1,
+      q.answer2,
+      q.answer3,
+      q.answer4,
+      q.timeLimitStr,
+      q.correctAnswerStr
+    ])
+  ];
+
+    // Create worksheet and workbook
+    const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(dataWithHeaders);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+    // Generate and save Excel file
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
-  generateCsv(data: any[], filename: string = 'kahoot.csv'): void {
-    const csvData = this.convertToCsv(data);
-    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
-    FileSaver.saveAs(blob, filename);
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
-  private convertToCsv(data: any[]): string {
-    const headers = Object.keys(data[0]).join(',');
-    const rows = data.map(row => Object.values(row).join(',')).join('\n');
-    return headers + '\n' + rows;
-  }
+  // printCsv(content: any[]){
+  //   this.generateCsv(content);
+  // }
+
+  // generateCsv(data: any[], filename: string = 'kahoot.xlsx'): void {
+  //   const csvData = this.convertToCsv(data);
+  //   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+  //   FileSaver.saveAs(blob, filename);
+  // }
+
+  // private convertToCsv(data: any[]): string {
+  //   const headers = Object.keys(data[0]).join(',');
+  //   const rows = data.map(row => Object.values(row).join(',')).join('\n');
+  //   return headers + '\n' + rows;
+  // }
 }
