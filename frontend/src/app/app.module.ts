@@ -19,6 +19,11 @@ import { MatOption } from '@angular/material/core';
 import { MatSelectionList } from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 
+// From primeng
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+
 // Google auth
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
@@ -67,6 +72,10 @@ import { KahootGeneratorComponent } from './kahoot-generator/kahoot-generator.co
         MatListModule,
         BrowserModule,
         SocialLoginModule,
+        // Primeng
+        CarouselModule,
+        ButtonModule,
+        TagModule,
         LoginComponent], providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync(),
             {
                 provide: 'SocialAuthServiceConfig',
