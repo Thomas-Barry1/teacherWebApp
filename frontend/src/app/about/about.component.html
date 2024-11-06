@@ -29,18 +29,4 @@
       <li>Access 24/7 AI assistance for instant support.</li>
     </ul>
   </div>
-  <div class="testimonials">
-    <h2>What Teachers Say</h2>
-    <div class="testimonial-list" @staggeredFadeIn>
-      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center">
-        <mat-card
-          *ngFor="let testimonial of testimonials"
-          class="testimonial-item mat-elevation-z4"
-        >
-          <p>"{{ testimonial.message }}"</p>
-          <h4>- {{ testimonial.name }}, {{ testimonial.position }}</h4>
-        </mat-card>
-      </div>
-    </div>
-  </div>
 </mat-card>

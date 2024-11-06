@@ -18,6 +18,10 @@ And added upon by team.
 - Run this to make accessible in files: `npm install -D @types/module`
 - Run this command if you want to save the module as dependency: `npm install module`
 
+### Installed Libraries:
+
+- [Primeng](https://primeng.org/installation)
+
 ## Common errors and their solutions:
 
 - Error: "js was blocked because of a disallowed MIME type (“text/html”)."
