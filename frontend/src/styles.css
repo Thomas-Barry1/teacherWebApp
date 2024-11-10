@@ -8,6 +8,14 @@
 @import "primeng/resources/primeng.css";
 
 
+/* Primary colors for application */
+
+:root{
+    --color-primary: #ff4081;
+    --color-secondary: #3f51b5;
+}
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* src/styles.css */
