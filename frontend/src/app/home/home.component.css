@@ -1,60 +1,145 @@
-mat-sidenav-container {
-    height: 100%;
-    /* width: 33%; */
+/* Reset styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
-mat-sidenav {
-  min-width: 20%;
-}
+  /************************************************
+  Navbar
+  ************************************************/
+  .nav-spacer {
+    flex: 1 1 auto;
+  }
   
-  /* mat-toolbar {
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #007bff;
+    padding: 10px 20px;
+    color: #ffffff;
     position: sticky;
-    top: 0;
-    z-index: 1;
-  } */
-
-  img {
-    height: 35px; /* Adjust the height as needed */
-    margin-right: 10px; /* Space between the logo and the title */
-    vertical-align: middle; /* Align vertically with text */
-    border-radius: 30%;
+    top: 0px;
+    z-index: 1000;
   }
   
-  .content {
-    margin: 20px;
+  .navbar-brand {
+    display: flex;
+    align-items: center;
   }
   
-  .active-link {
+  .navbar-brand img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .navbar-brand span {
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #3f51b5;
+  }
+  
+  .hamburger {
+    display: none;
+    /* flex-direction: column;
+    justify-content: space-between; */
+    /* width: 25px;
+    height: 18px; */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    display: block;
+    height: 3px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+  }
+  
+  /* Navigation Links */
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  
+  nav ul li {
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #cce7ff;
   }
 
-  @media only screen and (max-width: 600px) {
-    mat-sidenav {
-      min-width: 35%;
-      max-width: 45%;
+  .menu-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-item mat-icon {
+    margin-right: .1em;
+}
+
+/* mat-divider {
+    margin: 20px;
+}
+
+nav .profile {
+
+} */
+  
+  /* Responsive Styles */
+  @media (max-width: 972px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .navbar{
+        flex-direction: column;
+        align-items: normal;
+    }
+
+    .nav-spacer {
+        flex: 1 1 auto;
+      }
+
+    .first-row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+  
+    nav ul {
+      /* position: sticky; */
+      /* top: 60px; */
+      /* left: 0; */
+      width: 100%;
+      background-color: #007bff;
+      flex-direction: column;
+      /* align-items: center; */
+      /* display: block; */
+      padding: 20px 0;
+    }
+  
+    nav ul.hidden {
+      /* display: flex; */
+      display: none;
+    }
+  
+    ul li {
+      margin: 10px 0;
+    }
+
+    .menu-item mat-icon {
+        margin-right: .4em;
     }
   }
-
-.angular-theme {
-    background-color: #f0f0f0; /* Change to your desired color */
-    color: #333; /* Optional: Set a text color that contrasts well with the background */
-    margin: 0; /* Remove default margin */
-    font-family: Arial, sans-serif; /* Optional: Set a global font */
-  }
-
-/* For logged in profile styling */
-mat-list-item h4 {
-  display: inline;
-}
-
-/* Use CSS to ensure that both the icon and text are aligned in the center of the mat-list-item */
-.menu-item {
-  display: flex;
-  align-items: center;
-}
-
-.menu-item mat-icon {
-  margin-right: 8px; /* Add space between icon and text */
-}
-
+  
