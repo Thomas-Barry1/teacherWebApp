@@ -51,10 +51,11 @@
     cursor: pointer;
   }
   
-  .hamburger span {
+  .hamburger mat-icon {
     display: block;
-    height: 3px;
-    background-color: #ffffff;
+    /* height: 3px; */
+    /* background-color: #ffffff; */
+    color: #0b0b0f;
     transition: all 0.3s ease;
   }
   
