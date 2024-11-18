@@ -15,6 +15,12 @@ export class HomeComponent implements OnInit{
 
   constructor( private authService: AuthService) {}
 
+  isMenuOpen: boolean = true;
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   ngOnInit(): void {
     // Subscribe to the user observable from AuthService
     this.authService.user$.subscribe(user => {

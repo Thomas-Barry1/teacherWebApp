@@ -1,49 +1,74 @@
-<mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" opened>
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/home" routerLinkActive="active-link"
-        ><div class="menu-item">
+<!-- <mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened> -->
+<nav class="navbar">
+  <div class="first-row">
+    <!-- Logo and Site Name -->
+    <div class="navbar-brand">
+      <img src="assets/Logo.png" alt="Logo" class="logo" />
+      <span>TeachGenie</span>
+    </div>
+
+    <span class="navbar-spacer"></span>
+
+    <!-- Hamburger Menu Button -->
+    <button class="hamburger" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <!-- Navigation Links -->
+  <ul [class.hidden]="isMenuOpen">
+    <li>
+      <a routerLink="/home" routerLinkActive="active-link">
+        <div class="menu-item">
           <mat-icon
             aria-hidden="false"
             aria-label="Home icon"
             fontIcon="home"
           ></mat-icon>
           <span>Home</span>
-        </div></a
-      >
-      <!-- You can use custom icons by adding links to the svg: <mat-icon svgIcon="custom_icon"></mat-icon> -->
-      <a mat-list-item routerLink="/lesson-plan" routerLinkActive="active-link"
-        ><div class="menu-item">
+        </div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/lesson-plan" routerLinkActive="active-link">
+        <div class="menu-item">
           <mat-icon
             aria-hidden="false"
             aria-label="Lesson plan icon"
             fontIcon="history_edu"
           ></mat-icon>
           <span>Lesson Plan</span>
-        </div></a
-      >
-      <a mat-list-item routerLink="/test-creator" routerLinkActive="active-link"
-        ><div class="menu-item">
+        </div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/test-creator" routerLinkActive="active-link">
+        <div class="menu-item">
           <mat-icon
             aria-hidden="false"
             aria-label="Test creator icon"
             fontIcon="quiz"
           ></mat-icon>
           <span>Test Creator</span>
-        </div></a
-      >
-      <a mat-list-item routerLink="/kahoot" routerLinkActive="active-link"
-        ><div class="menu-item">
+        </div>
+      </a>
+    </li>
+    <li>
+      <!-- You can use custom icons by adding links to the svg: <mat-icon svgIcon="custom_icon"></mat-icon> -->
+      <a routerLink="/kahoot" routerLinkActive="active-link">
+        <div class="menu-item">
           <mat-icon
             aria-hidden="false"
             aria-label="Kahoot creator icon"
             fontIcon="extension"
           ></mat-icon>
           <span>Kahoot Generator</span>
-        </div></a
-      >
-      <a mat-list-item routerLink="/activities" routerLinkActive="active-link"
+        </div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/activities" routerLinkActive="active-link"
         ><div class="menu-item">
           <mat-icon
             aria-hidden="false"
@@ -53,7 +78,9 @@
           <span>Activities</span>
         </div></a
       >
-      <a mat-list-item routerLink="/about" routerLinkActive="active-link"
+    </li>
+    <li>
+      <a routerLink="/about" routerLinkActive="active-link"
         ><div class="menu-item">
           <mat-icon
             aria-hidden="false"
@@ -63,27 +90,32 @@
           <span>Mission</span>
         </div></a
       >
-      <mat-divider *ngIf="user"></mat-divider>
-      <!-- Divider for separation -->
+    </li>
+    <!-- <mat-divider [vertical]="isMenuOpen"></mat-divider>
+    <div class="profile" *ngIf="user">
+      <img [src]="user.photoUrl" alt="Profile picture" />
+      <h4>Welcome {{ user.name }}!</h4>
+    </div> -->
+  </ul>
+</nav>
 
-      <mat-list-item *ngIf="user">
-        <img [src]="user.photoUrl" alt="Profile picture" />
-        <h4>Welcome {{ user.name }}!</h4>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-sidenav>
+<!-- <mat-list-item *ngIf="user">
+      <img [src]="user.photoUrl" alt="Profile picture" />
+      <h4>Welcome {{ user.name }}!</h4>
+    </mat-list-item> -->
+<!-- </mat-sidenav> -->
 
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <img src="assets/Logo.png" alt="Logo" class="logo" />
-      <span>TeachGenie</span>
-    </mat-toolbar>
-    <div class="content">
-      <router-outlet></router-outlet>
-      <app-footer></app-footer>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<!-- <mat-sidenav-content> -->
+<!-- <mat-toolbar color="primary">
+  <button mat-icon-button (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img src="assets/Logo.png" alt="Logo" class="logo" />
+  <span>TeachGenie</span>
+</mat-toolbar> -->
+<div class="content">
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</div>
+<!-- </mat-sidenav-content> -->
+<!-- </mat-sidenav-container> -->

@@ -1,0 +1,50 @@
+  /************************************************
+  Navbar
+  ************************************************/
+  .nav-spacer {
+    flex: 1 1 auto;
+  }
+
+  nav .first-row {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 16px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    height: var(--mat-toolbar-standard-height);
+  }
+
+  .hamburger-menu {
+    visibility: hidden;
+  }
+
+  img {
+    height: 35px; /* Adjust the height as needed */
+    margin-right: 10px; /* Space between the logo and the title */
+    vertical-align: middle; /* Align vertically with text */
+    border-radius: 30%;
+  }
+  
+  .content {
+    margin: 20px;
+  }
+  
+  .active-link {
+    font-weight: bold;
+    color: #3f51b5;
+  }
+
+  @media only screen and (max-width: 768px) {
+
+  }
+
+.angular-theme {
+    background-color: #f0f0f0; /* Change to your desired color */
+    color: #333; /* Optional: Set a text color that contrasts well with the background */
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Optional: Set a global font */
+  }
+/* Use CSS to ensure that both the icon and text are aligned in the center of the mat-list-item */
+
