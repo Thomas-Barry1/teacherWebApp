@@ -1,4 +1,4 @@
-/* src/app/components/about/about.component.css */
+/* General styles */
 .about-card {
     margin: 20px;
     padding: 20px;
@@ -9,7 +9,8 @@
   
   .about-header {
     text-align: center;
-    margin-bottom: 20px;
+    width: 60%;
+    margin: 0 auto 1em auto;
     animation: fadeInDown 1s ease-in-out;
   }
   
@@ -22,13 +23,15 @@
   
   .about-header p {
     font-size: 1.2em;
-    margin-top: 4.5%;
+    line-height: 2.2;
+    margin: 4.5% auto 0% auto;
   }
   
   .about-content {
-    margin: 5% 1.5em;
     animation: fadeIn 1s ease-in-out;
     font-size: medium;
+    width: 90%;
+    margin: 5% auto 4em auto;
     /* color: #424242; */
   }
   
@@ -94,14 +97,19 @@
 
 /**************************************************************************** 
 Responsiveness
- ****************************************************************************/
+****************************************************************************/
   
 
  @media only screen and (max-width: 600px) {
-  .about-header h1 {
+    .about-header {
+        width: 90%;
+    }
+  
+    .about-header h1 {
     font-size: 1.7em;
     font-weight: 500;
   }
+
 
   .about-card {
     margin: auto;

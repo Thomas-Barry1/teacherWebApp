@@ -17,6 +17,7 @@ export class ActivitiesComponent {
   savedActivities: SafeHtml[] = [];
   loading: boolean = false;
   activitiesString: string = '';
+  editActivities: boolean = false;
 
   @ViewChild('dataToExport', { static: false })
   public dataToExport!: ElementRef;
@@ -51,10 +52,21 @@ export class ActivitiesComponent {
     });
   }
 
-  // saveActivities() {
-  //   if (this.activities) {
-  //     this.savedActivities.push(this.activities);
-  //     this.activities = '';
-  //   }
-  // }
+  // Method to handle user edits
+  async onContentChange(event: Event) {
+    this.editActivities = true;
+  }
+
+  saveActivities() {
+    this.editActivities = false;
+
+    const editedHtml = this.dataToExport.nativeElement.innerHTML
+     // TODO: sanitize updated HTML to ensure safety
+     this.activities = editedHtml;
+     this.stateService.setActivityData(editedHtml);
+
+     // Convert sanitized HTML to markdown
+     this.activitiesString = editedHtml.toString();
+     console.log("New activities string: ", this.activitiesString);
+  }
 }

@@ -36,7 +36,7 @@ export class KahootGeneratorComponent {
     });
 
     // Load existing data if available
-    this.kahoot = this.stateService.getTestData();
+    this.kahoot = this.stateService.getKahootData();
   }
 
   generateKahoot(): void {
@@ -58,7 +58,7 @@ export class KahootGeneratorComponent {
 
       this.kahoot = await this.markdownService.convert(response.kahoot);
       console.log("Test response: ", this.kahoot);
-      this.stateService.setTestData(this.kahoot);
+      this.stateService.setKahootData(this.kahoot);
       this.loading = false;
     }, error => {
       console.error('Error generating lesson plan', error);

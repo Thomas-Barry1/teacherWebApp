@@ -7,6 +7,7 @@ import { SafeHtml } from '@angular/platform-browser';
 // This service stores the state of values when switching between pages
 export class StateService {
   private testData: SafeHtml = '';
+  private kahootData: SafeHtml = '';
   private activityData: SafeHtml = '';
   private lessonPlanData: SafeHtml = '';
 
@@ -16,6 +17,14 @@ export class StateService {
 
   getTestData(): SafeHtml {
     return this.testData;
+  }
+
+  setKahootData(data: SafeHtml) {
+    this.kahootData = data;
+  }
+
+  getKahootData(): SafeHtml {
+    return this.kahootData;
   }
 
   setActivityData(data: SafeHtml) {

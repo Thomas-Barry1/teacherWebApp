@@ -91,11 +91,14 @@
         </div></a
       >
     </li>
-    <!-- <mat-divider [vertical]="isMenuOpen"></mat-divider>
+    <!-- <div class="profileWithDivide"> -->
+    <!-- <mat-divider [vertical]="true" class="vertical"></mat-divider>
+      <mat-divider [vertical]="false" class="horizontal"></mat-divider> -->
     <div class="profile" *ngIf="user">
       <img [src]="user.photoUrl" alt="Profile picture" />
-      <h4>Welcome {{ user.name }}!</h4>
-    </div> -->
+      <span>{{ user.name }}</span>
+    </div>
+    <!-- </div> -->
   </ul>
 </nav>
 
