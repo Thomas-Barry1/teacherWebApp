@@ -17,6 +17,7 @@ export class LessonPlanComponent {
   lessonPlan: SafeHtml = '';
   lessonString: string = '';
   loading: boolean = false;
+  editLessonPlan : boolean = false;
 
   @ViewChild('dataToExport', { static: false })
   public dataToExport!: ElementRef;
@@ -48,6 +49,24 @@ export class LessonPlanComponent {
       console.error('Error generating lesson plan', error);
       this.loading = false;
     });
+  }
+
+  // Method to handle user edits
+  async onContentChange(event: Event) {
+    this.editLessonPlan = true;
+  }
+
+  saveLessonPlan() {
+    this.editLessonPlan = false;
+
+    const editedHtml = this.dataToExport.nativeElement.innerHTML
+     // TODO: sanitize updated HTML to ensure safety
+     this.lessonPlan = editedHtml;
+     this.stateService.setLessonPlanData(editedHtml);
+
+     // Convert sanitized HTML to markdown
+     this.lessonString = editedHtml.toString();
+     console.log("New lesson plan string: ", this.lessonString);
   }
 }
 

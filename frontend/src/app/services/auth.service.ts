@@ -25,7 +25,7 @@ export class AuthService {
     private http: HttpClient,
     private apiService: ApiService) {}
 
-  init(returnUrl:string): void {
+  init(): void {
     // Get the return URL from query parameters (or set a default)
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.socialAuthService.authState.subscribe((user) => {

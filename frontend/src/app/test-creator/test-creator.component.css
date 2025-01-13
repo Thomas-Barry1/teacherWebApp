@@ -29,4 +29,21 @@ mat-card {
   #test-content{
     margin-top: 1.5em;
   }
+
+  div[contenteditable="true"] {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 100px;
+    outline: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  div[contenteditable="true"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .mx-2 {
+    margin: 10px;
+  }
   

@@ -24,7 +24,12 @@
   </div>
 
   <div *ngIf="!loading && lessonPlan" id="lesson-plan">
-    <div [innerHTML]="lessonPlan" #dataToExport></div>
+    <div
+      [innerHTML]="lessonPlan"
+      #dataToExport
+      contenteditable="true"
+      (input)="onContentChange($event)"
+    ></div>
     <app-print-button
       [contentToPrint]="lessonString"
       [enablePdf]="true"
@@ -33,5 +38,19 @@
       [textElement]="dataToExport"
     >
     </app-print-button>
+    <button
+      *ngIf="editLessonPlan"
+      mat-raised-button
+      color="primary"
+      (click)="saveLessonPlan()"
+      class="mx-2"
+    >
+      Save Edits to Lesson Plan
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Save icon"
+        fontIcon="save"
+      ></mat-icon>
+    </button>
   </div>
 </mat-card>

@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SocialAuthService, GoogleLoginProvider, SocialUser, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-// Google auth
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { SocialAuthService, SocialUser, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 
 //Auth service
 import { AuthService } from '../services/auth.service';
-
-
 
 @Component({
   selector: 'app-login',
@@ -26,8 +22,7 @@ export class LoginComponent implements OnInit{
   //URL of route that called this login component
   returnUrl: string = '';
 
-  constructor(private socialAuthService: SocialAuthService, 
-    private router: Router, 
+  constructor(
     private authService: AuthService,
     private route: ActivatedRoute) {}
 
@@ -39,7 +34,7 @@ export class LoginComponent implements OnInit{
       // console.log("Return URL: ", this.returnUrl);
       this.authService.returnUrl = this.returnUrl;
     });
-    this.authService.init(this.returnUrl);
+    this.authService.init();
   }
 
   signInWithGoogle(): void {

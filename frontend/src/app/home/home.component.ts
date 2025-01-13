@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,25 @@ export class HomeComponent implements OnInit{
 
   user: SocialUser | undefined;  // SocialUser is either an object or undefined
 
-  constructor( private authService: AuthService) {}
+  constructor( private authService: AuthService, private route: ActivatedRoute) {
+    // Subscribe to the user observable from AuthService
+    this.authService.user$.subscribe(user => {
+      // Get user info
+      console.log("Inside home component ngOninit subscribe");
+      this.user = user;  // Update the user information when it changes
+    });
+
+    // Initialize with the current user info if already logged in
+    console.log("Default in ngOnit");
+    this.user = this.authService.getUserInfo();
+    // Initialize auth service
+    this.route.url.subscribe((event) => {
+      console.log(event[0]); // It's an array remember [0]
+      console.log(event[0].path); // e.g. /products
+      // this.authService.init();
+      console.log(event[0].parameters); // e.g. { id: 'x8klP0' }
+    });
+  }
 
   isMenuOpen: boolean = true;
 
@@ -22,12 +41,5 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // Subscribe to the user observable from AuthService
-    this.authService.user$.subscribe(user => {
-      this.user = user;  // Update the user information when it changes
-    });
-
-    // Initialize with the current user info if already logged in
-    this.user = this.authService.getUserInfo();
   }
 }

@@ -23,7 +23,12 @@
   </div>
 
   <div *ngIf="!loading && test" id="test-content">
-    <div [innerHTML]="test" #dataToExport></div>
+    <div
+      [innerHTML]="test"
+      #dataToExport
+      contenteditable="true"
+      (input)="onContentChange($event)"
+    ></div>
     <div *ngIf="test">
       <app-print-button
         [contentToPrint]="testString"
@@ -33,6 +38,20 @@
         [textElement]="dataToExport"
       >
       </app-print-button>
+      <button
+        *ngIf="editTest"
+        mat-raised-button
+        color="primary"
+        (click)="saveTest()"
+        class="mx-2"
+      >
+        Save Edits to Test
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Save icon"
+          fontIcon="save"
+        ></mat-icon>
+      </button>
     </div>
   </div>
 </mat-card>

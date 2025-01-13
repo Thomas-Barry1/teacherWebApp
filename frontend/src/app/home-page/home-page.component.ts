@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -25,8 +27,11 @@ export class HomePageComponent implements OnInit{
 
     responsiveOptions: any[] | undefined;
 
-    constructor() {
+    constructor(private route: ActivatedRoute, private authService: AuthService) {
       this.products = this.testimonials;
+      if (!this.authService.getUserInfo()){
+        this.authService.init();
+      }
     }
 
     ngOnInit() {
@@ -52,6 +57,14 @@ export class HomePageComponent implements OnInit{
                 numScroll: 1
             }
         ];
+
+        // Used to initialize auth service and pass in the right path
+      this.route.url.subscribe(([url]) => {
+        const { path, parameters } = url;
+        console.log("About path: ", path); // e.g. /products
+        console.log(parameters); // e.g. { id: 'x8klP0' }
+        this.authService.returnUrl = path;
+      });
     }
 
     getSeverity(status: string) {

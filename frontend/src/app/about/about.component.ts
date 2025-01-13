@@ -1,6 +1,8 @@
 // src/app/components/about/about.component.ts
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-about',
@@ -38,5 +40,18 @@ import { trigger, style, animate, transition, query, stagger } from '@angular/an
   ]
 })
 export class AboutComponent{
-  
+  constructor(private route: ActivatedRoute, private authService: AuthService) {
+    if (!this.authService.getUserInfo()){
+      this.authService.init();
+    }
+  }
+
+  ngOnInit() {
+    this.route.url.subscribe(([url]) => {
+      const { path, parameters } = url;
+      console.log("About path: ", path); // e.g. /products
+      console.log(parameters); // e.g. { id: 'x8klP0' }
+      this.authService.returnUrl = path;
+    });
+  }
 }

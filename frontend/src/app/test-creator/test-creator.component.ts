@@ -23,6 +23,7 @@ export class TestCreatorComponent {
   test: SafeHtml = '';
   testString = ''
   loading: boolean = false;
+  editTest: boolean = false;
   questionTypes: string[] = [''];
 
   @ViewChild('dataToExport', { static: false })
@@ -61,8 +62,26 @@ export class TestCreatorComponent {
       this.stateService.setTestData(this.test);
       this.loading = false;
     }, error => {
-      console.error('Error generating lesson plan', error);
+      console.error('Error generating test', error);
       this.loading = false;
     });
   }
+
+  // Method to handle user edits
+  async onContentChange(event: Event) {
+    this.editTest = true;
+  }
+
+  saveTest() {
+    this.editTest = false;
+
+    const editedHtml = this.dataToExport.nativeElement.innerHTML
+    // TODO: sanitize updated HTML to ensure safety
+    this.test = editedHtml;
+    this.stateService.setTestData(editedHtml);
+
+    // Convert sanitized HTML to markdown
+    this.testString = editedHtml.toString();
+    console.log("New test string: ", this.testString);
+    }
 }
