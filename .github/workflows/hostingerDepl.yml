@@ -45,4 +45,4 @@ jobs:
 
     - name: Deploy Frontend
       run: |
-        rsync -vrm  frontend/dist/frontend/* ${{ secrets.USER_IP }}:/usr/local/lsws/Example/html/teachSubDomain/teachGenie/frontend/
+        rsync -vrm  frontend/dist/frontend/* ${{ secrets.USER_IP_HOSTINGER }}:/usr/local/lsws/Example/html/teachSubDomain/teachGenie/frontend/
