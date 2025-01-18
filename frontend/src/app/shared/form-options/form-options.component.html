@@ -11,11 +11,11 @@
 
   <mat-form-field appearance="outline" *ngIf="showGradeLevel">
     <mat-label>Grade Level</mat-label>
-    <input
-      matInput
-      formControlName="gradeLevel"
-      placeholder="Enter grade level"
-    />
+    <mat-select formControlName="gradeLevel">
+      @for (type of gradeLevels; track type) {
+      <mat-option [value]="type">{{ type }}</mat-option>
+      }
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline" *ngIf="showCommonCoreStandards">
@@ -52,10 +52,27 @@
 
   <mat-form-field appearance="outline" *ngIf="showState">
     <mat-label>State</mat-label>
-    <input
-      matInput
+    <mat-select
       formControlName="state"
-      placeholder="Enter state where students are taught."
-    />
+      [value]="selectedStateAbbreviation"
+      (selectionChange)="onStateChange($event)"
+    >
+      <!-- Search Input inside the Dropdown -->
+      <mat-option>
+        <input
+          matInput
+          placeholder="Search state..."
+          (input)="filterStates()"
+        />
+      </mat-option>
+
+      <!-- Filtered State Abbreviations -->
+      <mat-option
+        *ngFor="let state of filteredStates"
+        [value]="state.abbreviation"
+      >
+        {{ state.abbreviation }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
