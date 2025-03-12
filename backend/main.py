@@ -1,5 +1,5 @@
 from typing import List, Optional, Union
-from fastapi import FastAPI, Form, Request
+from fastapi import FastAPI, Form, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
@@ -7,6 +7,7 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 import db as db
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 
@@ -18,8 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Define a model for the request body
+# Define a model for the request body of every method
 class FormRequest(BaseModel):
+    user: str = Form(str),
     topic: str = Form(str),
     numberOfQuestions: str = Form(None),
     gradeLevel: str = Form(None),
@@ -29,41 +31,63 @@ class FormRequest(BaseModel):
     state: str = Form(None)
 
 @app.post("/api/lesson-plan")
-async def lesson_plan(request: FormRequest):
+async def lesson_plan(request: FormRequest, db1: Session = Depends(db.get_db)):
     # data = await request.json()
     # topic = data.get('topic')
     print("LessonRequest ", request)
+
+    # Store user statistics
+    store_user_usage(request, 'lesson_plan', db1)
+
+    # Generate lesson plan
     lesson_plan = await generate_lesson_plan(request)
     return {"lessonPlan": lesson_plan}
 
 @app.post("/api/test")
-async def test(request: FormRequest):
+async def test(request: FormRequest, db1: Session = Depends(db.get_db)):
     # data = await request.json()
     # concept = data.get('concept')
-    print("Made it to TEST")
     print("TestRequest ", request)
+
+    # Store user statistics
+    store_user_usage(request, 'test', db1)
+
     test = await generate_test(request)
     return {"test": test}
 
 @app.post("/api/kahoot")
-async def test(request: FormRequest):
+async def test(request: FormRequest, db1: Session = Depends(db.get_db)):
     # data = await request.json()
     # concept = data.get('concept')
-    print("Made it to Kahoot")
     print("KahootRequest ", request)
+
+    # Store user statistics
+    store_user_usage(request, 'kahoot', db1)
+
     kahoot = await generate_kahoot(request)
     return {"kahoot": kahoot}
 
 @app.post("/api/activities")
-async def activities(request: FormRequest):
+async def activities(request: FormRequest, db1: Session = Depends(db.get_db)):
     # data = await request.json()
     # concept = data.get('concept')
     print("ActivityRequest ", request)
+
+    # Store user statistics
+    store_user_usage(request, 'activities', db1)
+
     activities = await generate_activities(request)
     return {"activities": activities}
 
-from fastapi import Depends
-from sqlalchemy.orm import Session
+def store_user_usage(request: FormRequest, service: str, db1: Session):
+    try:
+        user_usage = {}
+        user_usage['userEmail'] = request.user
+        user_usage['service'] = service
+        user_usage['inputs'] = [request.topic, request.numberOfQuestions, request.gradeLevel, request.commonCoreStandards, request.skills, request.questionType, request.state]
+        db.add_user_usage(db1, user_usage)
+    except Exception as e:
+        print("Error: ", e)
 
 # # Dependency to get the database session
 # def get_db():
