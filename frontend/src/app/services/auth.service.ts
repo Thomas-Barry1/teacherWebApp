@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +15,17 @@ export class AuthService {
   public user$ = this.userSubject.asObservable();
   loggedIn: boolean = false;
 
+  // API Url, switch these around for local or production environments
+  private apiUrl = 'https://teach.webexpansions.com/api';
+  // private apiUrl = 'http://localhost:3000/api';
+
   //URL of route that called this login component
   returnUrl: string = '';
 
   constructor(private socialAuthService: SocialAuthService, 
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient,
-    private apiService: ApiService) {}
+    private http: HttpClient) {}
 
   init(): void {
     // Get the return URL from query parameters (or set a default)
@@ -35,7 +37,7 @@ export class AuthService {
       // Update userSubject and user$ observable
       this.userSubject.next(user);
       // Send user info to backend
-      this.apiService.sendAuthInfoToBackend(user).subscribe(async response => {
+      this.sendAuthInfoToBackend(user).subscribe(async response => {
         console.log("AuthBackendResponse: ", response);
       }, error => {
         console.error('Error sending data to backend.', error);
@@ -43,6 +45,12 @@ export class AuthService {
       // Redirect the user to the return URL after successful login
       this.router.navigate([this.returnUrl]);
     });
+  }
+
+  // Send auth info to the backend
+  sendAuthInfoToBackend(user: any): Observable<any> {
+    console.log("Made it to sendAuthInfoToBackend");
+    return this.http.post(`${this.apiUrl}/auth/google`, user);
   }
 
   signInWithGoogle(): void {

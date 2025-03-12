@@ -39,7 +39,7 @@ export class LessonPlanComponent {
 
   generateLessonPlan(): void {
     this.loading = true;
-    const topic = this.lessonForm.value;
+    const topic = this.lessonForm;
     this.apiService.generateLessonPlan(topic).subscribe(async response => {
       this.lessonString = await this.markdownService.convertHtml(response.lessonPlan);
       this.lessonPlan = await this.markdownService.convert(response.lessonPlan);

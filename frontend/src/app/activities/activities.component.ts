@@ -39,7 +39,7 @@ export class ActivitiesComponent {
   generateActivities() {
     this.loading = true;
     // const concept = this.activitiesForm.get('concept')?.value;
-    const topic = this.activitiesForm.value;
+    const topic = this.activitiesForm;
     console.log(topic)
     this.apiService.generateActivities(topic).subscribe(async response => {
       this.activitiesString = await this.markdownService.convertHtml(response.activities);

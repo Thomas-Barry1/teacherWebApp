@@ -42,7 +42,7 @@ export class KahootGeneratorComponent {
   generateKahoot(): void {
     this.loading = true;
     // const topic = this.testForm.value.topic;
-    const formData = this.kahootForm.value;
+    const formData = this.kahootForm;
     // var object = this.testForm.getRawValue();
     // console.log("Object: ", object);
     // var jsonStr = JSON.stringify(object);
