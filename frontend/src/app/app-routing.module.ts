@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 // Auth guard protects routes with authentication
 import { AuthGuard } from './auth.guard';
 import { KahootGeneratorComponent } from './kahoot-generator/kahoot-generator.component';
+import { GapAssessmentComponent } from './gap-assessment/gap-assessment.component';
 
 const routes: Routes = [
   { path: 'lesson-plan', component: LessonPlanComponent, canActivate: [AuthGuard] },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
   { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
+  {path: 'gap-assessment', component: GapAssessmentComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Default route
 ];
