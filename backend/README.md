@@ -75,3 +75,10 @@ sudo systemctl start fastapi.service
 
 - `sqlite3 test.db`
 - `SELECT * FROM users;`
+
+## Working with db:
+
+### Databases with relationships
+
+- The `services_used` and `inputs` database are connected
+- Implementation details partially pulled from [here](https://www.digitalocean.com/community/tutorials/how-to-use-one-to-many-database-relationships-with-flask-sqlalchemy)

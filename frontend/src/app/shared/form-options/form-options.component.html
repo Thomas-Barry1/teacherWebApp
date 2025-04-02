@@ -43,7 +43,7 @@
         {{ type }}
       </mat-option> -->
       <!-- <mat-select> -->
-      @for (type of questionTypes; track type) {
+        @for (type of (testType === 'gap' ? gapTestQuestionTypes : questionTypes); track type) {
       <mat-option [value]="type">{{ type }}</mat-option>
       }
       <!-- </mat-select> -->

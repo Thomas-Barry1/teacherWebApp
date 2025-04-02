@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import Form
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
@@ -69,7 +70,7 @@ class UserCreate(BaseModel):
 class ServiceUsed(BaseModel):
     userEmail: str
     service: str
-    inputs: list[str]
+    inputs: Optional[list[str]]
 
 # Dependency to get the database session for user data
 def get_db():
