@@ -21,9 +21,11 @@ export class FormOptionsComponent {
   @Input() showSkills: boolean = true;
   @Input() showQuestionTypes: boolean = false;
   @Input() showState: boolean = true;
+  @Input() testType: string = 'regular'; //The other option is 'gap'
 
 
   questionTypes: string[] = ['Multiple Choice', 'True/False', 'Short Answer', 'Long Answer', 'Reading Passage', 'Bonus Question'];
+  gapTestQuestionTypes: string[] = ['Multiple Choice', 'True/False'];
   gradeLevels : string[] = ['Preschool', 'Kindergarden', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', 'College', 'Graduate School']
 
   stateSearch = '';
@@ -31,7 +33,8 @@ export class FormOptionsComponent {
   filteredStates = [...this.constants.stateList];
   selectedStateAbbreviation = '';
 
-  constructor(private constants: AppConstants){}
+  constructor(private constants: AppConstants){
+  }
 
   // Updates the selected state abbreviation
   onStateChange(event: any) {

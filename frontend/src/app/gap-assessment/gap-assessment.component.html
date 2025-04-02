@@ -1,11 +1,54 @@
-<div class="coming-soon-container">
-  <h1>🚀 Exciting Update Is Coming Soon!</h1>
-  <p>
-    We're working hard to bring you something amazing. Stay tuned to see the gap
-    assessment feature!
-  </p>
-  <div class="countdown" *ngIf="timeLeft !== 'We\'re live!'">
-    Launching in: <span>{{ timeLeft }}</span>
-  </div>
-  <!-- <button class="notify-btn">Notify Me</button> -->
+<!--<mat-card *ngIf="!testActive">
+  <h2>Analyze gap results</h2>
+  <div *ngIf="!selectedFile">Upload PDF</div>
+  <div *ngIf="selectedFile">{{ selectedFile.name }}</div>
+  <input type="file" (change)="onFileSelected($event)" />
+  <button
+    *ngIf="selectedFile"
+    mat-raised-button
+    color="primary"
+    (click)="createGapAssessment()"
+  >
+    Analyze file and generate gap assessment
+  </button>
+</mat-card>-->
+<mat-card *ngIf="!testActive && !testComplete">
+  <h2>Create Test For Gap Assessment</h2>
+  <form [formGroup]="gapTestForm" (ngSubmit)="beginTest()">
+    <mat-form-field appearance="fill">
+      <mat-label>Topic</mat-label>
+      <input matInput formControlName="topic" />
+    </mat-form-field>
+    <app-form-options
+      [parentFormGroup]="gapTestForm"
+      [showQuestionTypes]="true"
+      [testType]="'gap'"
+    ></app-form-options>
+    <div class="buttons">
+      <button id="button-left" mat-raised-button color="primary" type="submit">
+        Begin Test
+      </button>
+    </div>
+  </form>
+  <!-- Add loading mat spinner logic here-->
+  <!--Add save activities button here-->
+</mat-card>
+<mat-card id="test" *ngIf="testActive">
+  <h1>{{ gapTestName }}</h1>
+  <app-active-test
+    [questions]="questions"
+    (taskCompleted)="finishTest($event)"
+  ></app-active-test>
+</mat-card>
+
+<!-- <mat-card *ngIf="testComplete">
+  <h1>{{ gapTestName }}</h1>
+  <h2>Test Complete!</h2>
+  <app-active-test [questions]="questions"></app-active-test> -->
+<!-- </mat-card> -->
+<div class="gap-assessment-container" *ngIf="testComplete">
+  <h1>Gap Analysis</h1>
+  <app-inline-gap-assessment
+    [assessment]="assessment"
+  ></app-inline-gap-assessment>
 </div>

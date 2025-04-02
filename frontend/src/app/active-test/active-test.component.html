@@ -1,0 +1,92 @@
+<div class="test-container">
+  <div class="user-info" *ngIf="currentStage === 'user-info'">
+    <h2 class="user-header">Enter Your Information</h2>
+    <form [formGroup]="userInfoForm" (ngSubmit)="onSubmitUserData()">
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Teacher Code</mat-label>
+        <input matInput formControlName="teacherCode" />
+      </mat-form-field> -->
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div
+    *ngIf="questions.length === 0 && currentStage === 'questions'"
+    class="loading-container"
+  >
+    <mat-spinner></mat-spinner>
+    <p>Generating customized test ...</p>
+  </div>
+
+  <div *ngIf="currentStage === 'completion'" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Analyzing Results ...</p>
+  </div>
+
+  <div
+    class="questions"
+    *ngIf="questions.length > 0 && currentStage === 'questions'"
+  >
+    <div class="questions-header">
+      <h2>Question {{ currentQuestionIndex + 1 }}/{{ questions.length }}</h2>
+    </div>
+
+    <div class="question-content">
+      <p>{{ questions[currentQuestionIndex].question }}</p>
+
+      <div
+        class="answer-option"
+        *ngFor="let option of questions[currentQuestionIndex].answerChoices"
+        (click)="selectAnswer(option)"
+      >
+        <div
+          class="circle"
+          [class.filled]="
+            selectedAnswers[currentQuestionIndex] &&
+            selectedAnswers[currentQuestionIndex].selected_answer === option
+          "
+        ></div>
+        <p>{{ option }}</p>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="prevQuestion()"
+        [disabled]="currentQuestionIndex === 0"
+      >
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="nextQuestion()"
+        *ngIf="currentQuestionIndex < questions.length - 1"
+      >
+        {{ "Next" }}
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="nextQuestion()"
+        *ngIf="!(currentQuestionIndex < questions.length - 1)"
+        [disabled]="selectedAnswers.length < questions.length"
+      >
+        {{ "Submit" }}
+      </button>
+    </div>
+  </div>
+</div>

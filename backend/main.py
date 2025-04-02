@@ -7,6 +7,7 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 import db as db
+import gap_assess as gap
 from sqlalchemy.orm import Session
 
 app = FastAPI()
@@ -29,6 +30,7 @@ class FormRequest(BaseModel):
     skills: str = Form(None),
     questionType: Union[List[str], str] = Form(None),  # Accepting multiple values
     state: str = Form(None)
+    standards: Optional[str] = Form(None)
 
 @app.post("/api/lesson-plan")
 async def lesson_plan(request: FormRequest, db1: Session = Depends(db.get_db)):
@@ -79,8 +81,40 @@ async def activities(request: FormRequest, db1: Session = Depends(db.get_db)):
     activities = await generate_activities(request)
     return {"activities": activities}
 
+# Generating Gap Assessment
+@app.post("/api/gap-test")
+async def gap_test(request: FormRequest, db1: Session = Depends(db.get_db)):
+    print("Reached the backend gap test api call: ", request)
+    
+    # Store user statistics
+    store_user_usage(request, 'gapTest', db1)
+
+    test = await gap.generate_gap_test(request)
+    return {"test" : test}
+
+@app.post("/api/gap-assessment")
+async def wrapper_gap_assessment(given_questions: gap.Gap_Data, db1: Session = Depends(db.get_db)): 
+    print("Reached gap assessment, here are the given_questions:", given_questions)
+
+    # Store user statistics
+    store_question_usage(given_questions, 'gapAssessment', db1)
+
+    return await gap.generate_gap_assessment(given_questions.questions)
+
+@app.post("/api/gap-standards")
+async def gap_standards(request: FormRequest, db1: Session = Depends(db.get_db)): 
+    print("Made it to gap standards")
+
+    # Store user statistics
+    store_user_usage(request, 'gapStandards', db1)
+
+    standards =  await gap.generate_standards(request)
+    return {"standards": standards}
+
 def store_user_usage(request: FormRequest, service: str, db1: Session):
+    """Store in the database the passed in information"""
     try:
+        print("Store usage form request")
         user_usage = {}
         user_usage['userEmail'] = request.user
         user_usage['service'] = service
@@ -89,13 +123,17 @@ def store_user_usage(request: FormRequest, service: str, db1: Session):
     except Exception as e:
         print("Error: ", e)
 
-# # Dependency to get the database session
-# def get_db():
-#     db1 = db.SessionLocal()
-#     try:
-#         yield db1
-#     finally:
-#         db1.close()
+def store_question_usage(request: gap.Gap_Data, service: str, db1: Session):
+    """Store in the database the passed in information"""
+    try:
+        print("Store usage with questions")
+        user_usage = {}
+        user_usage['userEmail'] = request.user
+        user_usage['service'] = service
+        user_usage['inputs'] = []
+        db.add_user_usage(db1, user_usage)
+    except Exception as e:
+        print("Error: ", e)
 
 # Storing user info
 @app.post("/api/auth/google")
@@ -128,7 +166,7 @@ load_dotenv()
 genai.configure(api_key=os.environ["API_KEY"])
 
 # Different models: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.0-flash')
 # model = genai.GenerativeModel('gemini-pro')
 
 async def generate_lesson_plan(request: FormRequest):

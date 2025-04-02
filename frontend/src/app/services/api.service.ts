@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Full_Question } from '../shared/full_question.model';
 import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
@@ -52,5 +53,29 @@ export class ApiService {
     topic.addControl("user", new FormControl(user?.email));
     console.log("Activities topic: ", topic);
     return this.http.post<any>(`${this.apiUrl}/activities`, topic.value);
+  }
+
+  generateGapAssessment(given_full_questions: Full_Question[]) : Observable<any>{
+    console.log("Made it to frontend api service generate gap assessment: ", given_full_questions);
+    let user = this.auth.getUserInfo();
+    let data = {'user': user?.email, 'questions': given_full_questions}
+    console.log("Modified response in generate gap assessment: ", data);
+    return this.http.post<any>(`${this.apiUrl}/gap-assessment`, data);
+  }
+  
+  generateGapTest(formData: FormGroup): Observable<any> {
+    console.log("Made to api service generateGapTest: ", formData);
+    let user = this.auth.getUserInfo();
+    formData.addControl("user", new FormControl(user?.email));
+    console.log("Gap test form: ", formData);
+    return this.http.post<any>(`${this.apiUrl}/gap-test`, formData.value);
+  }
+
+  generateStandards(formData: FormGroup): Observable<any> { //could define interfaces/models to avoid 'any' typing
+    console.log("Made it to frontend api service generate gap standards: ", formData);
+    let user = this.auth.getUserInfo();
+    formData.addControl("user", new FormControl(user?.email));
+    console.log("Generate Standards: ", formData);
+    return this.http.post(`${this.apiUrl}/gap-standards`, formData.value);
   }
 }

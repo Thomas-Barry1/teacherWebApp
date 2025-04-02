@@ -41,6 +41,9 @@ import { FormOptionsComponent } from './shared/form-options/form-options.compone
 import { LoginComponent } from './login/login.component';
 import { KahootGeneratorComponent } from './kahoot-generator/kahoot-generator.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { GapAssessmentComponent } from './gap-assessment/gap-assessment.component';
+import { InlineGapAssessmentComponent } from './inline-gap-assessment/inline-gap-assessment.component';
+import { ActiveTestComponent } from './active-test/active-test.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -53,6 +56,9 @@ import { FooterComponent } from './shared/footer/footer.component';
         PrintButtonComponent,
         FormOptionsComponent,
         KahootGeneratorComponent,
+        GapAssessmentComponent,
+        InlineGapAssessmentComponent,
+        ActiveTestComponent,
         FooterComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,

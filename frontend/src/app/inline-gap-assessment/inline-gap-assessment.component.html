@@ -1,0 +1,69 @@
+<mat-card class="mat-elevation-z8 standard-column-performance-summary">
+  <h2>Performance Summary</h2>
+  <div [innerHTML]="this.performanceSummary$ | async"></div>
+</mat-card>
+
+<div class="standard-column-container">
+  <mat-card class="standard-column-mastery">
+    <div class="title-container">
+      <mat-icon>stars</mat-icon>
+      <h2>Areas of Mastery</h2>
+    </div>
+    <div class="standard-column-mastery-content">
+      <div
+        class="standard-item"
+        *ngFor="let standard of this.getMasteryStandards()"
+      >
+        <mat-icon>circle</mat-icon>
+        <p>
+          <strong>{{ standard.standard }}: </strong>
+        </p>
+        <div [innerHTML]="standard.description | async"></div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card class="standard-column-weakness">
+    <div class="title-container">
+      <mat-icon>filter_tilt_shift</mat-icon>
+      <h2>Areas for Improvement</h2>
+    </div>
+    <div class="standard-column-weakness-content">
+      <div
+        class="standard-item"
+        *ngFor="let standard of this.getImprovementStandards()"
+      >
+        <mat-icon>circle</mat-icon>
+        <p>
+          <strong>{{ standard.standard }}: </strong>
+        </p>
+        <div [innerHTML]="standard.description | async"></div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card class="standard-column-improvement-plan">
+    <div class="title-container">
+      <mat-icon>trending_up</mat-icon>
+      <h2>Improvement Plan</h2>
+    </div>
+    <div class="content" [innerHTML]="this.improvementPlan$ | async"></div>
+  </mat-card>
+</div>
+
+<!-- Gap Analysis Chart -->
+<!-- <mat-card class="chart-container">
+  <div class="title-container">
+    <mat-icon>analytics</mat-icon>
+    <h2>Performance Chart</h2>
+  </div>
+  <canvas
+    id="chart"
+    style="
+      margin: 20px;
+      width: 100%;
+      max-width: 60vw;
+      max-height: 40vh;
+      min-height: 30vh;
+    "
+    >{{ chart }}</canvas
+  >
+</mat-card> -->
