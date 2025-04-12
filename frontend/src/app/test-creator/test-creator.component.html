@@ -1,8 +1,13 @@
+<app-feature-explanation
+  title="Test Creator"
+  description="Create customized tests for your students with ease. Simply specify what you'd like to assess, and our AI will generate a comprehensive test tailored to your needs. You can customize question types, edit the generated content, and export the test in various formats."
+></app-feature-explanation>
+
 <mat-card>
   <h2>Create Test</h2>
   <form [formGroup]="testForm" (ngSubmit)="generateTest()">
     <mat-form-field appearance="fill">
-      <mat-label>Topic</mat-label>
+      <mat-label>What would you like to learn?</mat-label>
       <input matInput formControlName="topic" />
     </mat-form-field>
 

@@ -44,6 +44,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { GapAssessmentComponent } from './gap-assessment/gap-assessment.component';
 import { InlineGapAssessmentComponent } from './inline-gap-assessment/inline-gap-assessment.component';
 import { ActiveTestComponent } from './active-test/active-test.component';
+import { FeatureExplanationComponent } from './shared/feature-explanation/feature-explanation.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -59,7 +60,8 @@ import { ActiveTestComponent } from './active-test/active-test.component';
         GapAssessmentComponent,
         InlineGapAssessmentComponent,
         ActiveTestComponent,
-        FooterComponent
+        FooterComponent,
+        FeatureExplanationComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

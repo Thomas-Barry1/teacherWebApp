@@ -1,8 +1,13 @@
+<app-feature-explanation
+  title="Lesson Plan Generator"
+  description="Create comprehensive, standards-aligned lesson plans in minutes. Our AI-powered generator helps you develop detailed lesson plans that include objectives, activities, assessments, and more. Customize the generated content to match your teaching style and classroom needs."
+></app-feature-explanation>
+
 <mat-card>
   <h2>Create Lesson Plan</h2>
   <form [formGroup]="lessonForm" (ngSubmit)="generateLessonPlan()">
     <mat-form-field>
-      <mat-label>Topic</mat-label>
+      <mat-label>What would you like to learn?</mat-label>
       <input matInput formControlName="topic" />
     </mat-form-field>
 
