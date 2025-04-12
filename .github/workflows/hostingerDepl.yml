@@ -43,6 +43,15 @@ jobs:
         chmod 600 ~/.ssh/id_rsa.pub
         ssh-keyscan -H ${{ secrets.IP_HOSTINGER }} >> ~/.ssh/known_hosts
 
+    - name: Node 18 
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.x
+    - name: NPM Install Required Packages Frontend
+      run: npm --prefix ./frontend install
+    - name: Ng Build Frontend
+      run: npm --prefix ./frontend run build
+     
     - name: Deploy Frontend
       run: |
         rsync -vrm  frontend/dist/frontend/* ${{ secrets.USER_IP_HOSTINGER }}:/usr/local/lsws/Example/html/teachSubDomain/teachGenie/frontend/
