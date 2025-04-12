@@ -1,3 +1,8 @@
+<app-feature-explanation
+  title="Gap Assessment"
+  description="The Gap Assessment tool helps you identify knowledge gaps in your students. Create a test by specifying what you'd like to learn about your students' understanding, and the system will generate a customized assessment. After completion, you'll receive a detailed analysis of the knowledge gaps."
+></app-feature-explanation>
+
 <!--<mat-card *ngIf="!testActive">
   <h2>Analyze gap results</h2>
   <div *ngIf="!selectedFile">Upload PDF</div>
@@ -16,7 +21,7 @@
   <h2>Create Test For Gap Assessment</h2>
   <form [formGroup]="gapTestForm" (ngSubmit)="beginTest()">
     <mat-form-field appearance="fill">
-      <mat-label>Topic</mat-label>
+      <mat-label>What would you like to learn?</mat-label>
       <input matInput formControlName="topic" />
     </mat-form-field>
     <app-form-options

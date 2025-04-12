@@ -1,8 +1,13 @@
+<app-feature-explanation
+  title="Kahoot Generator"
+  description="Transform your lesson content into engaging Kahoot quizzes instantly. Our AI-powered generator creates ready-to-use Kahoot questions that you can import directly into your Kahoot account. Perfect for quick classroom assessments, review sessions, or fun learning activities."
+></app-feature-explanation>
+
 <mat-card>
   <h2>Generate Kahoot</h2>
   <form [formGroup]="kahootForm" (ngSubmit)="generateKahoot()">
     <mat-form-field appearance="fill">
-      <mat-label>Topic</mat-label>
+      <mat-label>What would you like to learn?</mat-label>
       <input matInput formControlName="topic" />
     </mat-form-field>
 
