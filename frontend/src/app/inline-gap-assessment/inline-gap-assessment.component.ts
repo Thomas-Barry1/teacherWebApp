@@ -14,6 +14,7 @@ import { InlineGapAssessment } from '../shared/inline_gap_assessment.models';
 })
 export class InlineGapAssessmentComponent {
   @Input() assessment: InlineGapAssessment;
+  @Input() testData: { questions: Question[], testName: string, selectedAnswers: string[] } | null = null;
   performanceSummary$!: Promise<SafeHtml>;
   improvementPlan$!: Promise<SafeHtml>;
   standards!: 
@@ -23,6 +24,7 @@ export class InlineGapAssessmentComponent {
   //   description: string;
   // }
   any[];
+  formattedTestContent: string = '';
 
   constructor(private markdownService: MarkdownService) {
     // Placeholder assessment
@@ -61,11 +63,13 @@ export class InlineGapAssessmentComponent {
       improvementPlan:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     };
+    // Placeholder test data
     console.log("Constructor for inline gap assessment")
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log("On init for inline gap assessment: ", this.assessment);
+    console.log("On init for test data: ", this.testData);
     this.improvementPlan$ = this.convertMarkdown(this.assessment.improvementPlan);
     this.performanceSummary$ = this.convertMarkdown(this.assessment.performanceSummary);
     this.standards = this.assessment.standardsPerformance.map(
@@ -76,6 +80,8 @@ export class InlineGapAssessmentComponent {
         description: this.markdownService.convert(standard.description)
         }
       }))
+    this.formattedTestContent = await this.formatTestContent();
+    console.log("Formatted test content: ", this.formattedTestContent);
   }
 
   getMasteryStandards() {
@@ -94,5 +100,28 @@ export class InlineGapAssessmentComponent {
       (standard) =>
         standard.strength === 'Weak' || standard.strength === 'Moderate' || standard.strength === "weak" || standard.strength === "moderate"
     );
+  }
+
+  async formatTestContent(): Promise<string> {
+    if (!this.testData) return '';
+    
+    let content = `# ${this.testData.testName}\n\n`;
+    
+    this.testData.questions.forEach((question, index) => {
+      content += `## Question ${index + 1}\n`;
+      content += `${question.question}\n\n`;
+      content += `### Answer Choices:\n`;
+      question.answerChoices.forEach((choice, choiceIndex) => {
+        const prefix = String.fromCharCode(65 + choiceIndex); // A, B, C, etc.
+        content += `${prefix}. ${choice}\n`;
+      });
+      content += `\n### Student's Answer: ${this.testData?.selectedAnswers[index] || 'Not answered'}\n`;
+      content += `### Correct Answer: ${question.correctAnswer}\n\n`;
+      content += '---\n\n';
+    });
+
+    content = await this.markdownService.convertHtml(content);
+
+    return content;
   }
 }

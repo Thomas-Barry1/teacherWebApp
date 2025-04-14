@@ -180,3 +180,9 @@ mat-card {
     color: #3f51b5;
   }
 }
+
+.print-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
