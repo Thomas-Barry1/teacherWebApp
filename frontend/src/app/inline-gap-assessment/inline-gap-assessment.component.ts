@@ -6,6 +6,7 @@ import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { Question } from '../shared/question.model';
 import { InlineGapAssessment } from '../shared/inline_gap_assessment.models';
+import * as DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-inline-gap-assessment',
@@ -25,6 +26,7 @@ export class InlineGapAssessmentComponent {
   // }
   any[];
   formattedTestContent: string = '';
+  formattedAssessmentContent: string = '';
 
   constructor(private markdownService: MarkdownService) {
     // Placeholder assessment
@@ -81,6 +83,7 @@ export class InlineGapAssessmentComponent {
         }
       }))
     this.formattedTestContent = await this.formatTestContent();
+    this.formattedAssessmentContent = await this.formatAssessmentContent();
     console.log("Formatted test content: ", this.formattedTestContent);
   }
 
@@ -121,6 +124,40 @@ export class InlineGapAssessmentComponent {
     });
 
     content = await this.markdownService.convertHtml(content);
+
+    return content;
+  }
+
+  async formatAssessmentContent(): Promise<string> {
+    console.log("Start formatting assessment in inline gap assessment")
+    let content = '# Gap Assessment Analysis\n\n';
+    
+    // // Performance Summary
+    // content += '## Performance Summary\n';
+    // content += await this.performanceSummary$;
+    // content += '\n\n';
+
+    // // Areas of Mastery
+    // content += '## Areas of Mastery\n';
+    // const masteryStandards = await this.getMasteryStandards();
+    // masteryStandards.forEach(standard => {
+    //   content += `### ${standard.standard}\n`;
+    //   content += `${standard.description}\n\n`;
+    // });
+
+    // Areas for Improvement
+    // content += '## Areas for Improvement\n';
+    // const improvementStandards = await this.getImprovementStandards();
+    // improvementStandards.forEach(standard => {
+    //   content += `### ${standard.standard}\n`;
+    //   content += `${standard.description}\n\n`;
+    // });
+
+    // Improvement Plan
+    content += '## Improvement Plan\n';
+    content += this.assessment.improvementPlan;
+    content = await this.markdownService.convertHtml(content);
+    console.log("Formatted assessment content: ", content);
 
     return content;
   }
