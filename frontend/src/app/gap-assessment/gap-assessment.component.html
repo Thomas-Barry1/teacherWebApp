@@ -1,6 +1,9 @@
 <app-feature-explanation
   title="Gap Assessment"
-  description="The Gap Assessment tool helps you identify knowledge gaps for your students. Create a test by specifying what you'd like to learn about your students' understanding, and the system will generate a customized assessment. After completion, you'll receive a detailed analysis of the knowledge gaps."
+  description="The Gap Assessment tool helps you identify knowledge gaps for your students. 
+  Create a test by specifying what you'd like to learn about your students' understanding.
+  After completion you can print the test with the student's answers and you'll receive a 
+  detailed analysis of the knowledge gaps."
 ></app-feature-explanation>
 
 <!--<mat-card *ngIf="!testActive">
@@ -55,5 +58,6 @@
   <h1>Gap Analysis</h1>
   <app-inline-gap-assessment
     [assessment]="assessment"
+    [testData]="{ questions: questions, testName: gapTestName, selectedAnswers: selectedAnswers }"
   ></app-inline-gap-assessment>
 </div>

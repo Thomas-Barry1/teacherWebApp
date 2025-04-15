@@ -15,7 +15,8 @@ import { Assessment } from '../shared/asssessment.model';
   styleUrl: './active-test.component.css',
 })
 export class ActiveTestComponent {
-  @Output() taskCompleted = new EventEmitter<Assessment>();
+  @Output() taskCompleted = new EventEmitter<{assessment: Assessment, selected_answers: Full_Question[]}>();
+  @Output() answersSelected = new EventEmitter<Full_Question[]>();
   @Input() questions: Question[] = [];
   currentQuestionIndex: number = 0;
   selectedAnswer: string | null = null;
@@ -48,16 +49,17 @@ export class ActiveTestComponent {
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
       this.selectedAnswer = null;
-      console.log(this.selectedAnswers);
+      console.log("Selected answers:", this.selectedAnswers);
     } else {
       //submitting
       const send_data:Full_Question[] = this.selectedAnswers;
       console.log("Sending this data to create gap_assessment:", send_data);
       this.apiService.generateGapAssessment(send_data).subscribe({
         next: async (response: any )=>{
-          console.log("Response from generating gap assessment", response);
+          console.log("Response from generating gap assessment: ", response);
           this.assessment = response;
-          this.taskCompleted.emit(this.assessment);
+          console.log("Selected answers: ", this.selectedAnswers);
+          this.taskCompleted.emit({assessment: response, selected_answers: this.selectedAnswers});
         }
       })
       
