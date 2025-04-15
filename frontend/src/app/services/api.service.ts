@@ -18,8 +18,8 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 
 export class ApiService {
   // API Url, switch these around for local or production environments
-  // private apiUrl = 'https://teach.webexpansions.com/api';
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://teach.webexpansions.com/api';
+  // private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
