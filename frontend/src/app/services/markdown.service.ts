@@ -29,7 +29,7 @@ export class MarkdownService {
     // markdown = markdown.replace(/\n/g, '<br>');
     const dirtyHtml = await this.ensureString(marked.parse(markdown));
     var cleanHtml = DOMPurify.sanitize(dirtyHtml);
-    console.log("Marked: ", cleanHtml);
+    console.log("Clean HTML: ", cleanHtml);
     // Replace <p> with <p style="white-space: pre-line;"> to keep formatting and spaces
     cleanHtml = cleanHtml.replaceAll("<p>", "<p style='white-space: pre-line;'>")
     // Have the answer key on a new page

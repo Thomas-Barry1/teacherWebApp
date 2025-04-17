@@ -6,6 +6,7 @@ import { MarkdownService } from '../services/markdown.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { Question } from '../shared/question.model';
 import { InlineGapAssessment } from '../shared/inline_gap_assessment.models';
+import * as DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-inline-gap-assessment',
@@ -14,6 +15,7 @@ import { InlineGapAssessment } from '../shared/inline_gap_assessment.models';
 })
 export class InlineGapAssessmentComponent {
   @Input() assessment: InlineGapAssessment;
+  @Input() testData: { questions: Question[], testName: string, selectedAnswers: string[] } | null = null;
   performanceSummary$!: Promise<SafeHtml>;
   improvementPlan$!: Promise<SafeHtml>;
   standards!: 
@@ -23,6 +25,8 @@ export class InlineGapAssessmentComponent {
   //   description: string;
   // }
   any[];
+  formattedTestContent: string = '';
+  formattedAssessmentContent: string = '';
 
   constructor(private markdownService: MarkdownService) {
     // Placeholder assessment
@@ -61,11 +65,13 @@ export class InlineGapAssessmentComponent {
       improvementPlan:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     };
+    // Placeholder test data
     console.log("Constructor for inline gap assessment")
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log("On init for inline gap assessment: ", this.assessment);
+    console.log("On init for test data: ", this.testData);
     this.improvementPlan$ = this.convertMarkdown(this.assessment.improvementPlan);
     this.performanceSummary$ = this.convertMarkdown(this.assessment.performanceSummary);
     this.standards = this.assessment.standardsPerformance.map(
@@ -76,6 +82,9 @@ export class InlineGapAssessmentComponent {
         description: this.markdownService.convert(standard.description)
         }
       }))
+    this.formattedTestContent = await this.formatTestContent();
+    this.formattedAssessmentContent = await this.formatAssessmentContent();
+    console.log("Formatted test content: ", this.formattedTestContent);
   }
 
   getMasteryStandards() {
@@ -94,5 +103,62 @@ export class InlineGapAssessmentComponent {
       (standard) =>
         standard.strength === 'Weak' || standard.strength === 'Moderate' || standard.strength === "weak" || standard.strength === "moderate"
     );
+  }
+
+  async formatTestContent(): Promise<string> {
+    if (!this.testData) return '';
+    
+    let content = `# ${this.testData.testName}\n\n`;
+    
+    this.testData.questions.forEach((question, index) => {
+      content += `## Question ${index + 1}\n`;
+      content += `${question.question}\n\n`;
+      content += `### Answer Choices:\n`;
+      question.answerChoices.forEach((choice, choiceIndex) => {
+        const prefix = String.fromCharCode(65 + choiceIndex); // A, B, C, etc.
+        content += `${prefix}. ${choice}\n`;
+      });
+      content += `\n### Student's Answer: ${this.testData?.selectedAnswers[index] || 'Not answered'}\n`;
+      content += `### Correct Answer: ${question.correctAnswer}\n\n`;
+      content += '---\n\n';
+    });
+
+    content = await this.markdownService.convertHtml(content);
+
+    return content;
+  }
+
+  async formatAssessmentContent(): Promise<string> {
+    console.log("Start formatting assessment in inline gap assessment")
+    let content = '# Gap Assessment Analysis\n\n';
+    
+    // // Performance Summary
+    // content += '## Performance Summary\n';
+    // content += await this.performanceSummary$;
+    // content += '\n\n';
+
+    // // Areas of Mastery
+    // content += '## Areas of Mastery\n';
+    // const masteryStandards = await this.getMasteryStandards();
+    // masteryStandards.forEach(standard => {
+    //   content += `### ${standard.standard}\n`;
+    //   content += `${standard.description}\n\n`;
+    // });
+
+    // Areas for Improvement
+    // content += '## Areas for Improvement\n';
+    // const improvementStandards = await this.getImprovementStandards();
+    // improvementStandards.forEach(standard => {
+    //   content += `### ${standard.standard}\n`;
+    //   content += `${standard.description}\n\n`;
+    // });
+
+    // Improvement Plan
+    content += '## Improvement Plan\n';
+    content += this.assessment.improvementPlan;
+    content = await this.markdownService.convertHtml(content);
+    console.log("Formatted assessment content: ", content);
+
+    return content;
   }
 }

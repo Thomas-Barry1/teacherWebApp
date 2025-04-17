@@ -15,6 +15,7 @@ export class PrintButtonComponent {
   @Input() enableTextFile: boolean = false;
   @Input() enableClipboard: boolean = false;
   @Input() enableKahoot: boolean = false;
+  @Input() buttonText: string = 'Save as PDF';
   // The id of element to copy
   @Input() textElement!: ElementRef | HTMLElement;
 

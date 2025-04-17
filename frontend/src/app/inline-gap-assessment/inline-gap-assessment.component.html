@@ -46,6 +46,25 @@
       <h2>Improvement Plan</h2>
     </div>
     <div class="content" [innerHTML]="this.improvementPlan$ | async"></div>
+    <div class="print-section">
+      <app-print-button
+        *ngIf="testData"
+        [contentToPrint]="this.formattedTestContent"
+        [buttonText]="'Print Student Test'"
+        [enablePdf]="true"
+        [enableTextFile]="false"
+        [enableClipboard]="false"
+      >
+      </app-print-button>
+      <app-print-button
+        [contentToPrint]="this.formattedAssessmentContent"
+        [buttonText]="'Print Improvement Plan'"
+        [enablePdf]="true"
+        [enableTextFile]="false"
+        [enableClipboard]="false"
+      >
+      </app-print-button>
+    </div>
   </mat-card>
 </div>
 

@@ -8,6 +8,7 @@ import { Question } from '../shared/question.model';
 import { InlineGapAssessment } from '../shared/inline_gap_assessment.models';
 import { InlineGapAssessmentComponent } from '../inline-gap-assessment/inline-gap-assessment.component';
 import { Assessment } from '../shared/asssessment.model';
+import { Full_Question } from '../shared/full_question.model';
 
 @Component({
   selector: 'app-gap-assessment',
@@ -19,7 +20,8 @@ export class GapAssessmentComponent {
   selectedFile: File | null = null;
   gapTestForm: FormGroup<any>;
   gapTest: SafeHtml = '';
-  gapTestName: String = '';
+  gapTestName: string = '';
+  selectedAnswers: string[] = [];
 
   loading: boolean = false;
   testActive: boolean = false;
@@ -198,9 +200,10 @@ export class GapAssessmentComponent {
     this.generateStandards();
   }
 
-  finishTest(assessment: Assessment) {
-    console.log('Received event from child:', assessment);
-    this.assessment = assessment.gap_assessment;
+  finishTest(event: {assessment: Assessment, selected_answers: Full_Question[]}) {
+    console.log('Received event from child:', event);
+    this.assessment = event.assessment.gap_assessment;
+    this.selectedAnswers = event.selected_answers.map(answer => answer.selected_answer === null ? '' : answer.selected_answer);
     this.testActive = false;
     this.testComplete = true;
   }
