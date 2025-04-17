@@ -1,14 +1,123 @@
 /* src/app/components/home/home.component.css */
+/******* START: HERO SECTION *******/
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero .hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 5%;
+  height: 100%;
+  width: 50%;
+  z-index: 1;
+}
+
+.hero img {
+  position: absolute;
+  width: 100%;
+  height: auto; 
+  object-fit: fill;
+  margin-bottom: 2em;
+  z-index: -1;
+}
+
+.hero .hero-content h1 {
+  font-size: 5em;
+  color: white;
+  line-height: 1em;
+  letter-spacing: -6px;
+}
+
+.hero .hero-content h1 span {
+  color: var(--color-primary);
+}
+
+.hero .hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 1.5em;
+  color: white;
+}
+
+.hero .hero-content button {
+  padding: 0.75em 1.5em;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero .hero-content button:first-child {
+  margin-right: 1em;
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.hero .hero-content button:last-child {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+@media (max-width: 768px) {
+  .hero .hero-content h1 {
+    font-size: 3em;
+    letter-spacing: -4px;
+  }
+  .hero .hero-content p {
+    font-size: 1em;
+  }
+  .hero img {
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin-bottom: 2em;
+  }
+}
+@media (max-width: 600px) {
+  .hero .hero-content {
+    width: 60%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+  }
+  .hero .hero-content h1 {
+    font-size: 2em;
+    line-height: 1.2em;
+    letter-spacing: -2px;
+  }
+  .hero .hero-content p {
+    font-size: 0.8em;
+  }
+  .hero img {
+    display: none;
+  }
+  .hero {
+    background-color: var(--color-secondary);
+  }
+
+  .hero .hero-content button {
+    margin: 0.5em 0;
+  }
+}
+
+/******* END: HERO SECTION *******/
 .home-card {
     margin: 20px;
     padding: 20px;
+    background-color: red;
   }
-  
+
   .header {
     text-align: center;
     margin-bottom: 1em;
   }
-  
+
   .header h1 {
     font-size: 2.5em;
     margin-bottom: 1em;
@@ -25,7 +134,7 @@
     color: var(--color-primary);
     font-weight: bold;
   }
-  
+
   .header p {
     font-size: 1.2em;
     margin-bottom: 7%;
@@ -36,23 +145,23 @@
   .header button {
     font-weight: 600;
   }
-  
+
   .features {
     text-align: center;
     margin-top: 8%;
   }
-  
+
   .feature-list {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
   }
-  
+
   .feature-item {
     text-align: center;
     max-width: 200px;
   }
-  
+
   .feature-item mat-icon {
     font-size: 3em;
     margin-bottom: 10px;
@@ -69,12 +178,12 @@
   .testimonials h2{
     margin-top: .5em;
   }
-  
+
   .spacer {
     flex: 1 1 auto;
   }
 
-/**************************************************************************** 
+/****************************************************************************
 * Container showcasing sample ai generated pdfs
 ****************************************************************************/
 
@@ -171,10 +280,10 @@
 }
 
 
-/**************************************************************************** 
+/****************************************************************************
 Responsiveness
 ****************************************************************************/
-  
+
 
  @media only screen and (max-width: 600px) {
   .feature-list {
@@ -195,4 +304,4 @@ Responsiveness
     padding: auto;
   }
 }
-  
+
