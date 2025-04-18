@@ -1,45 +1,50 @@
-<mat-card class="home-card">
-  <!-- <mat-toolbar color="primary" class="mat-elevation-z4">
+<div class="hero">
+  <img src="assets/images/hero-background-img.png" alt="Hero Image"/>
+  <div class="hero-content">
+    <h1>Save time with the ultimate <span>AI</span> tool for your classroom.</h1>
+    <p>TeachGenie brings personalized instruction to every studetn to improve learning and enhance critical thinking skills.</p>
+    <div class="hero-CTA">
+      <button>Get Started</button>
+      <button>Find out more</button>
+    </div>
+  </div>
+</div>
+  <mat-card class="home-card">
+    <!-- <mat-toolbar color="primary" class="mat-elevation-z4">
     <span>TeachGenie</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/about">About</button>
   </mat-toolbar> -->
-  <div class="header">
-    <h1>Welcome to <span>TeachGenie!</span></h1>
-    <p>Save time with the ultimate <span>ai</span> tool for your classroom.</p>
-    <button mat-raised-button color="accent" routerLink="/gap-assessment">
-      Get Started
-    </button>
-  </div>
-  <div class="features">
-    <h2>Features</h2>
-    <div class="feature-list">
-      <div *ngFor="let feature of features" class="feature-item">
-        <mat-icon>{{ feature.icon }}</mat-icon>
-        <h3>{{ feature.title }}</h3>
-        <p>{{ feature.description }}</p>
+    <!-- <div class="header">
+      <h1>Welcome to <span>TeachGenie!</span></h1>
+      <p>Save time with the ultimate <span>ai</span> tool for your classroom.</p>
+      <button mat-raised-button color="accent" routerLink="/gap-assessment">
+        Get Started
+      </button>
+    </div> -->
+    <div class="features">
+      <h2>Features</h2>
+      <div class="feature-list">
+        <div *ngFor="let feature of features" class="feature-item">
+          <mat-icon>{{ feature.icon }}</mat-icon>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- https://primeng.org/carousel#circular -->
-  <div class="testimonials">
-    <h2>Teacher Testimonials</h2>
-    <div class="card">
-      <p-carousel
-        [value]="products"
-        [numVisible]="1"
-        [numScroll]="1"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        autoplayInterval="6000"
-      >
-        <ng-template let-product pTemplate="item">
-          <div class="border-1 surface-border border-round m-2 p-3">
-            <p>"{{ product.message }}"</p>
-            <h4>- {{ product.name }}, {{ product.position }}</h4>
-            <!-- <div class="mb-3"> -->
-            <!-- <div class="relative mx-auto">
+    <!-- https://primeng.org/carousel#circular -->
+    <div class="testimonials">
+      <h2>Teacher Testimonials</h2>
+      <div class="card">
+        <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="true"
+          [responsiveOptions]="responsiveOptions" autoplayInterval="6000">
+          <ng-template let-product pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 p-3">
+              <p>"{{ product.message }}"</p>
+              <h4>- {{ product.name }}, {{ product.position }}</h4>
+              <!-- <div class="mb-3"> -->
+              <!-- <div class="relative mx-auto">
             <img
               src="https://primefaces.org/cdn/primeng/images/demo/product/{{
                 product.image
@@ -55,11 +60,11 @@
             />
           </div>
         </div> -->
-            <!-- <div class="mb-3 font-medium">
+              <!-- <div class="mb-3 font-medium">
           {{ product.name }}
         </div> -->
-            <!-- <div class="flex justify-content-between align-items-center"> -->
-            <!-- <div class="mt-0 font-semibold text-xl">
+              <!-- <div class="flex justify-content-between align-items-center"> -->
+              <!-- <div class="mt-0 font-semibold text-xl">
             {{ "$" + product.price }}
           </div>
           <span>
@@ -71,73 +76,63 @@
             <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
           </span>
         </div> -->
-          </div>
-        </ng-template>
-      </p-carousel>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
     </div>
-  </div>
 
-  <!-- Samples Section -->
-  <div class="container">
-    <!-- Header Section -->
-    <header class="sample-header">
-      <h2>Sample Learning Resources</h2>
-      <p>
-        Explore our collection of sample generated PDFs for activities, lesson
-        plans, and tests.
-      </p>
-    </header>
+    <!-- Samples Section -->
+    <div class="container">
+      <!-- Header Section -->
+      <header class="sample-header">
+        <h2>Sample Learning Resources</h2>
+        <p>
+          Explore our collection of sample generated PDFs for activities, lesson
+          plans, and tests.
+        </p>
+      </header>
 
-    <!-- PDF Showcase Section -->
-    <section class="pdf-showcase">
-      <!-- Activity Sample PDF Card -->
-      <div class="pdf-card">
-        <img
-          src="assets/images/activity-sample.png"
-          alt="Activity Sample PDF"
-        />
-        <div class="pdf-content">
-          <h2>Sample Activity PDF</h2>
-          <p>
-            Explore a sample activity PDF, designed to engage students with
-            interactive exercises.
-          </p>
-          <a href="assets/pdfs/Sample Activities.pdf" target="_blank"
-            >View PDF</a
-          >
+      <!-- PDF Showcase Section -->
+      <section class="pdf-showcase">
+        <!-- Activity Sample PDF Card -->
+        <div class="pdf-card">
+          <img src="assets/images/activity-sample.png" alt="Activity Sample PDF" />
+          <div class="pdf-content">
+            <h2>Sample Activity PDF</h2>
+            <p>
+              Explore a sample activity PDF, designed to engage students with
+              interactive exercises.
+            </p>
+            <a href="assets/pdfs/Sample Activities.pdf" target="_blank">View PDF</a>
+          </div>
         </div>
-      </div>
 
-      <!-- Lesson Plan Sample PDF Card -->
-      <div class="pdf-card">
-        <img
-          src="assets/images/lesson-plan-sample.png"
-          alt="Lesson Plan Sample PDF"
-        />
-        <div class="pdf-content">
-          <h2>Sample Lesson Plan PDF</h2>
-          <p>
-            View a structured lesson plan PDF, tailored to cover essential
-            topics and objectives.
-          </p>
-          <a href="assets/pdfs/Sample Lesson Plan.pdf" target="_blank"
-            >View PDF</a
-          >
+        <!-- Lesson Plan Sample PDF Card -->
+        <div class="pdf-card">
+          <img src="assets/images/lesson-plan-sample.png" alt="Lesson Plan Sample PDF" />
+          <div class="pdf-content">
+            <h2>Sample Lesson Plan PDF</h2>
+            <p>
+              View a structured lesson plan PDF, tailored to cover essential
+              topics and objectives.
+            </p>
+            <a href="assets/pdfs/Sample Lesson Plan.pdf" target="_blank">View PDF</a>
+          </div>
         </div>
-      </div>
 
-      <!-- Test Sample PDF Card -->
-      <div class="pdf-card">
-        <img src="assets/images/test-sample.png" alt="Test Sample PDF" />
-        <div class="pdf-content">
-          <h2>Sample Test PDF</h2>
-          <p>
-            Review a sample test PDF, designed to assess students' understanding
-            and knowledge.
-          </p>
-          <a href="assets/pdfs/Sample Test.pdf" target="_blank">View PDF</a>
+        <!-- Test Sample PDF Card -->
+        <div class="pdf-card">
+          <img src="assets/images/test-sample.png" alt="Test Sample PDF" />
+          <div class="pdf-content">
+            <h2>Sample Test PDF</h2>
+            <p>
+              Review a sample test PDF, designed to assess students' understanding
+              and knowledge.
+            </p>
+            <a href="assets/pdfs/Sample Test.pdf" target="_blank">View PDF</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
-</mat-card>
+      </section>
+    </div>
+  </mat-card>
