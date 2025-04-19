@@ -138,6 +138,14 @@
 .section {
   padding: 40px 40px;
 }
+
+.section h2 {
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #555;
+  text-align: center;
+
+}
 /******* START: SOCIAL PROOF SECTION *******/
 .social-proof {
   display: flex;
@@ -158,10 +166,79 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 60px;
-  margin-top: 20px;
+}
+/******* END: SOCIAL PROOF SECTION *******/
+
+/******* START: BENEFITS SECTION *******/
+.benefits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-left:40px;
+  margin-right:40px; */
 }
 
-/******* END: SOCIAL PROOF SECTION *******/
+.benefits .benefits-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+}
+
+.benefits .benefits-container .benefit-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  /* padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.benefits .benefits-container .benefit-item img {
+  max-width: 550px;
+  max-height: 300px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  /* border-radius: 10px;
+  box-shadow: 2px 26px 20px -3px rgba(0, 0, 0, 0.06); */
+}
+
+/* add rotation to every odd child img */
+.benefit-item:nth-child(odd) img {
+  transform: rotate(-3deg);
+}
+
+.benefit-item:nth-child(even) img {
+  transform: rotate(3deg);
+}
+
+.benefit-item-text {
+  /* flex: 1; */
+  max-width: 500px;
+  width: 100%;
+}
+
+.benefit-item-text h3 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--color-primary);
+  font-weight: 500;
+  letter-spacing: -1px;
+}
+
+@media screen and (max-width: 768px) {
+  .benefits .benefits-container .benefit-item img {
+    display: none;
+  }
+}
+
+/******* END: BENEFITS SECTION *******/
 
 .home-card {
     margin: 0 20px;
