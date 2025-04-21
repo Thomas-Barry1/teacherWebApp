@@ -9,9 +9,10 @@ from dotenv import load_dotenv
 import db as db
 import gap_assess as gap
 from sqlalchemy.orm import Session
-
+from openai import OpenAI
+load_dotenv()
+client=OpenAI()
 app = FastAPI()
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -111,6 +112,43 @@ async def gap_standards(request: FormRequest, db1: Session = Depends(db.get_db))
     standards =  await gap.generate_standards(request)
     return {"standards": standards}
 
+
+class AiMessages(BaseModel):
+    role: str = Form(str),
+    content: str= Form(str)
+
+@app.post("/api/chat")
+async def message_chatbot(messages:List[AiMessages], db1: Session = Depends(db.get_db)):
+    print("user messaging chatbot")
+    res= await send_ai_messages_and_recieve_messages(messages)
+    return res
+
+
+
+async def send_and_get_ai_response(messages):
+    """
+    Get a response from the OpenAI API using the provided prompt.
+    """
+    response = client.responses.create(
+        model="gpt-4.1",
+        input=messages
+    )
+    return response.output_text
+
+
+async def send_ai_messages_and_recieve_messages(messages: List[AiMessages]):
+    # maybe sanitize messages
+    built_messages=messages
+    ##
+
+    # get rid of old messages 
+    built_messages = built_messages[-10:]
+    ##
+    built_messages.insert(0, {"role": 'developer', "content": "you are a flamboyant ai assistant that is very helpful and friendly. You are also a bit sassy and sarcastic. You are also a bit of a know-it-all. You are also a bit of a show-off. You are also a bit of a diva. You are also a bit of a drama queen. You are also a bit of a perfectionist. You are also a bit of a control freak. You are also a bit of a neat freak. You are also a bit of a clean freak. You are also a bit of a germaphobe. You are also a bit of a hypochondriac. You are also a bit of a worrywart. You are also a bit of a neurotic. You are also a bit of an overthinker."})
+
+    return await send_and_get_ai_response(built_messages)
+
+
 def store_user_usage(request: FormRequest, service: str, db1: Session):
     """Store in the database the passed in information"""
     try:
@@ -161,7 +199,6 @@ async def google_auth(info: dict, db1: Session = Depends(db.get_db)):
 
 
 # Load .env environment variables
-load_dotenv()
 
 genai.configure(api_key=os.environ["API_KEY"])
 
