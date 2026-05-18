@@ -9,11 +9,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AuthService {
   // Code pulled from here: https://medium.com/@kushalghosh9899/authenticate-with-google-in-angular-17-via-oauth2-196a98793f0c
-  user: SocialUser | undefined;
+  private readonly bypassOAuthForLocal = true;
+  private readonly localUser = {
+    email: 'local-dev@teachgenie.local',
+    name: 'Local Dev User',
+    photoUrl: 'assets/Logo.png'
+  } as SocialUser;
+  user: SocialUser | undefined = this.bypassOAuthForLocal ? this.localUser : undefined;
   // BehaviorSubject to track the current user
-  private userSubject = new BehaviorSubject<SocialUser | undefined>(undefined);
+  private userSubject = new BehaviorSubject<SocialUser | undefined>(this.user);
   public user$ = this.userSubject.asObservable();
-  loggedIn: boolean = false;
+  loggedIn: boolean = this.bypassOAuthForLocal;
 
   // API Url, switch these around for local or production environments
   private apiUrl = 'https://teach.webexpansions.com/api';
@@ -28,6 +34,13 @@ export class AuthService {
     private http: HttpClient) {}
 
   init(): void {
+    if (this.bypassOAuthForLocal) {
+      this.user = this.localUser;
+      this.loggedIn = true;
+      this.userSubject.next(this.localUser);
+      return;
+    }
+
     // Get the return URL from query parameters (or set a default)
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.socialAuthService.authState.subscribe((user) => {
@@ -54,17 +67,33 @@ export class AuthService {
   }
 
   signInWithGoogle(): void {
+    if (this.bypassOAuthForLocal) {
+      this.user = this.localUser;
+      this.loggedIn = true;
+      this.userSubject.next(this.localUser);
+      this.router.navigate([this.returnUrl || '/']);
+      return;
+    }
+
     console.log("SignInWithGoogle Method Auth");
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {
+    if (this.bypassOAuthForLocal) {
+      return;
+    }
+
     console.log("SignOut Method Auth");
     this.socialAuthService.signOut();
   }
 
   // Method to clear the user information upon logout
   logout() {
+    if (this.bypassOAuthForLocal) {
+      return;
+    }
+
     this.userSubject.next(undefined);
   }
 

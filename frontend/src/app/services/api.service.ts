@@ -18,8 +18,8 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 
 export class ApiService {
   // API Url, switch these around for local or production environments
-  private apiUrl = 'https://teach.webexpansions.com/api';
-  // private apiUrl = 'http://localhost:3000/api';
+  // private apiUrl = 'https://teach.webexpansions.com/api';
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
@@ -77,5 +77,15 @@ export class ApiService {
     formData.addControl("user", new FormControl(user?.email));
     console.log("Generate Standards: ", formData);
     return this.http.post(`${this.apiUrl}/gap-standards`, formData.value);
+  }
+
+  sendChatMessage(message: string): Observable<any> {
+    console.log("Sending chat message to backend: ", message);
+    let user = this.auth.getUserInfo();
+    let data = {
+      user: user?.email,
+      message: message
+    };
+    return this.http.post<any>(`${this.apiUrl}/chat`, data);
   }
 }

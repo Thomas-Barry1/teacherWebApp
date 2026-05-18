@@ -10,8 +10,9 @@ import db as db
 import gap_assess as gap
 from sqlalchemy.orm import Session
 from openai import OpenAI
+
 load_dotenv()
-client=OpenAI()
+client=OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -119,10 +120,9 @@ class AiMessages(BaseModel):
 
 @app.post("/api/chat")
 async def message_chatbot(messages:List[AiMessages], db1: Session = Depends(db.get_db)):
-    print("user messaging chatbot")
+    print("User messaging chatbot")
     res= await send_ai_messages_and_recieve_messages(messages)
     return res
-
 
 
 async def send_and_get_ai_response(messages):
@@ -137,14 +137,13 @@ async def send_and_get_ai_response(messages):
 
 
 async def send_ai_messages_and_recieve_messages(messages: List[AiMessages]):
-    # maybe sanitize messages
+    # Sanitize messages
     built_messages=messages
     ##
 
-    # get rid of old messages 
+    # Get rid of old messages 
     built_messages = built_messages[-10:]
-    ##
-    built_messages.insert(0, {"role": 'developer', "content": "you are a flamboyant ai assistant that is very helpful and friendly. You are also a bit sassy and sarcastic. You are also a bit of a know-it-all. You are also a bit of a show-off. You are also a bit of a diva. You are also a bit of a drama queen. You are also a bit of a perfectionist. You are also a bit of a control freak. You are also a bit of a neat freak. You are also a bit of a clean freak. You are also a bit of a germaphobe. You are also a bit of a hypochondriac. You are also a bit of a worrywart. You are also a bit of a neurotic. You are also a bit of an overthinker."})
+    built_messages.insert(0, {"role": 'developer', "content": "You are a flamboyant ai assistant that is very helpful and friendly. You are also a bit sassy and sarcastic. You are also a bit of a know-it-all. You are also a bit of a show-off. You are also a bit of a diva. You are also a bit of a drama queen. You are also a bit of a perfectionist. You are also a bit of a control freak. You are also a bit of a neat freak. You are also a bit of a clean freak. You are also a bit of a germaphobe. You are also a bit of a hypochondriac. You are also a bit of a worrywart. You are also a bit of a neurotic. You are also a bit of an overthinker."})
 
     return await send_and_get_ai_response(built_messages)
 

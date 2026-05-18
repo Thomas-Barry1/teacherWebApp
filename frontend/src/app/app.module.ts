@@ -45,6 +45,7 @@ import { GapAssessmentComponent } from './gap-assessment/gap-assessment.componen
 import { InlineGapAssessmentComponent } from './inline-gap-assessment/inline-gap-assessment.component';
 import { ActiveTestComponent } from './active-test/active-test.component';
 import { FeatureExplanationComponent } from './shared/feature-explanation/feature-explanation.component';
+import { AiChatComponent } from './shared/ai-chat/ai-chat.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -82,6 +83,8 @@ import { FeatureExplanationComponent } from './shared/feature-explanation/featur
         MatListModule,
         BrowserModule,
         SocialLoginModule,
+        //Shared
+        AiChatComponent,
         // Primeng
         CarouselModule,
         ButtonModule,

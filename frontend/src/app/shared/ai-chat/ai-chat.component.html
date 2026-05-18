@@ -1,0 +1,38 @@
+<div class="chat-container" [class.open]="isOpen">
+  <div class="chat-toggle" (click)="toggleChat()">
+    <span class="chat-icon">
+      <!-- 💬 -->
+      <mat-icon
+            aria-hidden="false"
+            aria-label="Chat icon"
+            fontIcon="chat"
+          ></mat-icon>
+    </span>
+  </div>
+  
+  <div class="chat-window" *ngIf="isOpen">
+    <div class="chat-header">
+      <h3>TeachGenie Assistant</h3>
+      <button class="close-button" (click)="toggleChat()">×</button>
+    </div>
+    
+    <div class="chat-messages" #messageContainer>
+      <div *ngFor="let message of messages" 
+           [class.user-message]="message.isUser"
+           [class.bot-message]="!message.isUser"
+           class="message">
+        <div class="message-content">
+          {{ message.text }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="chat-input">
+      <input type="text" 
+             [(ngModel)]="newMessage" 
+             (keyup.enter)="sendMessage()"
+             placeholder="Type your message...">
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
